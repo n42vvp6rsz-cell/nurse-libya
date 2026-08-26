@@ -92,5 +92,94 @@ function openModal(t,b){document.getElementById('mtitle').textContent=t;document
 function closeModal(){document.getElementById('modal').classList.remove('show')}
 function searchAll(){let q=document.getElementById('search').value.trim().toLowerCase();if(!q){renderJobs();return}let found=jobs.filter(j=>(j.title+j.place+j.type).toLowerCase().includes(q));document.getElementById('jobsList').innerHTML=found.length?found.map(jobCard).join(''):'<div class="card">لا توجد نتائج مطابقة حالياً.</div>';go('jobs')}
 renderJobs();renderCourses();
+</script<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#082d59"><title>تمريض ليبيا | Nurse Libya</title>
+<style>
+:root{--navy:#082d59;--blue:#0b6aa8;--teal:#14a69b;--bg:#f4f7fb;--card:#ffffff;--text:#1d2a3a;--sub:#60738a;--border:#e2e8f0;--accent:#e67e22}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);font-family:system-ui,-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;color:var(--text);direction:rtl}
+button,input{font:inherit}.app{max-width:1180px;margin:0 auto;min-height:100vh;display:flex;flex-direction:column}
+.search{margin-top:18px;background:#fff;border-radius:14px;padding:10px 14px;display:flex;gap:10px;box-shadow:0 10px 25px rgba(8,45,89,.15);border:1px solid var(--border)}.search input{border:0;outline:0;width:100%;font-size:15px;background:transparent}
+.nav{display:flex;gap:8px;overflow:auto;margin-top:16px;padding-bottom:6px}.nav button{background:#fff;border:1px solid var(--border);padding:9px 14px;border-radius:99px;font-size:13px;white-space:nowrap;cursor:pointer;color:var(--sub);font-weight:600}.nav button.active{background:var(--navy);color:#fff;border-color:var(--navy)}
+main{padding:20px 16px 100px}.view{display:none}.view.active{display:block}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:16px}
+.jobs{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:16px}
+.course{position:relative;overflow:hidden}.course .badge{position:absolute;top:12px;right:12px;background:var(--accent);color:#fff;padding:4px 8px;border-radius:6px;font-size:11px;font-weight:700}
+.profile{display:grid;grid-template-columns:180px 1fr;gap:20px}
+.bottom{position:fixed;bottom:0;left:0;right:0;background:#fff;border-top:1px solid var(--border);display:flex;justify-content:space-around;padding:10px 0;box-shadow:0 -5px 20px rgba(0,0,0,.05);z-index:100}.bottom button{border:0;background:none;display:flex;flex-direction:column;align-items:center;gap:4px;color:var(--sub);font-size:11px;cursor:pointer;font-weight:600}.bottom button.active{color:var(--blue)}
+.modal{position:fixed;inset:0;background:rgba(0,0,0,.5);display:none;align-items:center;justify-content:center;padding:16px;z-index:200}.modal.active{display:flex}.modal-content{background:#fff;width:100%;max-width:500px;border-radius:16px;padding:20px;max-height:90vh;overflow:auto}
+@media(max-width:850px){.grid,.jobs{grid-template-columns:1fr}.profile{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<div class="app">
+  <main>
+    <div id="jobs" class="view active">
+      <h2>الفرص والوظائف المتاحة</h2>
+      <div class="jobs" id="jobsList"></div>
+    </div>
+    <div id="courses" class="view">
+      <h2>الدورات التدريبية</h2>
+      <div class="grid" id="coursesList"></div>
+    </div>
+    <div id="profile" class="view">
+      <h2>الملف الشخصي وتسجيل الدخول</h2>
+      <div style="background:#fff;padding:20px;border-radius:12px;border:1px solid var(--border);max-width:400px;margin:0 auto">
+        <input type="email" id="emailInput" placeholder="البريد الإلكتروني" style="width:100%;padding:10px;margin-bottom:10px;border:1px solid var(--border);border-radius:8px">
+        <input type="password" id="passInput" placeholder="كلمة المرور" style="width:100%;padding:10px;margin-bottom:15px;border:1px solid var(--border);border-radius:8px">
+        <button onclick="handleLogin()" style="width:100%;background:var(--navy);color:#fff;padding:12px;border:0;border-radius:8px;font-weight:bold;cursor:pointer">تسجيل الدخول / إنشاء حساب</button>
+      </div>
+    </div>
+  </main>
+  
+  <div class="bottom">
+    <button class="active" onclick="go('jobs')"><span>💼</span>الوظائف</button>
+    <button onclick="go('courses')"><span>📚</span>الدورات</button>
+    <button onclick="go('profile')"><span>👤</span>حسابي</button>
+  </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script>
+  const SUPABASE_URL = 'https://qlgxpdtryysmrpevjudi.supabase.co';
+  const SUPABASE_KEY = 'Sb_publishable_mZFylkfh8cNR7yeAxIWngQ_n8lu1N8k';
+  const supabase = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+
+  const jobs=[{title:"ممرض / ممرضة - ICU",place:"طرابلس"},{title:"ممرض عام",place:"بنغازي"},{title:"تمريض نساء وولادة",place:"سبها"}];
+  const courses=[{title:"تخطيط القلب ECG",price:"55 د.ل"},{title:"أساسيات الإسعافات",price:"مجاناً"}];
+
+  function renderJobs(){
+    document.getElementById('jobsList').innerHTML = jobs.map(j=>`<div style="background:#fff;padding:16px;border-radius:12px;border:1px solid var(--border)"><h3>${j.title}</h3><p>📍 ${j.place}</p></div>`).join('');
+  }
+  function renderCourses(){
+    document.getElementById('coursesList').innerHTML = courses.map(c=>`<div style="background:#fff;padding:16px;border-radius:12px;border:1px solid var(--border)"><h3>${c.title}</h3><p>💰 ${c.price}</p></div>`).join('');
+  }
+
+  function go(id){
+    document.querySelectorAll('.view').forEach(v=>v.classList.remove('active'));
+    document.getElementById(id).classList.add('active');
+  }
+
+  async function handleLogin(){
+    const email = document.getElementById('emailInput').value;
+    const password = document.getElementById('passInput').value;
+    if(!email || !password){ alert('يرجى إدخال البريد وكلمة المرور'); return; }
+    
+    const { data, error } = await supabase.auth.signUp({ email, password });
+    if(error){
+      const { data: logData, error: logError } = await supabase.auth.signInWithPassword({ email, password });
+      if(logError) alert('خطأ: ' + logError.message);
+      else alert('تم تسجيل الدخول بنجاح!');
+    } else {
+      alert('تم إنشاء الحساب بنجاح!');
+    }
+  }
+
+  renderJobs(); renderCourses();
 </script>
+</body>
+</html>
+>
 </body></html>
