@@ -1,0 +1,96 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#082d59"><title>Nurse Libya V1</title>
+<style>
+:root{--navy:#082d59;--blue:#0b6aa8;--teal:#14a6a1;--bg:#f4f7fb;--text:#132f4c;--muted:#6c7d8d;--white:#fff;--line:#e7edf3}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);font-family:Arial,Tahoma,sans-serif;color:var(--text)}
+button,input{font:inherit}.app{max-width:1180px;margin:auto;min-height:100vh}.top{background:linear-gradient(135deg,var(--navy),#0a618c);color:#fff;padding:20px 18px 25px;border-radius:0 0 30px 30px}.bar{display:flex;align-items:center;justify-content:space-between;gap:12px}.logo{font-weight:900;font-size:25px}.avatar{width:42px;height:42px;border-radius:50%;background:#ffffff20;display:grid;place-items:center;font-size:22px}
+.search{margin-top:18px;background:#fff;border-radius:14px;padding:13px 15px;color:#7b8b99;display:flex;gap:10px}.search input{border:0;outline:0;width:100%}
+.nav{display:flex;gap:8px;overflow:auto;margin-top:16px}.nav button{white-space:nowrap;border:0;border-radius:11px;padding:9px 13px;background:#ffffff18;color:#fff}.nav button.active{background:#fff;color:var(--navy)}
+main{padding:20px 16px 100px}.view{display:none}.view.active{display:block}.hero{background:linear-gradient(135deg,#e9f7ff,#fff);border:1px solid #dcebf6;border-radius:22px;padding:23px;display:flex;justify-content:space-between;align-items:center;gap:20px}.hero h1{margin:0 0 8px;font-size:29px}.hero p{color:var(--muted);margin:0 0 17px;line-height:1.6}.cta{border:0;background:var(--blue);color:#fff;padding:12px 18px;border-radius:12px;font-weight:700}.hero-icon{font-size:76px}.title{display:flex;justify-content:space-between;align-items:center;margin:25px 0 12px}.title h2{font-size:21px;margin:0}.link{color:var(--blue);font-size:13px}
+.grid{display:grid;grid-template-columns:repeat(4,1fr);gap:13px}.card{background:#fff;border:1px solid var(--line);border-radius:17px;padding:17px;box-shadow:0 5px 20px #15324a0b}.service .ico{font-size:30px}.service h3{font-size:16px;margin:9px 0 5px}.service p{font-size:12px;color:var(--muted);margin:0;line-height:1.5}
+.jobs{display:grid;grid-template-columns:repeat(2,1fr);gap:13px}.job{background:#fff;border:1px solid var(--line);border-radius:17px;padding:17px}.jobtop{display:flex;justify-content:space-between;gap:10px}.badge{background:#e7f8ef;color:#13804c;border-radius:8px;padding:5px 8px;font-size:11px}.job h3{margin:10px 0 6px;font-size:17px}.job p{margin:4px 0;color:var(--muted);font-size:13px}.job button{margin-top:12px;width:100%;border:0;background:#eef6fb;color:var(--blue);padding:10px;border-radius:10px;font-weight:700}
+.course{position:relative;overflow:hidden}.course .cover{height:80px;border-radius:12px;background:linear-gradient(135deg,#0b6aa8,#14a6a1);display:grid;place-items:center;color:#fff;font-size:32px}.course h3{font-size:16px;margin:12px 0 6px}.course p{color:var(--muted);font-size:12px}.progress{height:6px;background:#e9eef3;border-radius:10px;overflow:hidden}.progress i{display:block;height:100%;background:var(--teal);width:55%}
+.profile{display:grid;grid-template-columns:180px 1fr;gap:15px}.profile .side,.profile .content{background:#fff;border:1px solid var(--line);border-radius:18px;padding:18px}.profile .side{text-align:center}.bigavatar{width:80px;height:80px;border-radius:50%;background:#e8f4fb;margin:0 auto 10px;display:grid;place-items:center;font-size:38px}.item{padding:13px 0;border-bottom:1px solid var(--line)}.item:last-child{border:0}.item b{display:block;margin-bottom:5px}.item span{font-size:13px;color:var(--muted)}
+.bottom{position:fixed;bottom:0;left:0;right:0;background:#fff;border-top:1px solid var(--line);display:flex;justify-content:center;z-index:5}.bottom-inner{width:min(600px,100%);display:flex;justify-content:space-around}.bottom button{background:none;border:0;padding:10px 14px;color:#71808f;font-size:11px}.bottom button.active{color:var(--blue);font-weight:800}.bottom .bi{display:block;font-size:21px;margin-bottom:3px}
+.modal{position:fixed;inset:0;background:#0008;display:none;align-items:flex-end;justify-content:center;z-index:10}.modal.show{display:flex}.sheet{background:#fff;width:min(620px,100%);border-radius:24px 24px 0 0;padding:22px;max-height:88vh;overflow:auto}.close{float:left;border:0;background:#eef2f5;border-radius:9px;padding:7px 11px}
+@media(max-width:850px){.grid{grid-template-columns:repeat(2,1fr)}.profile{grid-template-columns:1fr}.jobs{grid-template-columns:1fr}}
+@media(max-width:520px){.hero-icon{font-size:55px}.hero h1{font-size:23px}.grid{grid-template-columns:repeat(2,1fr)}.card{padding:14px}.logo{font-size:21px}}
+</style>
+</head>
+<body>
+<div class="app">
+<header class="top">
+ <div class="bar"><div class="logo">🩺 Nurse Libya 🇱🇾</div><div class="avatar">👤</div></div>
+ <div class="search">🔎 <input id="search" placeholder="ابحث عن وظيفة، دورة أو موضوع..." oninput="searchAll()"></div>
+ <div class="nav">
+  <button class="active" data-view="home">الرئيسية</button><button data-view="jobs">الوظائف</button><button data-view="courses">الدورات</button><button data-view="medical">المراجع</button><button data-view="profile">حسابي</button>
+ </div>
+</header>
+
+<main>
+<section id="home" class="view active">
+ <div class="hero"><div><h1>كل عالم التمريض في مكان واحد</h1><p>وظائف، دورات، مراجع تمريضية ومجتمع مهني للممرضين في ليبيا.</p><button class="cta" onclick="go('jobs')">استكشف الوظائف</button></div><div class="hero-icon">👩‍⚕️</div></div>
+ <div class="title"><h2>الخدمات</h2><span class="link">Nurse Libya V1</span></div>
+ <div class="grid">
+  <div class="card service" onclick="go('jobs')"><div class="ico">💼</div><h3>وظائف التمريض</h3><p>ابحث عن فرص عمل وإعلانات جديدة.</p></div>
+  <div class="card service" onclick="go('courses')"><div class="ico">📚</div><h3>الدورات</h3><p>تعلم وراجع مهارات التمريض.</p></div>
+  <div class="card service" onclick="go('medical')"><div class="ico">❤️</div><h3>ECG • CCU • ICU</h3><p>مراجع تعليمية منظمة.</p></div>
+  <div class="card service"><div class="ico">💊</div><h3>الأدوية</h3><p>معلومات دوائية للمراجعة والتعليم.</p></div>
+  <div class="card service"><div class="ico">📄</div><h3>الملفات</h3><p>محاضرات وملفات PDF.</p></div>
+  <div class="card service"><div class="ico">🏥</div><h3>المستشفيات</h3><p>دليل للمؤسسات والأقسام.</p></div>
+  <div class="card service"><div class="ico">👥</div><h3>مجتمع الممرضين</h3><p>تواصل ومشاركة الخبرات.</p></div>
+  <div class="card service"><div class="ico">🔔</div><h3>الإشعارات</h3><p>تابع أحدث الوظائف والمحتوى.</p></div>
+ </div>
+ <div class="title"><h2>أحدث الوظائف</h2><span class="link" onclick="go('jobs')">عرض الكل</span></div>
+ <div id="homeJobs" class="jobs"></div>
+</section>
+
+<section id="jobs" class="view"><div class="title"><h2>💼 وظائف التمريض</h2><span class="link">3 وظائف تجريبية</span></div><div id="jobsList" class="jobs"></div></section>
+
+<section id="courses" class="view"><div class="title"><h2>📚 الدورات التعليمية</h2><span class="link">تعلم خطوة بخطوة</span></div><div class="grid" id="courseList"></div></section>
+
+<section id="medical" class="view"><div class="title"><h2>🩺 المراجع الطبية</h2><span class="link">للتعلم والمراجعة</span></div><div class="grid">
+ <div class="card service"><div class="ico">📈</div><h3>ECG</h3><p>أساسيات قراءة تخطيط القلب.</p><button class="cta" onclick="openModal('ECG','محتوى تعليمي سيضاف في النسخة القادمة.')">فتح</button></div>
+ <div class="card service"><div class="ico">🫀</div><h3>CCU</h3><p>مبادئ تمريض العناية القلبية.</p><button class="cta" onclick="openModal('CCU','محتوى تعليمي سيضاف في النسخة القادمة.')">فتح</button></div>
+ <div class="card service"><div class="ico">🖥️</div><h3>ICU</h3><p>أساسيات العناية المركزة.</p><button class="cta" onclick="openModal('ICU','محتوى تعليمي سيضاف في النسخة القادمة.')">فتح</button></div>
+ <div class="card service"><div class="ico">👶</div><h3>حديثو الولادة</h3><p>مراجع تمريضية للمواليد.</p><button class="cta" onclick="openModal('حديثو الولادة','محتوى تعليمي سيضاف في النسخة القادمة.')">فتح</button></div>
+</div></section>
+
+<section id="profile" class="view"><div class="title"><h2>👤 حسابي</h2></div><div class="profile">
+ <div class="side"><div class="bigavatar">👨‍⚕️</div><b>ممرض</b><p style="color:#6c7d8d;font-size:13px">Nurse Libya</p><button class="cta" onclick="openModal('تسجيل الدخول','سيتم ربط الحسابات وقاعدة البيانات في النسخة القادمة.')">تسجيل الدخول</button></div>
+ <div class="content"><div class="item"><b>المفضلة</b><span>الوظائف والدورات التي تحفظها.</span></div><div class="item"><b>شهاداتي</b><span>سيتم إضافة الشهادات والملفات لاحقاً.</span></div><div class="item"><b>الإعدادات</b><span>الإشعارات واللغة والخصوصية.</span></div></div>
+ </div></section>
+</main>
+</div>
+
+<div class="bottom"><div class="bottom-inner">
+<button class="active" data-view="home"><span class="bi">🏠</span>الرئيسية</button>
+<button data-view="jobs"><span class="bi">💼</span>الوظائف</button>
+<button data-view="courses"><span class="bi">📚</span>الدورات</button>
+<button data-view="profile"><span class="bi">👤</span>حسابي</button>
+</div></div>
+
+<div class="modal" id="modal" onclick="if(event.target===this)closeModal()"><div class="sheet"><button class="close" onclick="closeModal()">إغلاق</button><h2 id="mtitle"></h2><p id="mbody" style="line-height:1.8;color:#617486"></p></div></div>
+
+<script>
+const jobs=[
+{title:"ممرض / ممرضة - ICU",place:"طرابلس",type:"دوام كامل",status:"جديد"},
+{title:"ممرض عام",place:"بنغازي",type:"دوام كامل",status:"متاح"},
+{title:"تمريض نساء وولادة",place:"طرابلس",type:"دوام جزئي",status:"متاح"},
+{title:"ممرض CCU",place:"مصراتة",type:"دوام كامل",status:"جديد"}];
+const courses=[
+["📈","أساسيات ECG","تعلم أساسيات تخطيط القلب","55%"],["🫀","تمريض CCU","مبادئ العناية القلبية","35%"],["🖥️","تمريض ICU","أساسيات العناية المركزة","20%"],["👶","حديثو الولادة","مبادئ تمريض حديثي الولادة","15%"]];
+function jobCard(j){return `<div class="job"><div class="jobtop"><span class="badge">${j.status}</span><span>💼</span></div><h3>${j.title}</h3><p>📍 ${j.place}</p><p>🕒 ${j.type}</p><button onclick="openModal('${j.title}','تفاصيل الوظيفة ستتضمن لاحقاً جهة العمل، المتطلبات، الراتب، وطريقة التقديم.')">عرض التفاصيل</button></div>`}
+function renderJobs(){document.getElementById('jobsList').innerHTML=jobs.map(jobCard).join('');document.getElementById('homeJobs').innerHTML=jobs.slice(0,2).map(jobCard).join('')}
+function renderCourses(){document.getElementById('courseList').innerHTML=courses.map(c=>`<div class="card course"><div class="cover">${c[0]}</div><h3>${c[1]}</h3><p>${c[2]}</p><div class="progress"><i style="width:${c[3]}"></i></div><button class="cta" style="margin-top:12px" onclick="openModal('${c[1]}','سيتم فتح الدرس وإضافة الفيديو والملفات والاختبارات في النسخة القادمة.')">ابدأ الدورة</button></div>`).join('')}
+function go(id){document.querySelectorAll('.view').forEach(v=>v.classList.remove('active'));document.getElementById(id).classList.add('active');document.querySelectorAll('[data-view]').forEach(b=>b.classList.toggle('active',b.dataset.view===id));scrollTo({top:0,behavior:'smooth'})}
+document.querySelectorAll('[data-view]').forEach(b=>b.onclick=()=>go(b.dataset.view));
+function openModal(t,b){document.getElementById('mtitle').textContent=t;document.getElementById('mbody').textContent=b;document.getElementById('modal').classList.add('show')}
+function closeModal(){document.getElementById('modal').classList.remove('show')}
+function searchAll(){let q=document.getElementById('search').value.trim().toLowerCase();if(!q){renderJobs();return}let found=jobs.filter(j=>(j.title+j.place+j.type).toLowerCase().includes(q));document.getElementById('jobsList').innerHTML=found.length?found.map(jobCard).join(''):'<div class="card">لا توجد نتائج مطابقة حالياً.</div>';go('jobs')}
+renderJobs();renderCourses();
+</script>
+</body></html>
