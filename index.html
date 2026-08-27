@@ -27,7 +27,7 @@
     .container { padding: 15px; max-width: 500px; margin: auto; }
     
     /* البطاقة الترحيبية الكبيرة */
-    .hero-card { background: white; border-radius: 15px; padding: 20px; margin-bottom: 20px; box-shadow: 0 2px 8px rgba(0,0,0,0.05); position: relative; overflow: hidden; }
+    .hero-card { background: white; border-radius: 15px; padding: 20px; margin-bottom: 20px; box-shadow: 0 2px 8px rgba(0,0,0,0.05); }
     .hero-title { font-size: 18px; font-weight: bold; color: #082d59; margin-bottom: 8px; }
     .hero-desc { font-size: 13px; color: #666; margin-bottom: 15px; line-height: 1.5; }
     .hero-btn { background: #082d59; color: white; border: none; padding: 10px 20px; border-radius: 8px; font-weight: bold; font-size: 13px; cursor: pointer; }
@@ -41,7 +41,7 @@
     .card-name { font-size: 14px; font-weight: bold; color: #222; margin-bottom: 4px; }
     .card-sub { font-size: 11px; color: #888; }
 
-    /* شريط التنقل السفلي (Bottom Navigation) */
+    /* شريط التنقل السفلي */
     .bottom-nav { position: fixed; bottom: 0; left: 0; right: 0; background: white; display: flex; justify-content: space-around; padding: 10px 0; border-top: 1px solid #ddd; box-shadow: 0 -2px 5px rgba(0,0,0,0.05); z-index: 1000; }
     .nav-item { text-align: center; color: #777; font-size: 11px; text-decoration: none; cursor: pointer; }
     .nav-item.active { color: #082d59; font-weight: bold; }
@@ -49,7 +49,7 @@
 
     /* شاشات تسجيل الدخول وحسابي */
     .auth-section { background: white; border-radius: 15px; padding: 20px; margin-top: 15px; box-shadow: 0 2px 8px rgba(0,0,0,0.05); }
-    .auth-section input { width: 100%; padding: 10px; margin: 8px 0; border: 1px solid #ddd; border-radius: 8px; box-sizing: border-box; text-align: right; }
+    .auth-section input, .auth-section select, .auth-section textarea { width: 100%; padding: 10px; margin: 8px 0; border: 1px solid #ddd; border-radius: 8px; box-sizing: border-box; text-align: right; font-family: sans-serif; }
     .auth-section button { width: 100%; padding: 10px; background: #082d59; color: white; border: none; border-radius: 8px; font-weight: bold; cursor: pointer; margin-top: 10px; }
     .hidden { display: none; }
   </style>
@@ -63,13 +63,13 @@
       <div class="logo-area">
         <span>Nurse Libya 🇱🇾 🩺</span>
       </div>
-      <div class="profile-icon">👤</div>
+      <div class="profile-icon" onclick="switchTab('account')">👤</div>
     </div>
 
     <!-- شريط البحث -->
     <div class="search-box">
       <span style="color:#aaa; margin-left: 8px;">🔍</span>
-      <input type="text" placeholder="ابحث عن وظيفة، دورة أو موضوع...">
+      <input type="text" placeholder="ابحث عن وظيفة، خدمة أو مهارة...">
     </div>
 
     <!-- القائمة الأفقية -->
@@ -77,7 +77,7 @@
       <button class="tab-btn active" onclick="switchTab('home')">الرئيسية</button>
       <button class="tab-btn" onclick="switchTab('jobs')">الوظائف</button>
       <button class="tab-btn" onclick="switchTab('courses')">الدورات</button>
-      <button class="tab-btn" onclick="switchTab('references')">المراجع</button>
+      <button class="tab-btn" onclick="switchTab('services')">الخدمات</button>
       <button class="tab-btn" onclick="switchTab('account')">حسابي</button>
     </div>
   </div>
@@ -89,35 +89,65 @@
       <div class="hero-card">
         <div style="float: left; font-size: 35px;">👩‍⚕️</div>
         <div class="hero-title">كل عالم التمريض في مكان واحد</div>
-        <div class="hero-desc">وظائف، دورات، مراجع تمريضية ومجتمع مهني للمرضين في ليبيا.</div>
-        <button class="hero-btn" onclick="switchTab('jobs')">استكشف الوظائف</button>
+        <div class="hero-desc">وظائف، دورات، خدمات رعاية منزلية ومجتمع مهني للمرضين في ليبيا.</div>
+        <button class="hero-btn" onclick="switchTab('services')">اطلب خدمة طبية</button>
       </div>
 
       <div class="section-title">
-        <span>الخدمات</span>
-        <span style="font-size: 12px; color: #888;">Nurse Libya V1</span>
+        <span>أبرز الخدمات الطبية والمهنية</span>
+        <span style="font-size: 12px; color: #888;">Nurse Libya V2</span>
       </div>
 
       <div class="grid-cards">
         <div class="card-item" onclick="switchTab('jobs')">
           <div class="card-icon">💼</div>
           <div class="card-name">وظائف التمريض</div>
-          <div class="card-sub">ابحث عن فرص عمل وإعلانات جديدة.</div>
+          <div class="card-sub">فرص عمل في المستشفيات.</div>
         </div>
         <div class="card-item" onclick="switchTab('courses')">
           <div class="card-icon">📚</div>
-          <div class="card-name">الدورات</div>
-          <div class="card-sub">تعلم وراجع مهارات التمريض.</div>
+          <div class="card-name">الدورات التدريبية</div>
+          <div class="card-sub">تطوير مهارات التمريض.</div>
         </div>
-        <div class="card-item" onclick="alert('قريباً...')">
+        <div class="card-item" onclick="switchTab('services')">
           <div class="card-icon">🩺</div>
-          <div class="card-name">الخدمات الطبية</div>
-          <div class="card-sub">طلب رعاية منزلية واستشارات.</div>
+          <div class="card-name">رعاية منزلية</div>
+          <div class="card-sub">تمريض منزلي ومتابعة مسنين.</div>
         </div>
-        <div class="card-item" onclick="alert('قريباً...')">
+        <div class="card-item" onclick="switchTab('services')">
+          <div class="card-icon">💉</div>
+          <div class="card-name">حقن وقياسات</div>
+          <div class="card-sub">قياس سكر، ضغط وحقن.</div>
+        </div>
+        <div class="card-item" onclick="switchTab('services')">
+          <div class="card-icon">🩹</div>
+          <div class="card-name">تغيير جروح</div>
+          <div class="card-sub">عناية بالضماد والجروح.</div>
+        </div>
+        <div class="card-item" onclick="alert('مجتمع التمريض قريباً جداً!')">
           <div class="card-icon">⭐</div>
-          <div class="card-name">المجتمع</div>
-          <div class="card-sub">تواصل مع زملائك في المهنة.</div>
+          <div class="card-name">مجتمع الزملاء</div>
+          <div class="card-sub">تواصل مع زملائك بالمهنة.</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- قسم الخدمات (جديد وموسع) -->
+    <div id="view-services" class="hidden">
+      <div class="hero-card">
+        <div class="hero-title">🩺 طلب خدمة تمريضية منزلية</div>
+        <div class="hero-desc">اختر الخدمة المطلوبة وسيتواصل معك الفريق المختص فوراً.</div>
+        
+        <div class="auth-section" style="box-shadow:none; padding:0; margin-top:10px;">
+          <select id="req-service-type">
+            <option value="قياس ضغط وسكر">قياس الضغط والسكر</option>
+            <option value="إعطاء حقن عضلية أو وريدية">إعطاء حقن عضلية أو وريدية</option>
+            <option value="عناية بالجروح وتغيير ضماد">عناية بالجروح وتغيير ضماد</option>
+            <option value="متابعة مرضى كبار السن">متابعة مرضى كبار السن</option>
+            <option value="تركيب محلول أو قسطرة">تركيب محلول أو قسطرة</option>
+          </select>
+          <textarea id="req-notes" placeholder="اكتب العنوان بالتفصيل وملاحظات إضافية..." rows="3"></textarea>
+          <button onclick="submitServiceRequest()">إرسال الطلب الآن</button>
         </div>
       </div>
     </div>
@@ -126,7 +156,7 @@
     <div id="view-jobs" class="hidden">
       <div class="hero-card">
         <div class="hero-title">💼 وظائف التمريض المتاحة</div>
-        <div class="hero-desc">لا توجد إعلانات وظائف حالياً. سيتم إضافة فرص عمل قريباً في المستشفيات والعيادات الليبية.</div>
+        <div class="hero-desc">سيتم قريباً نشر فرص عمل وإعلانات توظيف في المصحات والعيادات بجميع المدن الليبية.</div>
       </div>
     </div>
 
@@ -134,15 +164,7 @@
     <div id="view-courses" class="hidden">
       <div class="hero-card">
         <div class="hero-title">📚 الدورات والتدريب</div>
-        <div class="hero-desc">دورات معتمدة لتطوير مهارات التمريض الأساسية والمتقدمة.</div>
-      </div>
-    </div>
-
-    <!-- قسم المراجع -->
-    <div id="view-references" class="hidden">
-      <div class="hero-card">
-        <div class="hero-title">📖 المراجع الطبية</div>
-        <div class="hero-desc">ملخصات وبروتوكولات وأدلة إرشادية للممرضين.</div>
+        <div class="hero-desc">دورات معتمدة لرفع كفاءة الكوادر التمريضية في الطوارئ والعناية الفائقة.</div>
       </div>
     </div>
 
@@ -156,9 +178,9 @@
       </div>
 
       <div id="dashboard-card" class="auth-section hidden">
-        <h3>لوحة التحكم</h3>
+        <h3>لوحة التحكم الخاصة بك</h3>
         <p id="user-email-display" style="color: #555; font-size: 13px; font-weight: bold;"></p>
-        <p style="font-size: 13px; color: #666;">أنت مسجل الدخول بنجاح في منصة Nurse Libya.</p>
+        <p style="font-size: 13px; color: #666;">أنت مسجل الدخول بنجاح وتستطيع طلب الخدمات وحفظها.</p>
         <button onclick="handleLogout()" style="background: #d9534f;">تسجيل الخروج</button>
       </div>
     </div>
@@ -176,6 +198,9 @@
     <a class="nav-item" id="nav-courses" onclick="switchTab('courses')">
       <div>📚</div>الدورات
     </a>
+    <a class="nav-item" id="nav-services" onclick="switchTab('services')">
+      <div>🩺</div>الخدمات
+    </a>
     <a class="nav-item" id="nav-account" onclick="switchTab('account')">
       <div>👤</div>حسابي
     </a>
@@ -187,20 +212,33 @@
     const supabaseClient = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
 
     function switchTab(tabName) {
-      // إخفاء كل الأقسام
       document.getElementById('view-home').classList.add('hidden');
       document.getElementById('view-jobs').classList.add('hidden');
       document.getElementById('view-courses').classList.add('hidden');
-      document.getElementById('view-references').classList.add('hidden');
+      document.getElementById('view-services').classList.add('hidden');
       document.getElementById('view-account').classList.add('hidden');
 
-      // إظهار القسم المطلوب
       document.getElementById('view-' + tabName).classList.remove('hidden');
 
-      // تحديث شريط التنقل السفلي
       document.querySelectorAll('.bottom-nav .nav-item').forEach(el => el.classList.remove('active'));
       if(document.getElementById('nav-' + tabName)) {
         document.getElementById('nav-' + tabName).classList.add('active');
+      }
+    }
+
+    async function submitServiceRequest() {
+      const serviceType = document.getElementById('req-service-type').value;
+      const notes = document.getElementById('req-notes').value;
+
+      const { data, error } = await supabaseClient
+        .from('nursing_requests')
+        .insert([{ service_name: serviceType, notes: notes }]);
+
+      if (error) {
+        alert('حدث خطأ (تأكد من إنشاء جدول nursing_requests في قاعدة البيانات): ' + error.message);
+      } else {
+        alert('تم إرسال طلب الخدمة بنجاح وسيتم التواصل معك قريباً!');
+        document.getElementById('req-notes').value = '';
       }
     }
 
