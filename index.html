@@ -8,7 +8,9 @@
     body { font-family: sans-serif; margin: 0; padding: 15px; background: #f4f7f6; text-align: center; }
     .card { background: white; border-radius: 10px; padding: 20px; max-width: 400px; margin: 20px auto; box-shadow: 0 2px 5px rgba(0,0,0,0.1); }
     input { width: 90%; padding: 10px; margin: 8px 0; border: 1px solid #ccc; border-radius: 5px; }
-    button { width: 95%; padding: 10px; background: #082d59; color: white; border: none; border-radius: 5px; font-weight: bold; cursor: pointer; }
+    button { width: 95%; padding: 10px; background: #082d59; color: white; border: none; border-radius: 5px; font-weight: bold; cursor: pointer; margin-top: 5px; }
+    button.logout { background: #d9534f; }
+    .hidden { display: none; }
   </style>
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 </head>
@@ -16,17 +18,34 @@
 
   <h2>Nurse Libya 🇱🇾</h2>
 
-  <div class="card">
+  <!-- نموذج تسجيل الدخول -->
+  <div id="auth-card" class="card">
     <h3>تسجيل الدخول / حساب جديد</h3>
     <input type="email" id="email" placeholder="البريد الإلكتروني">
     <input type="password" id="password" placeholder="كلمة المرور">
     <button onclick="handleAuth()">دخول / إنشاء حساب</button>
   </div>
 
+  <!-- لوحة التحكم بعد تسجيل الدخول -->
+  <div id="dashboard-card" class="card hidden">
+    <h3>مرحباً بك في لوحة تحكم الممرضين</h3>
+    <p id="user-email-display" style="color: #555; font-weight: bold;"></p>
+    <p>لقد قمت بتسجيل الدخول بنجاح إلى منصة Nurse Libya.</p>
+    <button class="logout" onclick="handleLogout()">تسجيل الخروج</button>
+  </div>
+
   <script>
     const SUPABASE_URL = 'https://qlgxpdtryysmrpevjudi.supabase.co';
     const SUPABASE_KEY = 'sb_publishable_mZFylkfh8cNR7yeAxIWngQ_n8lu1N8k';
     const supabaseClient = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+
+    // التحقق هل المستخدم مسجل دخول مسبقاً عند فتح الصفحة
+    async function checkUser() {
+      const { data: { session } } = await supabaseClient.auth.getSession();
+      if (session) {
+        showDashboard(session.user.email);
+      }
+    }
 
     async function handleAuth() {
       const email = document.getElementById('email').value;
@@ -37,16 +56,41 @@
         return;
       }
 
+      // محاولة إنشاء حساب جديد
       const { data, error } = await supabaseClient.auth.signUp({ email, password });
 
       if (error) {
+        // إذا كان الحساب موجوداً مسبقاً، نقوم بتسجيل الدخول بدلاً من ذلك
         const { data: logData, error: logError } = await supabaseClient.auth.signInWithPassword({ email, password });
-        if (logError) alert('خطأ: ' + logError.message);
-        else alert('تم تسجيل الدخول بنجاح!');
+        if (logError) {
+          alert('خطأ: ' + logError.message);
+        } else {
+          alert('تم تسجيل الدخول بنجاح!');
+          showDashboard(email);
+        }
       } else {
-        alert('تم إنشاء الحساب بنجاح!');
+        alert('تم إنشاء الحساب وتسجيل الدخول بنجاح!');
+        showDashboard(email);
       }
     }
+
+    async function handleLogout() {
+      await supabaseClient.auth.signOut();
+      document.getElementById('dashboard-card').classList.add('hidden');
+      document.getElementById('auth-card').classList.remove('hidden');
+      document.getElementById('email').value = '';
+      document.getElementById('password').value = '';
+      alert('تم تسجيل الخروج بنجاح');
+    }
+
+    function showDashboard(email) {
+      document.getElementById('auth-card').classList.add('hidden');
+      document.getElementById('dashboard-card').classList.remove('hidden');
+      document.getElementById('user-email-display').innerText = email;
+    }
+
+    // تشغيل فحص الدخول عند تحميل الصفحة
+    checkUser();
   </script>
 </body>
 </html>
