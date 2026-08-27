@@ -3,441 +3,502 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Nurse Libya - المنصة الشاملة للتمريض والخدمات الطبية</title>
-    <link rel="manifest" href="manifest.json">
+    <title>Nurse Libya - المنصة الطبية الليبية</title>
     <meta name="theme-color" content="#0f172a">
     <style>
-        * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
-        body {
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-            margin: 0; background-color: #f8fafc; color: #0f172a; direction: rtl; padding-bottom: 95px;
+        :root {
+            --primary: #0284c7;
+            --primary-dark: #0369a1;
+            --accent: #38bdf8;
+            --bg-color: #0b0f19;
+            --card-bg: #1e293b;
+            --text-main: #f8fafc;
+            --text-muted: #94a3b8;
+            --border: #334155;
+            --success: #22c55e;
+            --danger: #ef4444;
         }
-        /* الهيدر الأزرق مع خلفية العناية المركزة الذكية والشفافة */
-        .app-header {
-            background: linear-gradient(135deg, rgba(15, 23, 42, 0.88) 0%, rgba(30, 58, 138, 0.85) 100%), 
-                        url('https://images.unsplash.com/photo-1579684385127-1ef15d508118?w=1000') center/cover no-repeat;
-            padding: 20px 16px 15px 16px; color: white;
-            border-bottom-left-radius: 28px; border-bottom-right-radius: 28px;
-            box-shadow: 0 10px 25px -5px rgba(15, 23, 42, 0.3); position: sticky; top: 0; z-index: 100;
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; -webkit-tap-highlight-color: transparent; }
+        body { background-color: var(--bg-color); color: var(--text-main); min-height: 100vh; display: flex; flex-direction: column; padding-bottom: 75px; }
+
+        header {
+            background: linear-gradient(135deg, #1e293b, #0f172a);
+            border-bottom: 1px solid var(--border);
+            padding: 12px 16px;
+            position: sticky;
+            top: 0;
+            z-index: 100;
         }
-        .header-top { display: flex; justify-content: space-between; align-items: center; margin-bottom: 14px; }
-        .logo-box { font-size: 17px; font-weight: 800; display: flex; align-items: center; gap: 8px; text-shadow: 0 2px 4px rgba(0,0,0,0.3); }
-        
-        .profile-chip {
-            background: rgba(255, 255, 255, 0.15); backdrop-filter: blur(12px);
-            border: 1px solid rgba(255, 255, 255, 0.3); padding: 5px 12px; border-radius: 30px;
-            font-size: 12px; font-weight: 600; cursor: pointer; display: flex; align-items: center; gap: 8px; color: #f8fafc;
+        .header-content { display: flex; justify-content: space-between; align-items: center; max-width: 600px; margin: 0 auto; }
+        .logo-area h1 { font-size: 1.15rem; font-weight: 700; color: #fff; display: flex; align-items: center; gap: 4px; }
+        .profile-btn-top { background: rgba(2, 132, 199, 0.2); border: 1px solid var(--primary); color: var(--accent); padding: 6px 12px; border-radius: 20px; font-size: 0.85rem; cursor: pointer; display: flex; align-items: center; gap: 6px; }
+
+        main { max-width: 600px; width: 100%; margin: 0 auto; padding: 12px; flex: 1; }
+
+        .tab-content { display: none; }
+        .tab-content.active { display: block; animation: fadeIn 0.2s ease; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(4px); } to { opacity: 1; transform: translateY(0); } }
+
+        .card { background: var(--card-bg); border: 1px solid var(--border); border-radius: 14px; padding: 14px; margin-bottom: 12px; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.2); }
+        .card h2 { font-size: 1.1rem; margin-bottom: 10px; color: var(--accent); display: flex; align-items: center; gap: 6px; }
+
+        .form-group { margin-bottom: 12px; }
+        label { display: block; margin-bottom: 4px; font-size: 0.85rem; color: var(--text-muted); }
+        input, select, textarea { width: 100%; padding: 10px 12px; background: #0b0f19; border: 1px solid var(--border); border-radius: 8px; color: #fff; font-size: 0.9rem; }
+        input:focus, select:focus, textarea:focus { outline: none; border-color: var(--accent); }
+
+        /* Custom File Upload Button Style */
+        .file-upload-wrapper {
+            position: relative;
+            background: #0b0f19;
+            border: 2px dashed var(--border);
+            border-radius: 8px;
+            padding: 16px;
+            text-align: center;
+            cursor: pointer;
+            transition: 0.2s;
         }
-        .profile-avatar { width: 26px; height: 26px; border-radius: 50%; object-fit: cover; background: #0284c7; display: flex; align-items: center; justify-content: center; font-size: 12px; }
-
-        .assistant-btn {
-            background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);
-            color: white; border: none; padding: 12px 16px; border-radius: 16px; font-weight: 800; font-size: 14px;
-            width: 100%; margin-bottom: 12px; display: flex; align-items: center; justify-content: center; gap: 8px;
-            cursor: pointer; box-shadow: 0 4px 15px rgba(245, 158, 11, 0.4);
+        .file-upload-wrapper:hover { border-color: var(--accent); }
+        .file-upload-wrapper input[type="file"] {
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            opacity: 0;
+            cursor: pointer;
         }
+        .file-upload-text { font-size: 0.85rem; color: var(--text-muted); display: flex; flex-direction: column; align-items: center; gap: 4px; }
+        .file-upload-text span.icon { font-size: 1.5rem; }
 
-        .search-bar {
-            background: rgba(255, 255, 255, 0.15); border: 1px solid rgba(255, 255, 255, 0.25);
-            border-radius: 16px; padding: 10px 16px; display: flex; align-items: center; gap: 10px;
-            backdrop-filter: blur(10px);
-        }
-        .search-bar input { border: none; outline: none; width: 100%; font-size: 14px; background: transparent; color: white; }
-        .search-bar input::placeholder { color: #cbd5e1; }
+        .btn { background: var(--primary); color: white; border: none; padding: 12px; border-radius: 8px; cursor: pointer; font-weight: 600; width: 100%; font-size: 0.95rem; transition: 0.2s; }
+        .btn:hover { background: var(--primary-dark); }
+        .btn-danger { background: var(--danger); }
 
-        .container { padding: 16px; max-width: 600px; margin: auto; }
-        .page-sec { display: none; }
-        .page-sec.active { display: block; animation: fadeIn 0.3s ease; }
-        @keyframes fadeIn { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: translateY(0); } }
+        /* Quick Filter Buttons Bar */
+        .quick-filters { display: flex; gap: 6px; overflow-x: auto; padding-bottom: 8px; margin-bottom: 12px; scrollbar-width: none; }
+        .quick-filters::-webkit-scrollbar { display: none; }
+        .filter-chip { background: #1e293b; border: 1px solid var(--border); color: var(--text-muted); padding: 6px 12px; border-radius: 20px; font-size: 0.8rem; white-space: nowrap; cursor: pointer; transition: 0.2s; }
+        .filter-chip.active { background: var(--primary); color: #fff; border-color: var(--accent); font-weight: 600; }
 
-        .sec-header { font-size: 17px; font-weight: 700; color: #1e293b; margin: 20px 0 12px 0; display: flex; justify-content: space-between; align-items: center; }
+        /* Post Card Style */
+        .post-card { background: var(--card-bg); border: 1px solid var(--border); border-radius: 14px; padding: 14px; margin-bottom: 12px; position: relative; }
+        .post-header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 8px; }
+        .post-publisher-info { display: flex; align-items: center; gap: 8px; }
+        .post-avatar { width: 40px; height: 40px; border-radius: 50%; object-fit: cover; border: 1.5px solid var(--accent); }
+        .post-meta-text h4 { font-size: 0.95rem; color: #fff; }
+        .post-meta-text span { font-size: 0.75rem; color: var(--text-muted); display: block; }
+        .post-badge { background: rgba(56,189,248,0.15); color: var(--accent); padding: 2px 8px; border-radius: 6px; font-size: 0.75rem; font-weight: 600; }
+        .post-title { font-size: 1rem; font-weight: 700; color: #fff; margin-bottom: 6px; }
+        .post-desc { font-size: 0.85rem; color: var(--text-muted); margin-bottom: 10px; line-height: 1.4; }
+        .post-img { width: 100%; max-height: 240px; object-fit: cover; border-radius: 8px; margin-bottom: 10px; border: 1px solid var(--border); }
+        .post-footer-stats { display: flex; justify-content: space-between; align-items: center; font-size: 0.75rem; color: var(--text-muted); border-top: 1px solid var(--border); padding-top: 8px; margin-top: 8px; }
+        .post-actions { display: flex; gap: 8px; margin-top: 10px; }
+        .action-btn { flex: 1; padding: 8px; border-radius: 8px; text-align: center; text-decoration: none; font-size: 0.8rem; font-weight: 600; display: inline-flex; justify-content: center; align-items: center; gap: 5px; border: none; cursor: pointer; }
+        .btn-wa { background: #16a34a; color: #fff; }
+        .btn-msg { background: #2563eb; color: #fff; }
 
-        .luxury-card {
-            background: white; border-radius: 20px; padding: 18px; margin-bottom: 14px;
-            border: 1px solid #e2e8f0; box-shadow: 0 4px 20px -2px rgba(0, 0, 0, 0.04);
-            overflow: hidden;
-        }
-        .card-img { width: 100%; height: 160px; object-fit: cover; border-radius: 12px; margin-bottom: 12px; display: block; }
-        .card-title { font-weight: 700; font-size: 16px; color: #0f172a; margin-bottom: 6px; }
-        .card-details { font-size: 13px; color: #64748b; margin-bottom: 12px; display: flex; gap: 8px; align-items: center; flex-wrap: wrap; }
-        
-        .badge-gov { background: #eff6ff; color: #1d4ed8; padding: 3px 10px; border-radius: 8px; font-size: 11px; font-weight: 700; }
-        .badge-pvt { background: #f0fdf4; color: #15803d; padding: 3px 10px; border-radius: 8px; font-size: 11px; font-weight: 700; }
-        .badge-home { background: #fff7ed; color: #c2410c; padding: 3px 10px; border-radius: 8px; font-size: 11px; font-weight: 700; }
+        /* AI Chatbot UI */
+        .chat-container { display: flex; flex-direction: column; height: 400px; background: #0b0f19; border: 1px solid var(--border); border-radius: 12px; overflow: hidden; }
+        .chat-messages { flex: 1; padding: 12px; overflow-y: auto; display: flex; flex-direction: column; gap: 10px; }
+        .message { max-width: 80%; padding: 10px 12px; border-radius: 10px; font-size: 0.85rem; line-height: 1.4; }
+        .message.ai { background: #1e293b; color: #f8fafc; align-self: flex-start; border-bottom-right-radius: 2px; }
+        .message.user { background: var(--primary); color: #fff; align-self: flex-end; border-bottom-left-radius: 2px; }
+        .chat-input-area { display: flex; padding: 8px; background: #1e293b; border-top: 1px solid var(--border); gap: 6px; }
+        .chat-input-area input { flex: 1; margin: 0; }
+        .ai-suggestions { display: flex; gap: 6px; overflow-x: auto; padding: 6px 12px; background: #1e293b; border-bottom: 1px solid var(--border); }
+        .suggestion-chip { background: rgba(56, 189, 248, 0.15); border: 1px solid var(--accent); color: var(--accent); font-size: 0.75rem; padding: 4px 10px; border-radius: 12px; white-space: nowrap; cursor: pointer; }
 
-        .btn-lux {
-            width: 100%; background: linear-gradient(135deg, #0284c7 0%, #0369a1 100%);
-            color: white; border: none; padding: 11px; border-radius: 12px; font-weight: 700; font-size: 13px;
-            cursor: pointer; text-align: center; box-shadow: 0 4px 12px rgba(2, 132, 199, 0.2);
-        }
-        .btn-success { background: linear-gradient(135deg, #16a34a 0%, #15803d 100%); }
-
-        /* شريط التنقل السفلي */
+        /* Bottom Nav Bar */
         .bottom-nav {
-            position: fixed; bottom: 0; left: 0; width: 100%; background: rgba(255, 255, 255, 0.95);
-            backdrop-filter: blur(12px); border-top: 1px solid #e2e8f0; display: flex; justify-content: space-around;
-            padding: 8px 2px 14px 2px; z-index: 100; box-shadow: 0 -10px 25px rgba(0,0,0,0.05);
+            position: fixed;
+            bottom: 0; left: 0; right: 0;
+            background: #1e293b;
+            border-top: 1px solid var(--border);
+            display: flex;
+            justify-content: space-around;
+            padding: 6px 0;
+            z-index: 1000;
         }
         .nav-item {
-            background: transparent; border: none; color: #64748b; font-size: 9px; font-weight: 600;
-            display: flex; flex-direction: column; align-items: center; gap: 2px; cursor: pointer;
+            background: none; border: none;
+            color: var(--text-muted);
+            display: flex; flex-direction: column; align-items: center;
+            font-size: 0.68rem; cursor: pointer; gap: 2px; flex: 1;
         }
-        .nav-item span.icon { font-size: 18px; }
-        .nav-item.active { color: #0284c7; }
-
-        /* الدردشة الخاصة */
-        .chat-box { background: #fff; border-radius: 16px; border: 1px solid #e2e8f0; height: 350px; display: flex; flex-direction: column; overflow: hidden; margin-bottom: 12px; }
-        .chat-messages { flex: 1; padding: 12px; overflow-y: auto; background: #f8fafc; display: flex; flex-direction: column; gap: 8px; }
-        .msg { padding: 10px 14px; border-radius: 14px; max-width: 80%; font-size: 13px; line-height: 1.4; }
-        .msg.incoming { background: #e2e8f0; color: #0f172a; align-self: flex-start; }
-        .msg.outgoing { background: #0284c7; color: white; align-self: flex-end; }
-        .chat-input-area { display: flex; padding: 10px; background: white; border-top: 1px solid #e2e8f0; gap: 8px; }
-        .chat-input-area input { flex: 1; padding: 8px 12px; border: 1px solid #cbd5e1; border-radius: 10px; font-size: 13px; outline: none; }
-
-        /* النوافذ المنبثقة */
-        .modal {
-            display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(15, 23, 42, 0.6); backdrop-filter: blur(5px); justify-content: center; align-items: flex-end; z-index: 1000;
-        }
-        .modal-content {
-            background: white; padding: 24px; border-top-left-radius: 28px; border-top-right-radius: 28px;
-            width: 100%; max-width: 600px; max-height: 90vh; overflow-y: auto;
-        }
-        .form-group { margin-bottom: 14px; }
-        .form-group label { display: block; font-size: 12px; font-weight: 700; margin-bottom: 6px; color: #334155; }
-        .form-ctrl { width: 100%; padding: 11px; border: 1.5px solid #cbd5e1; border-radius: 12px; font-size: 13px; background: #f8fafc; }
-
-        .choice-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 15px; }
-        .choice-box {
-            background: #f8fafc; border: 1.5px solid #cbd5e1; padding: 14px; border-radius: 14px;
-            text-align: center; font-weight: 700; font-size: 13px; color: #0f172a; cursor: pointer; transition: 0.2s;
-        }
-        .choice-box:hover { background: #e0f2fe; border-color: #0284c7; color: #0369a1; }
+        .nav-item.active { color: var(--accent); }
+        .nav-item span.icon { font-size: 1.15rem; }
+        .my-post-item { background: #0b0f19; border: 1px solid var(--border); border-radius: 8px; padding: 10px; margin-bottom: 8px; display: flex; justify-content: space-between; align-items: center; }
     </style>
 </head>
 <body>
 
-    <!-- الهيدر المطور بخلفية العناية المركزة والشفافية الحديثة -->
-    <div class="app-header">
-        <div class="header-top">
-            <div class="logo-box"> Nurse Libya 🇱🇾 🩺</div>
-            <div id="profileChip" class="profile-chip" onclick="openModal('authModal')">
-                <div id="headerAvatar" class="profile-avatar">👤</div> 
-                <span id="profileNameTxt">حسابي المهني</span>
+    <header>
+        <div class="header-content">
+            <div class="logo-area">
+                <h1>Nurse Libya 🇱🇾</h1>
             </div>
+            <button class="profile-btn-top" onclick="switchTab('profile')">
+                <span>👤 الحساب المهني</span>
+            </button>
         </div>
+    </header>
 
-        <button class="assistant-btn" onclick="openModal('assistantModal')">
-            ⚡ شنو تبي بالضبط؟ (اضغط هنا لاختيار خدمتك فوراً)
-        </button>
-
-        <div class="search-bar">
-            <span>🔍</span>
-            <input type="text" id="searchInput" placeholder="ابحث عن وظيفة، تمريض منزلي، أدوية، أو دورات..." onkeyup="filterApp()">
-        </div>
-    </div>
-
-    <div class="container">
-        
-        <!-- 1. الرئيسية -->
-        <div id="home" class="page-sec active">
-            <div class="sec-header"><span>أحدث الوظائف وخدمات التمريض المنزلي</span></div>
-            <div id="jobsContainer"></div>
-        </div>
-
-        <!-- 2. خدمة التمريض المنزلي -->
-        <div id="homeNursing" class="page-sec">
-            <div class="sec-header"><span>خدمات التمريض المنزلي (Home Care)</span></div>
-            <div class="luxury-card">
-                <div class="card-title">خدمة رعاية كبار السن والمرضى بالمنازل</div>
-                <div class="card-details"><span>📍 طرابلس الكبرى</span> <span class="badge-home">تمريض منزلي</span></div>
-                <p style="font-size: 13px; color: #64748b; margin-bottom: 12px;">توفير ممرضين مختصين لإعطاء الحقن، تركيب المحاليل، تغيير الجروح، والعناية الكاملة بالمريض في منزله.</p>
-                <button class="btn-lux btn-success" onclick="showDetails('فريق التمريض المنزلي المحترف', 'خدمة تمريض منزلي متكاملة', '0919988776', 'نقدم خدمات زيارات منزلية بنظام الورديات أو الساعات لتوفير الراحة التامة للمريض وذويه تحت إشراف طبي.')">طلب ممرض للمنزل</button>
+    <main>
+        <!-- TAB 1: HOME -->
+        <div id="tab-home" class="tab-content active">
+            <div class="card" style="background: linear-gradient(135deg, #0284c7, #0369a1); border: none; padding: 12px; text-align: center;">
+                <p style="font-size: 0.95rem; font-weight: 700; color: #fff;">⚡ المنصة الطبية الشاملة للتمريض في ليبيا</p>
             </div>
-        </div>
-
-        <!-- 3. الدورات التدريبية الطبية -->
-        <div id="courses" class="page-sec">
-            <div class="sec-header"><span>الدورات التدريبية المعتمدة (BLS, ACLS, ICU)</span></div>
-            <div class="luxury-card">
-                <div class="card-title">دورة إنعاش القلب الأساسي والمتقدم (BLS / ACLS)</div>
-                <div class="card-details"><span>📍 طرابلس • مركز الطوارئ</span> <span class="badge-gov">دورة معتمدة</span></div>
-                <p style="font-size: 13px; color: #64748b; margin-bottom: 12px;">دورة تدريبية عملية للممرضين للتعامل مع السكتات القلبية وإدارة الصدمات الكهربائية.</p>
-                <button class="btn-lux" onclick="showDetails('مركز طوارئ طرابلس', 'دورة ACLS', '0911122334', 'تشمل شهادة دولية معتمدة، التدريب العملي على الدمى الطبية، وورش عمل متقدمة.')">التفاصيل ورقم التسجيل</button>
+            
+            <div class="form-group" style="margin-top: 10px;">
+                <input type="text" id="search-box" placeholder="🔍 ابحث عن وظيفة، تمريض منزلي، أدوية..." oninput="renderPosts()">
             </div>
-        </div>
 
-        <!-- 4. مراجع تعليمية ICU & CCU -->
-        <div id="edu" class="page-sec">
-            <div class="sec-header"><span>المراجع التعليمية السريرية (ICU & CCU)</span></div>
-            <div class="luxury-card">
-                <div class="card-title">❤️ قراءة تخطيط القلب المتقدم (ECG / EKG)</div>
-                <p style="font-size: 13px; color: #64748b; line-height: 1.6;">
-                    - <b>Normal Sinus Rhythm:</b> المعدل الطبيعي 60-100.<br>
-                    - <b>Ventricular Fibrillation (VFib):</b> رجفان بطيني خطير يستدعي صدمة فورية.<br>
-                    - <b>Asystole:</b> خط توقف قلب مستقيم، يُعالج بالأدرينالين والـ CPR.
-                </p>
+            <!-- Quick Filter Chips Buttons -->
+            <div class="quick-filters" id="quick-filters-bar">
+                <button class="filter-chip active" onclick="filterByCategory('الكل', this)">الكل</button>
+                <button class="filter-chip" onclick="filterByCategory('تمريض منزلي', this)">🏡 تمريض منزلي</button>
+                <button class="filter-chip" onclick="filterByCategory('عناية مركزة (ICU)', this)">🏥 ICU عناية</button>
+                <button class="filter-chip" onclick="filterByCategory('دورات تدريبية', this)">🎓 الدورات</button>
+                <button class="filter-chip" onclick="filterByCategory('أدوية ومستلزمات', this)">💉 الأدوية</button>
+                <button class="filter-chip" onclick="filterByCategory('وظائف شاغرة', this)">📋 الوظائف</button>
             </div>
+
+            <div id="posts-container"></div>
         </div>
 
-        <!-- 5. أدوية الطوارئ والعناية الحرجة -->
-        <div id="drugs" class="page-sec">
-            <div class="sec-header"><span>دليل أدوية العناية والطوارئ</span></div>
-            <div class="luxury-card">
-                <div class="card-title">أدرينالين (Epinephrine / Adrenaline)</div>
-                <p style="font-size: 13px; color: #64748b;"><b>الاستخدام:</b> السكتة القلبية والإنعاش القلبي الرئوي (CPR).<br><b>الجرعة:</b> 1 ملغ وريدياً كل 3-5 دقائق.</p>
-            </div>
-        </div>
-
-        <!-- 6. المراسلة والدردشة الخاصة -->
-        <div id="chat" class="page-sec">
-            <div class="sec-header"><span>المراسلة الخاصة والدردشة الطبية المباشرة</span></div>
-            <div class="chat-box">
-                <div class="chat-messages" id="chatMsgs">
-                    <div class="msg incoming">أهلاً بك في نظام المراسلة الخاصة. تواصل مباشرة مع الزملاء أو الإدارات.</div>
-                </div>
-                <div class="chat-input-area">
-                    <input type="text" id="chatInput" placeholder="اكتب رسالتك الخاصة هنا..." onkeypress="checkEnter(event)">
-                    <button class="btn-lux" style="width: 80px; padding: 8px;" onclick="sendPrivateMsg()">إرسال</button>
-                </div>
-            </div>
-        </div>
-
-        <!-- 7. نشر إعلان أو خدمة مع صورة -->
-        <div id="addJob" class="page-sec">
-            <div class="sec-header"><span>نشر إعلان وظيفي، دورة أو خدمة مع صورة</span></div>
-            <div class="luxury-card">
-                <form onsubmit="handlePublish(event)">
+        <!-- TAB 2: POST AD -->
+        <div id="tab-post" class="tab-content">
+            <div class="card">
+                <h2>➕ إضافة منشور / خدمة جديدة</h2>
+                <form id="create-post-form" onsubmit="submitNewPost(event)">
                     <div class="form-group">
-                        <label>نوع الإعلان:</label>
-                        <select id="pubSector" class="form-ctrl">
-                            <option value="gov">وظيفة في مستشفى حكومي</option>
-                            <option value="pvt">وظيفة في مصحة خاصة</option>
-                            <option value="home">خدمة تمريض منزلي</option>
-                            <option value="edu">دورة تدريبية أو ورشة عمل</option>
+                        <label>عنوان المنشور / الخدمة</label>
+                        <input type="text" id="p-title" required placeholder="مثال: مطلوب ممرض لفترة المساء في طرابلس">
+                    </div>
+                    <div class="form-group">
+                        <label>التخصص أو التصنيف</label>
+                        <select id="p-spec" required>
+                            <option value="تمريض منزلي">تمريض منزلي</option>
+                            <option value="عناية مركزة (ICU)">عناية مركزة (ICU)</option>
+                            <option value="دورات تدريبية">دورات تدريبية</option>
+                            <option value="أدوية ومستلزمات">أدوية ومستلزمات</option>
+                            <option value="وظائف شاغرة">وظائف شاغرة</option>
                         </select>
                     </div>
                     <div class="form-group">
-                        <label>اسم الجهة أو مقدم الخدمة:</label>
-                        <input type="text" id="pubEntity" class="form-ctrl" placeholder="مثال: مركز طرابلس الطبي" required>
+                        <label>البريد الإلكتروني للناشر</label>
+                        <input type="email" id="p-email" required placeholder="example@gmail.com">
                     </div>
                     <div class="form-group">
-                        <label>عنوان الإعلان:</label>
-                        <input type="text" id="pubTitle" class="form-ctrl" placeholder="مثال: مطلوب ممرض ICU أو دورة ACLS" required>
+                        <label>رقم الهاتف / الواتساب</label>
+                        <input type="text" id="p-phone" required placeholder="091xxxxxxx">
                     </div>
                     <div class="form-group">
-                        <label>رابط صورة الإعلان (اختياري):</label>
-                        <input type="url" id="pubImg" class="form-ctrl" placeholder="https://example.com/image.jpg">
+                        <label>تفاصيل المنشور</label>
+                        <textarea id="p-desc" rows="3" required placeholder="اكتب تفاصيل الخدمة والمكان..."></textarea>
                     </div>
+                    
+                    <!-- Easy Direct Image Upload Box -->
                     <div class="form-group">
-                        <label>المدينة:</label>
-                        <input type="text" id="pubCity" class="form-ctrl" placeholder="طرابلس، بنغازي..." required>
+                        <label>صورة الإعلان (اختياري - ارفع مباشرة من هاتفك)</label>
+                        <div class="file-upload-wrapper">
+                            <input type="file" id="p-file" accept="image/*" onchange="previewImage(event)">
+                            <div class="file-upload-text">
+                                <span class="icon">📁</span>
+                                <span id="upload-label-text">اضغط هنا لاختيار صورة من جهازك</span>
+                            </div>
+                        </div>
+                        <div id="img-preview-box" style="margin-top: 10px; display: none; text-align: center; position: relative;">
+                            <img id="preview-tag" style="max-height: 150px; border-radius: 8px; border: 1px solid var(--border);">
+                            <br>
+                            <button type="button" class="btn btn-danger" style="width: auto; padding: 4px 10px; font-size: 0.75rem; margin-top: 6px;" onclick="removePreviewImage()">إزالة الصورة</button>
+                        </div>
                     </div>
-                    <div class="form-group">
-                        <label>رقم هاتف المسؤول للتواصل:</label>
-                        <input type="tel" id="pubPhone" class="form-ctrl" placeholder="091XXXXXXX" required>
-                    </div>
-                    <div class="form-group">
-                        <label>التفاصيل والشروط:</label>
-                        <textarea id="pubDesc" class="form-ctrl" rows="3" placeholder="اكتب التفاصيل الكاملة..." required></textarea>
-                    </div>
-                    <button type="submit" class="btn-lux btn-success">نشر الإعلان مع الصورة فوراً</button>
+
+                    <button type="submit" class="btn">نشر المنشور الآن</button>
                 </form>
             </div>
         </div>
 
-    </div>
+        <!-- TAB 3: AI ASSISTANT -->
+        <div id="tab-ai" class="tab-content">
+            <div class="card" style="padding: 10px;">
+                <h2>🤖 مساعد Nurse Libya الذكي</h2>
+                <p style="font-size: 0.8rem; color: var(--text-muted); margin-bottom: 8px;">اسأل المساعد الطبي عن الإسعافات، شروط التمريض، أو استفسارات المنصة:</p>
+                
+                <div class="ai-suggestions">
+                    <span class="suggestion-chip" onclick="sendAiPrompt('كيف أتحصل على رخصة مزاولة مهنة في ليبيا؟')">📜 شروط رخصة المزاولة</span>
+                    <span class="suggestion-chip" onclick="sendAiPrompt('ماهي الإسعافات الأولية لحالات ارتفاع الضغط؟')">🩺 إسعافات ارتفاع الضغط</span>
+                    <span class="suggestion-chip" onclick="sendAiPrompt('كيف أنشر إعلان خدمة تمريض منزلي؟')">📢 كيفية النشر في التطبيق</span>
+                </div>
 
-    <!-- شريط التنقل السفلي -->
-    <div class="bottom-nav">
-        <button class="nav-item active" onclick="switchTab('home', this)"><span class="icon">🏠</span>الرئيسية</button>
-        <button class="nav-item" onclick="switchTab('homeNursing', this)"><span class="icon">🏠💉</span>منزلي</button>
-        <button class="nav-item" onclick="switchTab('courses', this)"><span class="icon">🎓</span>الدورات</button>
-        <button class="nav-item" onclick="switchTab('edu', this)"><span class="icon">📖</span>ICU</button>
-        <button class="nav-item" onclick="switchTab('drugs', this)"><span class="icon">💉</span>الأدوية</button>
-        <button class="nav-item" onclick="switchTab('chat', this)"><span class="icon">💬</span>مراسلة</button>
-        <button class="nav-item" onclick="switchTab('addJob', this)"><span class="icon">➕</span>إعلان</button>
-    </div>
-
-    <!-- نافذة المساعد الذكي "شنو تبي بالضبط؟" -->
-    <div id="assistantModal" class="modal">
-        <div class="modal-content">
-            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px;">
-                <h3 style="margin:0; font-size:17px; color:#0f172a;">🎯 شنو تبي بالضبط؟ اختر طلبك:</h3>
-                <button onclick="closeModal('assistantModal')" style="background:#f1f5f9; border:none; width:30px; height:30px; border-radius:50%; font-weight:bold; cursor:pointer;">✕</button>
-            </div>
-            <p style="font-size: 13px; color: #64748b; margin-top: 0;">اختر الخدمة المطلوبة وسنقودك إليها فوراً:</p>
-            <div class="choice-grid">
-                <div class="choice-box" onclick="selectChoice('homeNursing')">🏠💉 طالب تمريض منزلي</div>
-                <div class="choice-box" onclick="selectChoice('home')">💼 ابحث عن وظيفة تمريض</div>
-                <div class="choice-box" onclick="selectChoice('courses')">🎓 دورات معتمدة (BLS/ICU)</div>
-                <div class="choice-box" onclick="selectChoice('edu')">📖 مراجع ICU و CCU</div>
-                <div class="choice-box" onclick="selectChoice('drugs')">💊 دليل أدوية الطوارئ</div>
-                <div class="choice-box" onclick="selectChoice('chat')">💬 مراسلة خاصة فورية</div>
+                <div class="chat-container">
+                    <div class="chat-messages" id="ai-chat-messages">
+                        <div class="message ai">مرحباً بك زميلي العزيز في منصة Nurse Libya 🇱🇾. أنا مساعدك الذكي، كيف يمكنني مساعدتك اليوم في التمريض أو الاستعلامات الطبية؟</div>
+                    </div>
+                    <div class="chat-input-area">
+                        <input type="text" id="ai-input" placeholder="اكتب سؤالك الطبي أو الاستفسار هنا..." onkeypress="if(event.key==='Enter') sendUserAiMessage()">
+                        <button class="btn" style="width: auto; padding: 8px 14px;" onclick="sendUserAiMessage()">إرسال</button>
+                    </div>
+                </div>
             </div>
         </div>
-    </div>
 
-    <!-- نافذة تسجيل الحساب المهني -->
-    <div id="authModal" class="modal">
-        <div class="modal-content">
-            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px;">
-                <h3 style="margin:0; font-size:17px; color:#0f172a;">الملف المهني والصورة الشخصية</h3>
-                <button onclick="closeModal('authModal')" style="background:#f1f5f9; border:none; width:30px; height:30px; border-radius:50%; font-weight:bold; cursor:pointer;">✕</button>
+        <!-- TAB 4: MESSAGES -->
+        <div id="tab-messages" class="tab-content">
+            <div class="card">
+                <h2>💬 صندوق المراسلات الفورية</h2>
+                <p style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 12px;">المراسلات الواردة:</p>
+                <div class="chat-item" style="background: #0b0f19; padding: 10px; border-radius: 8px; border: 1px solid var(--border);">
+                    <div>
+                        <h4 style="font-size: 0.9rem; color: #fff;">د. محمد الهادي</h4>
+                        <p style="font-size: 0.75rem; color: var(--text-muted);">مرحباً، هل الخدمة متوفرة في حي الأندلس؟</p>
+                    </div>
+                </div>
             </div>
-            <form onsubmit="saveProfile(event)">
-                <div class="form-group">
-                    <label>رابط صورة البروفايل (اختياري):</label>
-                    <input type="url" id="profImg" class="form-ctrl" placeholder="https://...">
-                </div>
-                <div class="form-group">
-                    <label>الاسم الكامل:</label>
-                    <input type="text" id="profName" class="form-ctrl" placeholder="اسمك الثلاثي" required>
-                </div>
-                <div class="form-group">
-                    <label>المؤهل العلمي / التخصص:</label>
-                    <input type="text" id="profDegree" class="form-ctrl" placeholder="بكالوريوس تمريض" required>
-                </div>
-                <div class="form-group">
-                    <label>مكان العمل الحالي:</label>
-                    <input type="text" id="profWork" class="form-ctrl" placeholder="المستشفى أو المصحة" required>
-                </div>
-                <div class="form-group">
-                    <label>رقم الهاتف الشخصي:</label>
-                    <input type="tel" id="profPhone" class="form-ctrl" placeholder="091XXXXXXX" required>
-                </div>
-                <button type="submit" class="btn-lux">حفظ الاعتماد والصورة</button>
-            </form>
         </div>
-    </div>
 
-    <!-- نافذة التفاصيل ورقم الهاتف -->
-    <div id="detModal" class="modal">
-        <div class="modal-content">
-            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px;">
-                <h3 id="detTitle" style="margin:0; font-size:17px; color:#0f172a;">التفاصيل الكاملة</h3>
-                <button onclick="closeModal('detModal')" style="background:#f1f5f9; border:none; width:30px; height:30px; border-radius:50%; font-weight:bold; cursor:pointer;">✕</button>
+        <!-- TAB 5: PROFILE & SETTINGS -->
+        <div id="tab-profile" class="tab-content">
+            <div class="card">
+                <h2>⚙️ إدارة حسابك ومنشوراتك</h2>
+                <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 14px; background: #0b0f19; padding: 10px; border-radius: 8px;">
+                    <img src="https://images.unsplash.com/photo-1584515979956-d9f6e5d09982?w=100" style="width: 50px; height: 50px; border-radius: 50%; object-fit: cover;">
+                    <div>
+                        <h4 style="font-size: 0.95rem; color: #fff;">أحمد التواتي</h4>
+                        <p style="font-size: 0.8rem; color: var(--accent);">ahmed@nurselibya.ly</p>
+                    </div>
+                </div>
+                <h3 style="font-size: 0.95rem; color: var(--accent); margin-bottom: 8px; margin-top: 14px;">📊 منشوراتي النشطة (عدد المشاهدات والحذف)</h3>
+                <div id="my-posts-list"></div>
             </div>
-            <p id="detDesc" style="color: #475569; font-size: 13px; line-height: 1.7; white-space: pre-line; margin: 0 0 14px 0;"></p>
-            <div id="detPhone" style="background: #f0fdf4; color: #15803d; padding: 12px; border-radius: 14px; font-weight: 700; font-size: 15px; text-align: center; border: 1px solid #bbf7d0;"></div>
         </div>
-    </div>
+    </main>
+
+    <!-- Bottom Navigation Bar -->
+    <nav class="bottom-nav">
+        <button class="nav-item active" onclick="switchTab('home')">
+            <span class="icon">🏠</span>
+            <span>الرئيسية</span>
+        </button>
+        <button class="nav-item" onclick="switchTab('ai')" id="nav-ai-btn">
+            <span class="icon">🤖</span>
+            <span>مساعد AI</span>
+        </button>
+        <button class="nav-item" onclick="switchTab('messages')">
+            <span class="icon">💬</span>
+            <span>مراسلة</span>
+        </button>
+        <button class="nav-item" onclick="switchTab('post')">
+            <span class="icon">➕</span>
+            <span>إعلان</span>
+        </button>
+        <button class="nav-item" onclick="switchTab('profile')">
+            <span class="icon">⚙️</span>
+            <span>الإعدادات</span>
+        </button>
+    </nav>
 
     <script>
-        let jobs = JSON.parse(localStorage.getItem('nurse_libya_jobs')) || [
-            { id: 1, sector: 'pvt', entity: 'مصحة الأمهار الطبية', title: 'ممرض / ممرضة ICU', city: 'طرابلس', phone: '0912345678', img: 'https://images.unsplash.com/photo-1584515979956-d9f6e5d09982?w=600', desc: 'مطلوب للعمل بنظام الورديات. يشترط رخصة مزاولة المهنة وخبرة سنة على الأقل.' },
-            { id: 2, sector: 'home', entity: 'خدمة التمريض المنزلي السريع', title: 'ممرض لزيارات الحقن والمحاليل المنزلية', city: 'طرابلس', phone: '0919988776', img: 'https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?w=600', desc: 'توفير خدمات تمريضية منزلية آمنة للمرضى وكبار السن تحت إشراف متخصص.' }
+        let posts = JSON.parse(localStorage.getItem('nurse_libya_posts_v4')) || [
+            {
+                id: 101,
+                title: 'ممرض / ممرضة ICU',
+                specialty: 'عناية مركزة (ICU)',
+                email: 'hospital.amhar@gmail.com',
+                phone: '0911234567',
+                desc: 'مطلوب للعمل بنظام الورديات. يشترط رخصة مزاولة المهنة وخبرة سنة.',
+                image: 'https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?w=500',
+                avatar: 'https://images.unsplash.com/photo-1584515979956-d9f6e5d09982?w=100',
+                publisher: 'مصحة الأمهار الطبية',
+                date: '2026-08-27 11:30',
+                views: 142
+            }
         ];
 
-        function switchTab(tabId, btn) {
-            document.querySelectorAll('.page-sec').forEach(s => s.classList.remove('active'));
-            document.getElementById(tabId).classList.add('active');
-            if(btn) {
-                document.querySelectorAll('.nav-item').forEach(i => i.classList.remove('active'));
-                btn.classList.add('active');
-            }
-            window.scrollTo(0, 0);
-            if(tabId === 'home') renderJobs();
-        }
+        let tempImage = '';
+        let currentCategoryFilter = 'الكل';
 
-        function openModal(id) { document.getElementById(id).style.display = 'flex'; }
-        function closeModal(id) { document.getElementById(id).style.display = 'none'; }
-
-        function selectChoice(tabId) {
-            closeModal('assistantModal');
-            let navBtns = document.querySelectorAll('.nav-item');
-            if(tabId === 'home') switchTab('home', navBtns[0]);
-            else if(tabId === 'homeNursing') switchTab('homeNursing', navBtns[1]);
-            else if(tabId === 'courses') switchTab('courses', navBtns[2]);
-            else if(tabId === 'edu') switchTab('edu', navBtns[3]);
-            else if(tabId === 'drugs') switchTab('drugs', navBtns[4]);
-            else if(tabId === 'chat') switchTab('chat', navBtns[5]);
-        }
-
-        function saveProfile(e) {
-            e.preventDefault();
-            let name = document.getElementById('profName').value;
-            let img = document.getElementById('profImg').value;
+        function switchTab(tabId) {
+            document.querySelectorAll('.tab-content').forEach(el => el.classList.remove('active'));
+            document.getElementById('tab-' + tabId).classList.add('active');
             
-            localStorage.setItem('nurse_profile', name);
-            localStorage.setItem('nurse_avatar', img);
+            document.querySelectorAll('.bottom-nav .nav-item').forEach(el => el.classList.remove('active'));
+            if(tabId === 'home') document.querySelector('.bottom-nav .nav-item:nth-child(1)').classList.add('active');
+            if(tabId === 'ai') document.querySelector('#nav-ai-btn').classList.add('active');
+            if(tabId === 'messages') document.querySelector('.bottom-nav .nav-item:nth-child(3)').classList.add('active');
+            if(tabId === 'post') document.querySelector('.bottom-nav .nav-item:nth-child(4)').classList.add('active');
+            if(tabId === 'profile') document.querySelector('.bottom-nav .nav-item:nth-child(5)').classList.add('active');
             
-            document.getElementById('profileNameTxt').innerText = name;
-            if(img) {
-                document.getElementById('headerAvatar').innerHTML = `<img src="${img}" style="width:100%; height:100%; border-radius:50%; object-fit:cover;">`;
-            }
-            closeModal('authModal');
-            alert('تم حفظ ملفك المهني بنجاح!');
+            if(tabId === 'home') renderPosts();
+            if(tabId === 'profile') renderMyPosts();
         }
 
-        function handlePublish(e) {
-            e.preventDefault();
-            let newJ = {
+        function filterByCategory(cat, btnElement) {
+            currentCategoryFilter = cat;
+            document.querySelectorAll('.filter-chip').forEach(el => el.classList.remove('active'));
+            btnElement.classList.add('active');
+            renderPosts();
+        }
+
+        function previewImage(event) {
+            const file = event.target.files[0];
+            if(file) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    tempImage = e.target.result;
+                    document.getElementById('preview-tag').src = tempImage;
+                    document.getElementById('img-preview-box').style.display = 'block';
+                    document.getElementById('upload-label-text').innerText = "✅ تم اختيار الصورة بنجاح (اضغط لتغييرها)";
+                }
+                reader.readAsDataURL(file);
+            }
+        }
+
+        function removePreviewImage() {
+            tempImage = '';
+            document.getElementById('p-file').value = '';
+            document.getElementById('img-preview-box').style.display = 'none';
+            document.getElementById('upload-label-text').innerText = "اضغط هنا لاختيار صورة من جهازك";
+        }
+
+        function submitNewPost(event) {
+            event.preventDefault();
+            const now = new Date();
+            const dateStr = now.toISOString().slice(0, 10) + ' ' + now.toTimeString().slice(0, 5);
+            
+            const newPost = {
                 id: Date.now(),
-                sector: document.getElementById('pubSector').value,
-                entity: document.getElementById('pubEntity').value,
-                title: document.getElementById('pubTitle').value,
-                img: document.getElementById('pubImg').value,
-                city: document.getElementById('pubCity').value,
-                phone: document.getElementById('pubPhone').value,
-                desc: document.getElementById('pubDesc').value
+                title: document.getElementById('p-title').value,
+                specialty: document.getElementById('p-spec').value,
+                email: document.getElementById('p-email').value,
+                phone: document.getElementById('p-phone').value,
+                desc: document.getElementById('p-desc').value,
+                image: tempImage,
+                avatar: 'https://images.unsplash.com/photo-1584515979956-d9f6e5d09982?w=100',
+                publisher: 'أحمد التواتي',
+                date: dateStr,
+                views: 1
             };
-            jobs.unshift(newJ);
-            localStorage.setItem('nurse_libya_jobs', JSON.stringify(jobs));
-            alert('تم نشر إعلانك مع الصورة بنجاح للجميع!');
-            document.querySelector('form').reset();
-            switchTab('home', document.querySelectorAll('.nav-item')[0]);
+
+            posts.unshift(newPost);
+            localStorage.setItem('nurse_libya_posts_v4', JSON.stringify(posts));
+            alert('تم نشر الخدمة بنجاح وأصبحت مرئية للجميع!');
+            document.getElementById('create-post-form').reset();
+            removePreviewImage();
+            switchTab('home');
         }
 
-        function renderJobs() {
-            let html = '';
-            jobs.forEach(j => {
-                let badge = j.sector === 'gov' ? '<span class="badge-gov">مستشفى حكومي</span>' : (j.sector === 'pvt' ? '<span class="badge-pvt">مصحة خاصة</span>' : (j.sector === 'home' ? '<span class="badge-home">تمريض منزلي</span>' : '<span class="badge-gov">دورة تدريبية</span>'));
-                let imgHtml = j.img ? `<img src="${j.img}" class="card-img" alt="صورة الإعلان">` : '';
-                html += `
-                <div class="luxury-card">
-                    ${imgHtml}
-                    <div class="card-title">${j.title}</div>
-                    <div class="card-details"><span>📍 ${j.city} • ${j.entity}</span> ${badge}</div>
-                    <p style="font-size: 13px; color: #64748b; margin: 0 0 14px 0;">${j.desc}</p>
-                    <button class="btn-lux" onclick="showDetails('${j.entity}', '${j.title}', '${j.phone}', '${j.desc}')">عرض رقم التواصل والتفاصيل</button>
-                </div>`;
+        function incrementView(id) {
+            const post = posts.find(p => p.id === id);
+            if(post) {
+                post.views += 1;
+                localStorage.setItem('nurse_libya_posts_v4', JSON.stringify(posts));
+            }
+        }
+
+        function renderPosts() {
+            const container = document.getElementById('posts-container');
+            const searchQ = document.getElementById('search-box').value.toLowerCase();
+            
+            const filtered = posts.filter(p => {
+                const matchCat = (currentCategoryFilter === 'الكل' || p.specialty === currentCategoryFilter);
+                const matchText = p.title.toLowerCase().includes(searchQ) || p.desc.toLowerCase().includes(searchQ) || p.email.toLowerCase().includes(searchQ);
+                return matchCat && matchText;
             });
-            let c = document.getElementById('jobsContainer');
-            if(c) c.innerHTML = html;
+
+            if(filtered.length === 0) {
+                container.innerHTML = '<p style="text-align:center; color: var(--text-muted); padding: 2rem;">لا توجد منشورات مطابقة لبحثك أو هذا التصنيف.</p>';
+                return;
+            }
+
+            container.innerHTML = filtered.map(post => `
+                <div class="post-card" onclick="incrementView(${post.id})">
+                    <div class="post-header">
+                        <div class="post-publisher-info">
+                            <img src="${post.avatar}" class="post-avatar">
+                            <div class="post-meta-text">
+                                <h4>${post.publisher}</h4>
+                                <span>📧 ${post.email} | 🕒 ${post.date}</span>
+                            </div>
+                        </div>
+                        <span class="post-badge">${post.specialty}</span>
+                    </div>
+                    <div class="post-title">${post.title}</div>
+                    <div class="post-desc">${post.desc}</div>
+                    ${post.image ? `<img src="${post.image}" class="post-img">` : ''}
+                    
+                    <div class="post-actions">
+                        <a href="https://wa.me/218${post.phone.replace(/^0/, '')}?text=مرحباً، اطلعت على منشورك (${post.title}) في منصة Nurse Libya" target="_blank" class="action-btn btn-wa">💬 واتساب</a>
+                        <a href="mailto:${post.email}?subject=استفسار بخصوص منشور: ${post.title}" class="action-btn btn-msg">✉️ إيميل</a>
+                    </div>
+
+                    <div class="post-footer-stats">
+                        <span>👁️ المشاهدات: ${post.views}</span>
+                        <span>رقم الاتصال: ${post.phone}</span>
+                    </div>
+                </div>
+            `).join('');
         }
 
-        function showDetails(entity, title, phone, desc) {
-            document.getElementById('detTitle').innerText = title + " - " + entity;
-            document.getElementById('detDesc').innerText = desc;
-            document.getElementById('detPhone').innerHTML = `📞 هاتف التواصل الرسمي: <a href="tel:${phone}" style="color:#15803d; text-decoration:none;">${phone}</a>`;
-            openModal('detModal');
+        function renderMyPosts() {
+            const container = document.getElementById('my-posts-list');
+            if(posts.length === 0) {
+                container.innerHTML = '<p style="color: var(--text-muted); font-size: 0.85rem;">ليس لديك أي منشورات حالياً.</p>';
+                return;
+            }
+            container.innerHTML = posts.map(p => `
+                <div class="my-post-item">
+                    <div>
+                        <h4 style="font-size: 0.9rem; color: #fff;">${p.title}</h4>
+                        <span style="font-size: 0.75rem; color: var(--text-muted);">👁️ المشاهدات: ${p.views} | 🕒 ${p.date}</span>
+                    </div>
+                    <button class="btn btn-danger" style="width: auto; padding: 6px 12px; font-size: 0.75rem;" onclick="deletePost(${p.id})">حذف</button>
+                </div>
+            `).join('');
         }
 
-        function sendPrivateMsg() {
-            let input = document.getElementById('chatInput');
-            let txt = input.value.trim();
-            if(!txt) return;
-            let box = document.getElementById('chatMsgs');
-            box.innerHTML += `<div class="msg outgoing">${txt}</div>`;
-            input.value = '';
-            box.scrollTop = box.scrollHeight;
+        function deletePost(id) {
+            if(confirm('هل أنت متأكد من حذف هذا المنشور؟')) {
+                posts = posts.filter(p => p.id !== id);
+                localStorage.setItem('nurse_libya_posts_v4', JSON.stringify(posts));
+                renderMyPosts();
+                alert('تم حذف المنشور بنجاح.');
+            }
+        }
+
+        // AI Assistant Logic
+        function sendAiPrompt(text) {
+            document.getElementById('ai-input').value = text;
+            sendUserAiMessage();
+        }
+
+        function sendUserAiMessage() {
+            const inputField = document.getElementById('ai-input');
+            const text = inputField.value.trim();
+            if(!text) return;
+
+            const chatMessages = document.getElementById('ai-chat-messages');
+            chatMessages.innerHTML += `<div class="message user">${text}</div>`;
+            inputField.value = '';
+            chatMessages.scrollTop = chatMessages.scrollHeight;
+
             setTimeout(() => {
-                box.innerHTML += `<div class="msg incoming">تم استلام طلبك أو استفسارك بنجاح، سيتم الرد عليك قريباً.</div>`;
-                box.scrollTop = box.scrollHeight;
-            }, 1000);
+                let reply = "أهلاً بك. بصفتي مساعدك الطبي في منصة Nurse Libya، أنصحك دائماً بمراجعة الجهات الطبية الرسمية أو نقابة التمريض الليبية للتأكد من الإجراءات واللوائح المعتمدة.";
+                const lower = text.toLowerCase();
+                if(lower.includes('رخصة') || lower.includes('مزاولة')) {
+                    reply = "📜 للحصول على رخصة مزاولة المهنة في ليبيا، يجب تقديم شهادة التخرج المعتمدة ودفتر التكليف إلى وزارة الصحة أو نقابة التمريض الفرعية في مدينتك لإتمام اجراءات الاختبار والاعتماد الرسمي.";
+                } else if(lower.includes('ضغط') || lower.includes('إسعاف')) {
+                    reply = "🩺 في حالات الطوارئ الطبية أو ارتفاع ضغط الدم المفاجئ، يجب إبقاء المريض هادئاً في وضعية مريحة، قياس العلامات الحيوية فوراً، والاتصال بخدمة الإسعاف أو التوجه لأقرب مركز طوارئ طبي في منطقتك.";
+                } else if(lower.includes('إعلان') || lower.includes('نشر')) {
+                    reply = "📢 يمكنك نشر أي خدمة تمريضية، وظيفة، أو طلب أدوية بسهولة عبر الانتقال إلى تبويب (➕ إعلان) في شريط التنقل السفلي، واختيار صورة مباشرة من هاتفك لتظهر للجميع فوراً!";
+                }
+
+                chatMessages.innerHTML += `<div class="message ai">${reply}</div>`;
+                chatMessages.scrollTop = chatMessages.scrollHeight;
+            }, 600);
         }
 
-        function checkEnter(e) { if(e.key === 'Enter') sendPrivateMsg(); }
-
-        let savedName = localStorage.getItem('nurse_profile');
-        let savedAvatar = localStorage.getItem('nurse_avatar');
-        if(savedName) { document.getElementById('profileNameTxt').innerText = savedName; }
-        if(savedAvatar) {
-            document.getElementById('headerAvatar').innerHTML = `<img src="${savedAvatar}" style="width:100%; height:100%; border-radius:50%; object-fit:cover;">`;
-        }
-
-        renderJobs();
+        renderPosts();
     </script>
 </body>
 </html>
