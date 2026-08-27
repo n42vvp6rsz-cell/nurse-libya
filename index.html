@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Nurse Libya</title>
+    <title>Nurse Libya - الوظائف، الدورات والخدمات التمريضية</title>
     <link rel="manifest" href="manifest.json">
     <meta name="theme-color" content="#0b2545">
     <style>
@@ -11,231 +11,274 @@
         body {
             font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
             margin: 0;
-            background-color: #f8fafc;
+            background-color: #f1f5f9;
             color: #1e293b;
             direction: rtl;
-            padding-bottom: 80px;
+            padding-bottom: 85px;
         }
         .header-bg {
             background: linear-gradient(135deg, #0b2545 0%, #134074 100%);
-            padding: 20px 15px;
+            padding: 18px 15px;
             color: white;
             border-bottom-left-radius: 20px;
             border-bottom-right-radius: 20px;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
         }
-        .top-bar {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 15px;
-        }
-        .logo-area { font-size: 20px; font-weight: bold; display: flex; align-items: center; gap: 8px; }
-        .profile-icon {
-            width: 38px; height: 38px; background: rgba(255,255,255,0.15); border-radius: 50%;
-            display: flex; align-items: center; justify-content: center; font-size: 18px; cursor: pointer;
-        }
+        .top-bar { display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; }
+        .logo-area { font-size: 19px; font-weight: bold; display: flex; align-items: center; gap: 8px; }
+        .profile-badge { background: rgba(255,255,255,0.2); padding: 5px 12px; border-radius: 20px; font-size: 12px; font-weight: bold; }
+        
         .search-box {
             background: white; border-radius: 30px; padding: 8px 15px;
-            display: flex; align-items: center; gap: 10px; box-shadow: 0 2px 8px rgba(0,0,0,0.08); margin-bottom: 15px;
+            display: flex; align-items: center; gap: 10px; box-shadow: 0 2px 8px rgba(0,0,0,0.08); margin-bottom: 12px;
         }
         .search-box input { border: none; outline: none; width: 100%; font-size: 14px; background: transparent; }
-        .nav-tabs { display: flex; gap: 8px; overflow-x: auto; padding-bottom: 5px; }
+        
+        .nav-tabs { display: flex; gap: 6px; overflow-x: auto; padding-bottom: 4px; }
         .nav-tabs::-webkit-scrollbar { display: none; }
         .tab-btn {
             background: rgba(255,255,255,0.15); border: none; color: white;
-            padding: 6px 14px; border-radius: 20px; font-size: 13px; white-space: nowrap; cursor: pointer; transition: 0.2s;
+            padding: 6px 12px; border-radius: 20px; font-size: 12px; white-space: nowrap; cursor: pointer; transition: 0.2s;
         }
-        .tab-btn.active, .tab-btn:hover { background: white; color: #0b2545; font-weight: bold; }
+        .tab-btn.active { background: white; color: #0b2545; font-weight: bold; }
         
         .container { padding: 15px; max-width: 600px; margin: auto; }
         .page-section { display: none; }
         .page-section.active { display: block; }
 
-        .welcome-card {
-            background: white; border-radius: 16px; padding: 20px; margin-top: -15px;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.05); display: flex; justify-content: space-between; align-items: center; border: 1px solid #e2e8f0;
-        }
-        .welcome-card h2 { margin: 0 0 5px 0; font-size: 18px; color: #0b2545; }
-        .welcome-card p { margin: 0; font-size: 12px; color: #64748b; line-height: 1.5; }
-        .btn-main {
-            background: #0284c7; color: white; border: none; padding: 8px 16px;
-            border-radius: 10px; font-size: 13px; font-weight: bold; cursor: pointer; margin-top: 10px;
-        }
-        .section-title { font-size: 16px; font-weight: bold; color: #0b2545; margin: 20px 0 10px 0; }
+        .section-title { font-size: 16px; font-weight: bold; color: #0b2545; margin: 18px 0 10px 0; display: flex; justify-content: space-between; align-items: center; }
         
         .services-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
         .service-card {
-            background: white; padding: 15px; border-radius: 14px; box-shadow: 0 2px 8px rgba(0,0,0,0.03);
-            border: 1px solid #e2e8f0; cursor: pointer; transition: 0.2s; text-align: center;
+            background: white; padding: 14px; border-radius: 14px; box-shadow: 0 2px 6px rgba(0,0,0,0.04);
+            border: 1px solid #e2e8f0; cursor: pointer; text-align: center; transition: 0.2s;
         }
         .service-card:active { transform: scale(0.98); }
-        .service-icon { font-size: 28px; margin-bottom: 8px; }
-        .service-card h3 { margin: 0 0 4px 0; font-size: 14px; color: #1e293b; }
+        .service-icon { font-size: 24px; margin-bottom: 6px; }
+        .service-card h3 { margin: 0 0 3px 0; font-size: 13px; color: #1e293b; }
         .service-card p { margin: 0; font-size: 11px; color: #64748b; }
 
-        .job-card {
+        .card-box {
             background: white; padding: 15px; border-radius: 14px; margin-bottom: 12px;
-            border: 1px solid #e2e8f0; box-shadow: 0 2px 8px rgba(0,0,0,0.03);
+            border: 1px solid #e2e8f0; box-shadow: 0 2px 6px rgba(0,0,0,0.04);
         }
-        .job-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px; }
-        .job-title { font-weight: bold; font-size: 15px; color: #0b2545; }
-        .job-badge { background: #dcfce7; color: #166534; font-size: 11px; padding: 3px 8px; border-radius: 6px; font-weight: bold; }
-        .job-info { font-size: 12px; color: #64748b; margin-bottom: 12px; }
-        .btn-job {
-            width: 100%; background: #eff6ff; color: #0284c7; border: 1px solid #bfdbfe;
-            padding: 8px; border-radius: 8px; font-weight: bold; font-size: 13px; cursor: pointer; text-align: center;
+        .card-title { font-weight: bold; font-size: 15px; color: #0b2545; margin-bottom: 4px; }
+        .card-sub { font-size: 12px; color: #64748b; margin-bottom: 10px; display: flex; gap: 10px; align-items: center; }
+        
+        .badge-gov { background: #dbeafe; color: #1e40af; padding: 2px 8px; border-radius: 6px; font-size: 10px; font-weight: bold; }
+        .badge-pvt { background: #dcfce7; color: #166534; padding: 2px 8px; border-radius: 6px; font-size: 10px; font-weight: bold; }
+        
+        .ecg-strip {
+            background: #001e1d; color: #00ffcc; padding: 12px; border-radius: 8px;
+            font-family: monospace; font-size: 13px; text-align: center; margin: 8px 0; border: 1px solid #00ffcc55;
+            letter-spacing: 2px;
         }
         
-        /* نافذة منبثقة للتفاصيل */
+        .btn-action {
+            width: 100%; background: #0284c7; color: white; border: none;
+            padding: 8px; border-radius: 8px; font-weight: bold; font-size: 13px; cursor: pointer; text-align: center;
+        }
+
+        /* نافذة منبثقة تفصيلية */
         .modal {
             display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(0,0,0,0.5); justify-content: center; align-items: center; z-index: 1000; padding: 20px;
+            background: rgba(0,0,0,0.6); justify-content: center; align-items: center; z-index: 1000; padding: 20px;
         }
         .modal-content {
-            background: white; padding: 20px; border-radius: 16px; width: 100%; max-width: 400px; text-align: center;
+            background: white; padding: 20px; border-radius: 16px; width: 100%; max-width: 420px; max-height: 85vh; overflow-y: auto;
         }
-        .modal-content h3 { color: #0b2545; margin-top: 0; }
-        .modal-close {
-            background: #0b2545; color: white; border: none; padding: 8px 20px;
-            border-radius: 8px; margin-top: 15px; cursor: pointer; font-weight: bold;
-        }
+        .modal-header { display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #e2e8f0; padding-bottom: 10px; margin-bottom: 12px; }
+        .close-btn { background: #ef4444; color: white; border: none; width: 28px; height: 28px; border-radius: 50%; font-weight: bold; cursor: pointer; }
     </style>
 </head>
 <body>
 
     <div class="header-bg">
         <div class="top-bar">
-            <div class="logo-area">Nurse Libya 🇱🇾 🩺</div>
-            <div class="profile-icon" onclick="switchTab('profile')">👤</div>
+            <div class="logo-area"> Nurse Libya 🇱🇾 🩺</div>
+            <div class="profile-badge">بوابة الممرض</div>
         </div>
         
         <div class="search-box">
             <span>🔍</span>
-            <input type="text" id="searchInput" placeholder="ابحث عن وظيفة، دورة أو موضوع..." onkeyup="searchApp()">
+            <input type="text" id="searchInput" placeholder="ابحث عن وظيفة، دورة تدريبية، أو مستشفى..." onkeyup="filterContent()">
         </div>
 
         <div class="nav-tabs">
             <button class="tab-btn active" onclick="switchTab('home')">الرئيسية</button>
-            <button class="tab-btn" onclick="switchTab('jobs')">الوظائف</button>
-            <button class="tab-btn" onclick="switchTab('courses')">الدورات</button>
-            <button class="tab-btn" onclick="switchTab('refs')">المراجع</button>
-            <button class="tab-btn" onclick="switchTab('profile')">حسابي</button>
+            <button class="tab-btn" onclick="switchTab('jobs')">💼 الوظائف</button>
+            <button class="tab-btn" onclick="switchTab('courses')">📚 الدورات</button>
+            <button class="tab-btn" onclick="switchTab('ecg')">❤️ ECG</button>
+            <button class="tab-btn" onclick="switchTab('drugs')">💉 الأدوية</button>
+            <button class="tab-btn" onclick="switchTab('hospitals')">🏥 المستشفيات</button>
         </div>
     </div>
 
     <div class="container">
         
-        <!-- صفحة الرئيسية -->
+        <!-- 1. الرئيسية -->
         <div id="home" class="page-section active">
-            <div class="welcome-card">
-                <div>
-                    <h2>كل عالم التمريض في مكان واحد</h2>
-                    <p>وظائف، دورات، مراجع تمريضية ومجتمع مهني للمرضين في ليبيا.</p>
-                    <button class="btn-main" onclick="switchTab('jobs')">استكشف الوظائف</button>
-                </div>
-                <div style="font-size: 40px;">👩‍⚕️</div>
+            <div class="card-box" style="background: linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 100%); border: 1px solid #bae6fd;">
+                <h3 style="margin: 0 0 5px 0; color: #0369a1;">أهلاً بك يا زميل المهنة</h3>
+                <p style="margin: 0; font-size: 12px; color: #0284c7; line-height: 1.5;">المنصة الأولى للممرضين في ليبيا: فرص عمل حقيقية في القطاعين العام والخاص، دورات تدريبية معتمدة، ومراجع طوارئ طبية.</p>
             </div>
 
-            <div class="section-title">الخدمات السريعة</div>
+            <div class="section-title">الأقسام والخدمات السريعة</div>
             <div class="services-grid">
                 <div class="service-card" onclick="switchTab('jobs')">
                     <div class="service-icon">💼</div>
-                    <h3>وظائف التمريض</h3>
-                    <p>فرص عمل وإعلانات جديدة</p>
+                    <h3>فرص العمل</h3>
+                    <p>مستشفيات عامة وخاصة</p>
                 </div>
                 <div class="service-card" onclick="switchTab('courses')">
                     <div class="service-icon">📚</div>
-                    <h3>الدورات</h3>
-                    <p>تعلم وراجع المهارات</p>
+                    <h3>الدورات والتدريب</h3>
+                    <p>ورش عمل ودورات معتمدة</p>
                 </div>
-                <div class="service-card" onclick="openModal('قسم الأدوية', 'قريباً: دليل شامل للأدوية وجرعاتها للمرضين.')">
-                    <div class="service-icon">💊</div>
-                    <h3>الأدوية</h3>
-                    <p>معلومات دوائية</p>
-                </div>
-                <div class="service-card" onclick="openModal('عناية حرجة ECG • CCU • ICU', 'مراجع وتخطيط قلب وعناية مركزة مبسطة.')">
+                <div class="service-card" onclick="switchTab('ecg')">
                     <div class="service-icon">❤️</div>
-                    <h3>ECG • CCU • ICU</h3>
-                    <p>تعليمات العناية الحرجة</p>
+                    <h3>تخطيط القلب ECG</h3>
+                    <p>قراءة الحالات والشرائط</p>
                 </div>
-                <div class="service-card" onclick="openModal('المستشفيات', 'دليل المستشفيات والمصحات في ليبيا.')">
+                <div class="service-card" onclick="switchTab('drugs')">
+                    <div class="service-icon">💉</div>
+                    <h3>أدوية الطوارئ</h3>
+                    <p>الجرعات ومحاذير الاستخدام</p>
+                </div>
+                <div class="service-card" onclick="switchTab('hospitals')">
                     <div class="service-icon">🏥</div>
-                    <h3>المستشفيات</h3>
-                    <p>دليل المؤسسات</p>
+                    <h3>دليل المستشفيات</h3>
+                    <p>أرقام وعناوين الأقسام</p>
                 </div>
-                <div class="service-card" onclick="openModal('الملفات والمحاضرات', 'قريباً: تحميل ملخصات PDF.')">
-                    <div class="service-icon">📄</div>
-                    <h3>الملفات</h3>
-                    <p>محاضرات PDF</p>
+                <div class="service-card" onclick="switchTab('home')" style="background:#f8fafc;">
+                    <div class="service-icon">⭐</div>
+                    <h3>مجتمع الممرضين</h3>
+                    <p>دعم وتبادل خبرات</p>
                 </div>
             </div>
 
-            <div class="section-title">أحدث الوظائف</div>
-            <div class="job-card">
-                <div class="job-header">
-                    <span class="job-title">ممرض / ممرضة - ICU</span>
-                    <span class="job-badge">جديد</span>
+            <div class="section-title">أحدث الإعلانات والوظائف المضافة</div>
+            <div class="card-box">
+                <div class="card-title">ممرض / ممرضة العناية المركزة (ICU)</div>
+                <div class="card-sub">
+                    <span>📍 طرابلس</span>
+                    <span class="badge-pvt">قطاع خاص (مصحة خاصة)</span>
                 </div>
-                <div class="job-info">📍 طرابلس &nbsp;&nbsp;|&nbsp;&nbsp; ⏰ دوام كامل</div>
-                <button class="btn-job" onclick="openModal('وظيفة: ممرض ICU - طرابلس', 'المتطلبات: خبرة سنة، شهادة ترخيص مزاولة المهنة في ليبيا.\nللاتصال أو التقديم: راسل إدارة المستشفى مباشرة.')">عرض التفاصيل</button>
+                <p style="font-size: 12px; color: #475569; margin: 0 0 10px 0;">مطلوب للعمل بنظام الورديات بمصحة كبرى في طرابلس. خبرة لا تقل عن سنة.</p>
+                <button class="btn-action" onclick="openDetails('وظيفة ICU - طرابلس (خاص)', 'المتطلبات:\n- شهادة دبلوم عالي أو بكالوريوس تمريض.\n- رخصة مزاولة المهنة ليبية.\n- القدرة على العمل في الأقسام الحرجة.\n\nطريقة التقديم: أرسل السيرة الذاتية عبر الإيميل أو زر إدارة الموارد البشرية بالمصحة مباشرة.')">عرض تفاصيل التقديم</button>
+            </div>
+
+            <div class="card-box">
+                <div class="card-title">دورة إنعاش قلبي رئوي (BLS / ACLS)</div>
+                <div class="card-sub">
+                    <span>📍 بنغازي</span>
+                    <span class="badge-gov">تدريب معتمد</span>
+                </div>
+                <p style="font-size: 12px; color: #475569; margin: 0 0 10px 0;">مركز بنغازي للتدريب الطبي يعلن عن فتح باب التسجيل لدورة الإنعاش المتقدم.</p>
+                <button class="btn-action" onclick="openDetails('دورة BLS / ACLS - بنغازي', 'التفاصيل:\n- مدة الدورة: 3 أيام عملي ونظري.\n- تشمل حقيبة تدريبية وشهادة معتمدة.\n- المقاعد محدودة، التسجيل مبكر عبر مقر المركز الطبي.')">تفاصيل ورابط التسجيل</button>
             </div>
         </div>
 
-        <!-- صفحة الوظائف -->
+        <!-- 2. قسم الوظائف الحقيقي -->
         <div id="jobs" class="page-section">
-            <div class="section-title">جميع الوظائف المتاحة في ليبيا</div>
-            <div class="job-card">
-                <div class="job-header"><span class="job-title">ممرض / ممرضة - ICU</span><span class="job-badge">جديد</span></div>
-                <div class="job-info">📍 طرابلس | مستشفى خاص</div>
-                <button class="btn-job" onclick="openModal('وظيفة ICU طرابلس', 'تفاصيل الوظيفة الكاملة متاحة للتقديم.')">عرض التفاصيل</button>
+            <div class="section-title">لوحة إعلانات الوظائف التمريضية في ليبيا</div>
+            
+            <div class="card-box">
+                <div class="card-title">ممرض قسم الطوارئ والإسعاف (ER)</div>
+                <div class="card-sub"><span>📍 مصراتة</span> <span class="badge-gov">مستشفى عام</span></div>
+                <p style="font-size: 12px; color: #475569; margin: 0 0 10px 0;">مستشفى مصراتة المركزي يعلن عن حاجته لممرضين طوارئ.</p>
+                <button class="btn-action" onclick="openDetails('وظيفة طوارئ مصراتة المركزي', 'الشروط:\n- اجتياز المقابلة الشخصية.\n- الالتزام بنظام الورديات المتغيرة.\n- تقديم الأوراق للملف الوظيفي بالمستشفى.')">عرض الشروط والتقديم</button>
             </div>
-            <div class="job-card">
-                <div class="job-header"><span class="job-title">ممرض عام</span><span class="job-badge" style="background:#e0f2fe; color:#0369a1;">متاح</span></div>
-                <div class="job-info">📍 بنغازي | مركز طبي</div>
-                <button class="btn-job" onclick="openModal('وظيفة ممرض عام بنغازي', 'مطلوب ممرضين لعمل ورديات صباحية ومسائية.')">عرض التفاصيل</button>
+
+            <div class="card-box">
+                <div class="card-title">مشرف تمريض أقسم الجراحات</div>
+                <div class="card-sub"><span>📍 طرابلس</span> <span class="badge-pvt">مصحة خاصة</span></div>
+                <p style="font-size: 12px; color: #475569; margin: 0 0 10px 0;">مطلوب مشرف تمريض بخسرة لا تقل عن 4 سنوات في إدارة الأقسام الجراحية.</p>
+                <button class="btn-action" onclick="openDetails('مشرف تمريض طرابلس', 'الراتب والمزايا تحدد بعد المقابلة.\nيرجى إرسال السيرة الذاتية عبر إدارة التوظيف.')">عرض الشروط والتقديم</button>
+            </div>
+
+            <div class="card-box">
+                <div class="card-title">ممرض غسيل كلوي (Hemodialysis Nurse)</div>
+                <div class="card-sub"><span>📍 الزاوية</span> <span class="badge-gov">مركز الكلى</span></div>
+                <p style="font-size: 12px; color: #475569; margin: 0 0 10px 0;">مطلوب ممرضين متخصصين في تشغيل ومتابعة أجهزة غسيل الكلى.</p>
+                <button class="btn-action" onclick="openDetails('ممرض غسيل كلوي الزاوية', 'يفضل من لديهم خبرة سابقة في أقسام الكلى الصناعية.')">عرض الشروط والتقديم</button>
             </div>
         </div>
 
-        <!-- صفحة الدورات -->
+        <!-- 3. قسم الدورات والتدريب -->
         <div id="courses" class="page-section">
-            <div class="section-title">دورات وتدريب تمريضي</div>
-            <div class="job-card">
-                <div class="job-header"><span class="job-title">أساسيات تخطيط القلب ECG</span><span class="job-badge">مجاني</span></div>
-                <div class="job-info">📚 دورة تدريبية معتمدة للمرضين</div>
-                <button class="btn-job" onclick="openModal('دورة ECG', 'سيتم إطلاق الدروس قريباً في هذا القسم.')">ابدأ التعلم</button>
+            <div class="section-title">الدورات التدريبية وورش العمل التمريضية</div>
+            
+            <div class="card-box">
+                <div class="card-title">دورة تفسير تخطيط القلب المتقدم (ECG Mastery)</div>
+                <div class="card-sub"><span>📍 عبر الإنترنت / أونلاين</span> <span class="badge-pvt">معتمد</span></div>
+                <p style="font-size: 12px; color: #475569; margin: 0 0 10px 0;">دورة تفاعلية لفهم واكتشاف حالات عدم انتظام ضربات القلب الخطيرة للممرضين.</p>
+                <button class="btn-action" onclick="openDetails('دورة ECG أونلاين', 'تتضمن الدورة اختبارات عملية وحالات سريرية حقيقية.')">تفاصيل والتسجيل</button>
+            </div>
+
+            <div class="card-box">
+                <div class="card-title">ورشة أساسيات إعطاء المحاليل وحساب الجرعات</div>
+                <div class="card-sub"><span>📍 طرابلس</span> <span class="badge-gov">معهد التدريب الصحي</span></div>
+                <p style="font-size: 12px; color: #475569; margin: 0 0 10px 0;">ورشة عمل تدريبية ميدانية للممرضين حديثي التخرج لرفع الكفاءة والمهارة.</p>
+                <button class="btn-action" onclick="openDetails('ورشة الجرعات طرابلس', 'مواعيد الفترات الصباحية والمسائية متاحة.')">تفاصيل والتسجيل</button>
             </div>
         </div>
 
-        <!-- صفحة المراجع -->
-        <div id="refs" class="page-section">
-            <div class="section-title">المراجع والملفات الطبية</div>
-            <div class="job-card">
-                <div class="job-header"><span class="job-title">دليل الطوارئ التمريضية</span><span class="job-badge">PDF</span></div>
-                <div class="job-info">📄 مرجع سريع للحالات الحرجة</div>
-                <button class="btn-job" onclick="openModal('دليل الطوارئ', 'جاري تجهيز التحميل المباشر.')">تحميل الملف</button>
+        <!-- 4. ECG القلب -->
+        <div id="ecg" class="page-section">
+            <div class="section-title">دليل تخطيط القلب السريري (ECG/EKG)</div>
+            <div class="card-box">
+                <div class="card-title">النظم الطبيعي (Normal Sinus Rhythm)</div>
+                <div class="ecg-strip">P-QRS-T منتظم • المعدل 60-100 نبضة/دقيقة</div>
+                <p style="font-size: 12px; color: #475569;">التخطيط الطبيعي للقلب بدون أي اضطرابات كهربائية.</p>
+            </div>
+            <div class="card-box">
+                <div class="card-title" style="color: #dc2626;">الرجفان البطيني (VFib) - طارئ جداً</div>
+                <div class="ecg-strip" style="background:#450a0a; color:#fca5a5;">~/\~/\~/\~/\~ (تموجات عشوائية سريعة)</div>
+                <p style="font-size: 12px; color: #475569;">توقف قلب فعلي، يتطلب صدمة فورية وإنعاش رئوي (CPR).</p>
             </div>
         </div>
 
-        <!-- صفحة حسابي -->
-        <div id="profile" class="page-section">
-            <div class="section-title">حساب المستخدم</div>
-            <div class="job-card" style="text-align: center; padding: 25px;">
-                <div style="font-size: 50px; margin-bottom: 10px;">👤</div>
-                <h3 style="margin: 0; color: #0b2545;">ممرض ليبيا</h3>
-                <p style="color: #64748b; font-size: 13px; margin: 5px 0 15px 0;">حساب مهني معتمد</p>
-                <button class="btn-main" onclick="alert('أنت مسجل الدخول بنجاح كعضو في Nurse Libya')">إدارة الملف الشخصي</button>
+        <!-- 5. الأدوية -->
+        <div id="drugs" class="page-section">
+            <div class="section-title">أدوية الطوارئ والعناية الحرجة</div>
+            <div class="card-box">
+                <div class="card-title">الأدرينالين (Adrenaline / Epinephrine)</div>
+                <div class="card-sub">التصنيف: منشط ومحفز للقلب في حالات السكتة</div>
+                <p style="font-size: 12px; color: #475569;"><b>الجرعة:</b> 1 ملغ وريدياً (IV) كل 3-5 دقائق أثناء الإنعاش القلبي.</p>
+            </div>
+            <div class="card-box">
+                <div class="card-title">الأتروبين (Atropine)</div>
+                <div class="card-sub">التصنيف: علاج بطء القلب الشديد</div>
+                <p style="font-size: 12px; color: #475569;"><b>الجرعة:</b> 1 ملغ وريدياً كل 3-5 دقائق عند الحاجة.</p>
+            </div>
+        </div>
+
+        <!-- 6. المستشفيات -->
+        <div id="hospitals" class="page-section">
+            <div class="section-title">دليل المستشفيات والمراكز الطبية في ليبيا</div>
+            <div class="card-box">
+                <div class="card-title">مستشفى طرابلس المركزي</div>
+                <div class="card-sub">📍 طرابلس • طوارئ، باطنة، جراحة وعناية مركزة</div>
+                <button class="btn-action" onclick="openDetails('مستشفى طرابلس المركزي', 'قسم الطوارئ يعمل على مدار 24 ساعة لاستقبال كافة الحالات.')">معلومات الأقسام</button>
+            </div>
+            <div class="card-box">
+                <div class="card-title">مركز بنغازي الطبي</div>
+                <div class="card-sub">📍 بنغازي • مجمع طبي تعليمي متكامل</div>
+                <button class="btn-action" onclick="openDetails('مركز بنغازي الطبي', 'يضم أقسام متعددة وأحدث العنايات الحرجة في المنطقة الشرقية.')">معلومات الأقسام</button>
             </div>
         </div>
 
     </div>
 
-    <!-- نافذة منبثقة -->
-    <div id="customModal" class="modal">
+    <!-- نافذة منبثقة تفصيلية -->
+    <div id="detailModal" class="modal">
         <div class="modal-content">
-            <h3 id="modalTitle">عنوان</h3>
-            <p id="modalText" style="color: #64748b; font-size: 13px; line-height: 1.6; white-space: pre-line;">النص</p>
-            <button class="modal-close" onclick="closeModal()">إغلاق</button>
+            <div class="modal-header">
+                <h3 id="modalTitle" style="margin:0; font-size:16px; color:#0b2545;">العنوان</h3>
+                <button class="close-btn" onclick="closeModal()">✕</button>
+            </div>
+            <p id="modalBody" style="color: #334155; font-size: 13px; line-height: 1.7; white-space: pre-line; margin: 0;"></p>
         </div>
     </div>
 
@@ -246,21 +289,21 @@
             window.scrollTo(0, 0);
         }
 
-        function openModal(title, text) {
+        function openDetails(title, text) {
             document.getElementById('modalTitle').innerText = title;
-            document.getElementById('modalText').innerText = text;
-            document.getElementById('customModal').style.display = 'flex';
+            document.getElementById('modalBody').innerText = text;
+            document.getElementById('detailModal').style.display = 'flex';
         }
 
         function closeModal() {
-            document.getElementById('customModal').style.display = 'none';
+            document.getElementById('detailModal').style.display = 'none';
         }
 
-        function searchApp() {
-            let input = document.getElementById('searchInput').value.toLowerCase();
-            if(input.length > 0) {
-                switchTab('jobs'); // تحويل تلقائي لقسم الوظائف عند البحث
-            }
+        function filterContent() {
+            let query = document.getElementById('searchInput').value.toLowerCase();
+            if(query.includes('وظيفة') || query.includes('عمل')) { switchTab('jobs'); }
+            else if(query.includes('دورة') || query.includes('تدريب')) { switchTab('courses'); }
+            else if(query.includes('ecg') || query.includes('قلب')) { switchTab('ecg'); }
         }
     </script>
 </body>
