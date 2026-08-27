@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Nurse Libya - المنصة الطبية الليبية</title>
+    <title>Nurse Libya - المنصة الطبية الليبية الموثوقة</title>
     <meta name="theme-color" content="#0f172a">
     <style>
         :root {
@@ -17,31 +17,21 @@
             --border: #334155;
             --success: #22c55e;
             --danger: #ef4444;
+            --warning: #f59e0b;
         }
         * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; -webkit-tap-highlight-color: transparent; }
         body { background-color: var(--bg-color); color: var(--text-main); min-height: 100vh; display: flex; flex-direction: column; }
 
-        /* Auth Screen Styling */
+        /* Auth Screen */
         #auth-screen {
-            position: fixed;
-            top: 0; left: 0; right: 0; bottom: 0;
+            position: fixed; top: 0; left: 0; right: 0; bottom: 0;
             background: linear-gradient(135deg, #0b0f19, #1e293b);
-            z-index: 9999;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            padding: 16px;
-            overflow-y: auto;
+            z-index: 9999; display: flex; justify-content: center; align-items: center; padding: 16px; overflow-y: auto;
         }
         .auth-card {
-            background: rgba(30, 41, 59, 0.7);
-            backdrop-filter: blur(12px);
-            border: 1px solid var(--border);
-            border-radius: 20px;
-            padding: 24px;
-            width: 100%;
-            max-width: 420px;
-            box-shadow: 0 10px 25px rgba(0,0,0,0.5);
+            background: rgba(30, 41, 59, 0.85); backdrop-filter: blur(16px);
+            border: 1px solid var(--border); border-radius: 20px; padding: 24px; width: 100%; max-width: 420px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.6);
         }
         .auth-logo { text-align: center; margin-bottom: 20px; }
         .auth-logo h1 { font-size: 1.6rem; color: #fff; font-weight: 800; }
@@ -54,11 +44,7 @@
 
         header {
             background: linear-gradient(135deg, #1e293b, #0f172a);
-            border-bottom: 1px solid var(--border);
-            padding: 12px 16px;
-            position: sticky;
-            top: 0;
-            z-index: 100;
+            border-bottom: 1px solid var(--border); padding: 12px 16px; position: sticky; top: 0; z-index: 100;
         }
         .header-content { display: flex; justify-content: space-between; align-items: center; max-width: 600px; margin: 0 auto; }
         .logo-area h1 { font-size: 1.15rem; font-weight: 700; color: #fff; display: flex; align-items: center; gap: 4px; }
@@ -88,17 +74,21 @@
         .btn:hover { background: var(--primary-dark); }
         .btn-danger { background: var(--danger); }
         .btn-secondary { background: #334155; color: #fff; }
+        .btn-warning { background: var(--warning); color: #000; }
 
         .quick-filters { display: flex; gap: 6px; overflow-x: auto; padding-bottom: 8px; margin-bottom: 12px; scrollbar-width: none; }
         .quick-filters::-webkit-scrollbar { display: none; }
         .filter-chip { background: #1e293b; border: 1px solid var(--border); color: var(--text-muted); padding: 6px 12px; border-radius: 20px; font-size: 0.8rem; white-space: nowrap; cursor: pointer; transition: 0.2s; }
         .filter-chip.active { background: var(--primary); color: #fff; border-color: var(--accent); font-weight: 600; }
 
+        /* Trust Badge Style */
+        .verified-badge { color: #38bdf8; font-size: 0.85rem; margin-right: 4px; display: inline-flex; align-items: center; }
+
         .post-card { background: var(--card-bg); border: 1px solid var(--border); border-radius: 14px; padding: 14px; margin-bottom: 12px; position: relative; }
         .post-header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 8px; }
         .post-publisher-info { display: flex; align-items: center; gap: 8px; }
-        .post-avatar { width: 40px; height: 40px; border-radius: 50%; object-fit: cover; border: 1.5px solid var(--accent); }
-        .post-meta-text h4 { font-size: 0.95rem; color: #fff; }
+        .post-avatar { width: 42px; height: 42px; border-radius: 50%; object-fit: cover; border: 1.5px solid var(--accent); }
+        .post-meta-text h4 { font-size: 0.95rem; color: #fff; display: flex; align-items: center; }
         .post-meta-text span { font-size: 0.75rem; color: var(--text-muted); display: block; }
         .post-badge { background: rgba(56,189,248,0.15); color: var(--accent); padding: 2px 8px; border-radius: 6px; font-size: 0.75rem; font-weight: 600; }
         .post-title { font-size: 1rem; font-weight: 700; color: #fff; margin-bottom: 6px; }
@@ -109,6 +99,8 @@
         .action-btn { flex: 1; padding: 8px; border-radius: 8px; text-align: center; text-decoration: none; font-size: 0.8rem; font-weight: 600; display: inline-flex; justify-content: center; align-items: center; gap: 5px; border: none; cursor: pointer; }
         .btn-wa { background: #16a34a; color: #fff; }
         .btn-msg { background: #2563eb; color: #fff; }
+        .btn-save { background: #334155; color: #f8fafc; flex: 0.4; }
+        .btn-save.saved { background: var(--warning); color: #000; }
 
         .chat-container { display: flex; flex-direction: column; height: 380px; background: #0b0f19; border: 1px solid var(--border); border-radius: 12px; overflow: hidden; }
         .chat-messages { flex: 1; padding: 12px; overflow-y: auto; display: flex; flex-direction: column; gap: 10px; }
@@ -137,12 +129,12 @@
         <div class="auth-card">
             <div class="auth-logo">
                 <h1>Nurse Libya 🇱🇾</h1>
-                <p>المنصة الطبية المتكاملة للتمريض في ليبيا</p>
+                <p>المنصة الطبية المعتمدة للتمريض والرعاية</p>
             </div>
             
             <div class="auth-tabs">
                 <button class="auth-tab active" id="tab-login-btn" onclick="switchAuthMode('login')">تسجيل الدخول</button>
-                <button class="auth-tab" id="tab-register-btn" onclick="switchAuthMode('register')">حساب جديد</button>
+                <button class="auth-tab" id="tab-register-btn" onclick="switchAuthMode('register')">حساب جديد موثق</button>
             </div>
 
             <!-- LOGIN FORM -->
@@ -155,32 +147,32 @@
                     <label>كلمة المرور</label>
                     <input type="password" id="login-password" required placeholder="••••••••">
                 </div>
-                <button type="submit" class="btn" style="margin-top: 8px;">دخول للمنصة</button>
+                <button type="submit" class="btn" style="margin-top: 8px;">دخول آمن للمنصة</button>
             </form>
 
             <!-- REGISTER FORM -->
             <form id="register-form" style="display: none;" onsubmit="handleRegister(event)">
                 <div class="form-group">
-                    <label>الاسم الكامل أو اسم المؤسسة</label>
-                    <input type="text" id="reg-name" required placeholder="مثال: أحمد التواتي / مصحة الأمهار">
+                    <label>الاسم الكامل أو اسم المؤسسة الطبية</label>
+                    <input type="text" id="reg-name" required placeholder="مثال: د. أحمد / مصحة الأمل">
                 </div>
                 <div class="form-group">
-                    <label>نوع الحساب (الصلاحية)</label>
+                    <label>نوع الصلاحية والصفة الرسمية</label>
                     <select id="reg-role" required>
-                        <option value="ممرض / ممرضة معتمد">🩺 ممرض / ممرضة معتمد</option>
-                        <option value="مصحة أو مستشفى">🏥 مصحة أو مستشفى / عيادة</option>
-                        <option value="مستفيد / مريض">👤 مستفيد (بحث عن رعاية)</option>
+                        <option value="ممرض مرخص رسمي">🩺 ممرض / ممرضة معتمد (رخصة رسمية)</option>
+                        <option value="مصحة أو مستشفى معتمد">🏥 مصحة / مستشفى أو عيادة</option>
+                        <option value="باحث عن رعاية">👤 مستفيد (طلب رعاية منزلية وأدوية)</option>
                     </select>
                 </div>
                 <div class="form-group">
-                    <label>البريد الإلكتروني</label>
+                    <label>البريد الإلكتروني الرسمي</label>
                     <input type="email" id="reg-email" required placeholder="name@example.com">
                 </div>
                 <div class="form-group">
                     <label>كلمة المرور</label>
                     <input type="password" id="reg-password" required placeholder="••••••••">
                 </div>
-                <button type="submit" class="btn" style="margin-top: 8px;">إنشاء الحساب والانطلاق</button>
+                <button type="submit" class="btn" style="margin-top: 8px;">إنشاء حساب موثق والانطلاق</button>
             </form>
         </div>
     </div>
@@ -190,7 +182,7 @@
         <header>
             <div class="header-content">
                 <div class="logo-area">
-                    <h1 id="app-logo-title">Nurse Libya 🇱🇾</h1>
+                    <h1>Nurse Libya 🇱🇾</h1>
                 </div>
                 <button class="profile-btn-top" onclick="switchTab('profile')">
                     <span id="header-user-name">👤 حسابي</span>
@@ -202,7 +194,7 @@
             <!-- TAB 1: HOME -->
             <div id="tab-home" class="tab-content active">
                 <div class="card" style="background: linear-gradient(135deg, #0284c7, #0369a1); border: none; padding: 12px; text-align: center;">
-                    <p style="font-size: 0.95rem; font-weight: 700; color: #fff;">⚡ المنصة الطبية الشاملة للتمريض في ليبيا</p>
+                    <p style="font-size: 0.95rem; font-weight: 700; color: #fff;">🛡️ المنصة الليبية الموثوقة للخدمات والكوادر التمريضية</p>
                 </div>
                 
                 <div class="form-group" style="margin-top: 10px;">
@@ -224,7 +216,7 @@
             <!-- TAB 2: POST AD -->
             <div id="tab-post" class="tab-content">
                 <div class="card">
-                    <h2>➕ إضافة منشور / خدمة جديدة</h2>
+                    <h2>➕ إضافة منشور / خدمة جديدة موثقة</h2>
                     <form id="create-post-form" onsubmit="submitNewPost(event)">
                         <div class="form-group">
                             <label>عنوان المنشور / الخدمة</label>
@@ -241,21 +233,21 @@
                             </select>
                         </div>
                         <div class="form-group">
-                            <label>رقم الهاتف / الواتساب للتواصل</label>
+                            <label>رقم الهاتف / الواتساب للتواصل المباشر</label>
                             <input type="text" id="p-phone" required placeholder="091xxxxxxx">
                         </div>
                         <div class="form-group">
                             <label>تفاصيل المنشور والخدمة</label>
-                            <textarea id="p-desc" rows="3" required placeholder="اكتب تفاصيل الخدمة والمكان..."></textarea>
+                            <textarea id="p-desc" rows="3" required placeholder="اكتب تفاصيل الخدمة، الشروط، والمكان..."></textarea>
                         </div>
                         
                         <div class="form-group">
-                            <label>صورة الإعلان (اختياري)</label>
+                            <label>صورة الإعلان أو الشهادة (اختياري)</label>
                             <div class="file-upload-wrapper">
                                 <input type="file" id="p-file" accept="image/*" onchange="previewImage(event)">
                                 <div class="file-upload-text">
                                     <span>📁</span>
-                                    <span id="upload-label-text">اختر صورة من جهازك</span>
+                                    <span id="upload-label-text">اختر صورة مباشرة من هاتفك</span>
                                 </div>
                             </div>
                             <div id="img-preview-box" style="margin-top: 10px; display: none; text-align: center;">
@@ -265,7 +257,7 @@
                             </div>
                         </div>
 
-                        <button type="submit" class="btn">نشر المنشور الآن</button>
+                        <button type="submit" class="btn">نشر الإعلان رسمياً</button>
                     </form>
                 </div>
             </div>
@@ -274,7 +266,7 @@
             <div id="tab-ai" class="tab-content">
                 <div class="card" style="padding: 10px;">
                     <h2>🤖 مساعد Nurse Libya الذكي</h2>
-                    <p style="font-size: 0.8rem; color: var(--text-muted); margin-bottom: 8px;">اسأل المساعد الطبي عن الإسعافات، شروط التمريض، أو استفسارات المنصة:</p>
+                    <p style="font-size: 0.8rem; color: var(--text-muted); margin-bottom: 8px;">استشر المساعد في شروط مزاولة المهنة والإسعافات:</p>
                     
                     <div class="ai-suggestions">
                         <span class="suggestion-chip" onclick="sendAiPrompt('كيف أتحصل على رخصة مزاولة مهنة في ليبيا؟')">📜 رخصة المزاولة</span>
@@ -284,7 +276,7 @@
 
                     <div class="chat-container">
                         <div class="chat-messages" id="ai-chat-messages">
-                            <div class="message ai">مرحباً بك زميلي العزيز في منصة Nurse Libya 🇱🇾. أنا مساعدك الذكي، كيف يمكنني مساعدتك اليوم؟</div>
+                            <div class="message ai">مرحباً بك زميلي العزيز في منصة Nurse Libya 🇱🇾 الموثوقة. كيف يمكنني مساعدتك اليوم؟</div>
                         </div>
                         <div class="chat-input-area">
                             <input type="text" id="ai-input" placeholder="اكتب سؤالك هنا..." onkeypress="if(event.key==='Enter') sendUserAiMessage()">
@@ -298,22 +290,22 @@
             <div id="tab-messages" class="tab-content">
                 <div class="card">
                     <h2>💬 صندوق المراسلات الفورية</h2>
-                    <p style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 12px;">المراسلات الواردة:</p>
+                    <p style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 12px;">المراسلات النشطة:</p>
                     <div style="background: #0b0f19; padding: 10px; border-radius: 8px; border: 1px solid var(--border);">
-                        <h4 style="font-size: 0.9rem; color: #fff;">د. محمد الهادي</h4>
+                        <h4 style="font-size: 0.9rem; color: #fff;">د. محمد الهادي <span class="verified-badge">✔</span></h4>
                         <p style="font-size: 0.75rem; color: var(--text-muted);">مرحباً، هل الخدمة متوفرة في حي الأندلس؟</p>
                     </div>
                 </div>
             </div>
 
-            <!-- TAB 5: PROFILE & SETTINGS -->
+            <!-- TAB 5: PROFILE & SAVED POSTS -->
             <div id="tab-profile" class="tab-content">
                 <div class="card">
-                    <h2>⚙️ الملف الشخصي والصلاحيات</h2>
+                    <h2>⚙️ الملف الشخصي والصلاحيات الموثقة</h2>
                     <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 14px; background: #0b0f19; padding: 10px; border-radius: 8px;">
                         <div style="width: 50px; height: 50px; border-radius: 50%; background: var(--primary); display: flex; align-items: center; justify-content: center; font-size: 1.3rem;">👤</div>
                         <div>
-                            <h4 id="profile-display-name" style="font-size: 0.95rem; color: #fff;">اسم المستخدم</h4>
+                            <h4 id="profile-display-name" style="font-size: 0.95rem; color: #fff; display: flex; align-items: center;">اسم المستخدم</h4>
                             <p id="profile-display-role" style="font-size: 0.75rem; color: var(--accent);">الصلاحية</p>
                             <p id="profile-display-email" style="font-size: 0.75rem; color: var(--text-muted);">email@domain.com</p>
                         </div>
@@ -323,6 +315,9 @@
 
                     <h3 style="font-size: 0.95rem; color: var(--accent); margin-bottom: 8px;">📊 منشوراتي النشطة</h3>
                     <div id="my-posts-list"></div>
+
+                    <h3 style="font-size: 0.95rem; color: var(--warning); margin-bottom: 8px; margin-top: 16px;">⭐ المنشورات المحفوظة (المفضلة)</h3>
+                    <div id="saved-posts-list"></div>
                 </div>
             </div>
         </main>
@@ -347,33 +342,34 @@
             </button>
             <button class="nav-item" onclick="switchTab('profile')">
                 <span class="icon">⚙️</span>
-                <span>الحساب</span>
+                <span>حسابي</span>
             </button>
         </nav>
     </div>
 
     <script>
-        let currentUser = JSON.parse(localStorage.getItem('nurse_libya_user')) || null;
-        let posts = JSON.parse(localStorage.getItem('nurse_libya_posts_v5')) || [
+        let currentUser = JSON.parse(localStorage.getItem('nurse_libya_user_v6')) || null;
+        let posts = JSON.parse(localStorage.getItem('nurse_libya_posts_v6')) || [
             {
                 id: 101,
-                title: 'ممرض / ممرضة ICU',
+                title: 'ممرض / ممرضة ICU معتمد',
                 specialty: 'عناية مركزة (ICU)',
                 email: 'hospital.amhar@gmail.com',
                 phone: '0911234567',
-                desc: 'مطلوب للعمل بنظام الورديات. يشترط رخصة مزاولة المهنة وخبرة سنة.',
+                desc: 'مطلوب للعمل بنظام الورديات بالمصحة. يشترط رخصة مزاولة المهنة وخبرة سنة.',
                 image: 'https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?w=500',
                 avatar: 'https://images.unsplash.com/photo-1584515979956-d9f6e5d09982?w=100',
                 publisher: 'مصحة الأمهار الطبية',
+                verified: true,
                 date: '2026-08-27 11:30',
-                views: 142
+                views: 150
             }
         ];
+        let savedPostsIds = JSON.parse(localStorage.getItem('nurse_libya_saved_v6')) || [];
 
         let tempImage = '';
         let currentCategoryFilter = 'الكل';
 
-        // Check authentication state on load
         window.addEventListener('DOMContentLoaded', () => {
             if(currentUser) {
                 showAppInterface();
@@ -400,8 +396,8 @@
         function handleLogin(e) {
             e.preventDefault();
             const email = document.getElementById('login-email').value;
-            currentUser = { name: email.split('@')[0], email: email, role: 'ممرض / ممرضة معتمد' };
-            localStorage.setItem('nurse_libya_user', JSON.stringify(currentUser));
+            currentUser = { name: email.split('@')[0], email: email, role: 'ممرض مرخص رسمي', verified: true };
+            localStorage.setItem('nurse_libya_user_v6', JSON.stringify(currentUser));
             showAppInterface();
         }
 
@@ -411,14 +407,14 @@
             const email = document.getElementById('reg-email').value;
             const role = document.getElementById('reg-role').value;
             
-            currentUser = { name: name, email: email, role: role };
-            localStorage.setItem('nurse_libya_user', JSON.stringify(currentUser));
+            currentUser = { name: name, email: email, role: role, verified: true };
+            localStorage.setItem('nurse_libya_user_v6', JSON.stringify(currentUser));
             showAppInterface();
         }
 
         function handleLogout() {
             if(confirm('هل تريد تسجيل الخروج؟')) {
-                localStorage.removeItem('nurse_libya_user');
+                localStorage.removeItem('nurse_libya_user_v6');
                 currentUser = null;
                 document.getElementById('auth-screen').style.display = 'flex';
                 document.getElementById('app-container').style.display = 'none';
@@ -429,7 +425,7 @@
             document.getElementById('auth-screen').style.display = 'none';
             document.getElementById('app-container').style.display = 'flex';
             document.getElementById('header-user-name').innerText = currentUser.name;
-            document.getElementById('profile-display-name').innerText = currentUser.name;
+            document.getElementById('profile-display-name').innerHTML = currentUser.name + ' <span class="verified-badge">✔ موثق</span>';
             document.getElementById('profile-display-role').innerText = currentUser.role;
             document.getElementById('profile-display-email').innerText = currentUser.email;
             renderPosts();
@@ -447,7 +443,7 @@
             if(tabId === 'profile') document.querySelector('.bottom-nav .nav-item:nth-child(5)').classList.add('active');
             
             if(tabId === 'home') renderPosts();
-            if(tabId === 'profile') renderMyPosts();
+            if(tabId === 'profile') { renderMyPosts(); renderSavedPosts(); }
         }
 
         function filterByCategory(cat, btnElement) {
@@ -465,7 +461,7 @@
                     tempImage = e.target.result;
                     document.getElementById('preview-tag').src = tempImage;
                     document.getElementById('img-preview-box').style.display = 'block';
-                    document.getElementById('upload-label-text').innerText = "✅ تم اختيار الصورة بنجاح";
+                    document.getElementById('upload-label-text').innerText = "✅ تم رفع الصورة بنجاح";
                 }
                 reader.readAsDataURL(file);
             }
@@ -475,7 +471,7 @@
             tempImage = '';
             document.getElementById('p-file').value = '';
             document.getElementById('img-preview-box').style.display = 'none';
-            document.getElementById('upload-label-text').innerText = "اختر صورة من جهازك";
+            document.getElementById('upload-label-text').innerText = "اختر صورة مباشرة من هاتفك";
         }
 
         function submitNewPost(event) {
@@ -493,13 +489,14 @@
                 image: tempImage,
                 avatar: 'https://images.unsplash.com/photo-1584515979956-d9f6e5d09982?w=100',
                 publisher: currentUser.name,
+                verified: true,
                 date: dateStr,
                 views: 1
             };
 
             posts.unshift(newPost);
-            localStorage.setItem('nurse_libya_posts_v5', JSON.stringify(posts));
-            alert('تم نشر الإعلان بنجاح!');
+            localStorage.setItem('nurse_libya_posts_v6', JSON.stringify(posts));
+            alert('تم نشر الإعلان بنجاح في المنصة!');
             document.getElementById('create-post-form').reset();
             removePreviewImage();
             switchTab('home');
@@ -509,8 +506,20 @@
             const post = posts.find(p => p.id === id);
             if(post) {
                 post.views += 1;
-                localStorage.setItem('nurse_libya_posts_v5', JSON.stringify(posts));
+                localStorage.setItem('nurse_libya_posts_v6', JSON.stringify(posts));
             }
+        }
+
+        function toggleSavePost(id, event) {
+            event.stopPropagation();
+            const index = savedPostsIds.indexOf(id);
+            if(index > -1) {
+                savedPostsIds.splice(index, 1);
+            } else {
+                savedPostsIds.push(id);
+            }
+            localStorage.setItem('nurse_libya_saved_v6', JSON.stringify(savedPostsIds));
+            renderPosts();
         }
 
         function renderPosts() {
@@ -528,33 +537,37 @@
                 return;
             }
 
-            container.innerHTML = filtered.map(post => `
-                <div class="post-card" onclick="incrementView(${post.id})">
-                    <div class="post-header">
-                        <div class="post-publisher-info">
-                            <img src="${post.avatar}" class="post-avatar">
-                            <div class="post-meta-text">
-                                <h4>${post.publisher}</h4>
-                                <span>🕒 ${post.date}</span>
+            container.innerHTML = filtered.map(post => {
+                const isSaved = savedPostsIds.includes(post.id);
+                return `
+                    <div class="post-card" onclick="incrementView(${post.id})">
+                        <div class="post-header">
+                            <div class="post-publisher-info">
+                                <img src="${post.avatar}" class="post-avatar">
+                                <div class="post-meta-text">
+                                    <h4>${post.publisher} ${post.verified ? '<span class="verified-badge">✔</span>' : ''}</h4>
+                                    <span>🕒 ${post.date}</span>
+                                </div>
                             </div>
+                            <span class="post-badge">${post.specialty}</span>
                         </div>
-                        <span class="post-badge">${post.specialty}</span>
-                    </div>
-                    <div class="post-title">${post.title}</div>
-                    <div class="post-desc">${post.desc}</div>
-                    ${post.image ? `<img src="${post.image}" class="post-img">` : ''}
-                    
-                    <div class="post-actions">
-                        <a href="https://wa.me/218${post.phone.replace(/^0/, '')}?text=مرحباً، اطلعت على منشورك (${post.title})" target="_blank" class="action-btn btn-wa">💬 واتساب</a>
-                        <a href="mailto:${post.email}?subject=استفسار" class="action-btn btn-msg">✉️ إيميل</a>
-                    </div>
+                        <div class="post-title">${post.title}</div>
+                        <div class="post-desc">${post.desc}</div>
+                        ${post.image ? `<img src="${post.image}" class="post-img">` : ''}
+                        
+                        <div class="post-actions">
+                            <a href="https://wa.me/218${post.phone.replace(/^0/, '')}?text=مرحباً، اطلعت على منشورك (${post.title})" target="_blank" class="action-btn btn-wa">💬 واتساب</a>
+                            <a href="mailto:${post.email}?subject=استفسار طبي" class="action-btn btn-msg">✉️ إيميل</a>
+                            <button class="action-btn btn-save ${isSaved ? 'saved' : ''}" onclick="toggleSavePost(${post.id}, event)">${isSaved ? '⭐ محفوظة' : '☆ حفظ'}</button>
+                        </div>
 
-                    <div class="post-footer-stats">
-                        <span>👁️ المشاهدات: ${post.views}</span>
-                        <span>هاتف: ${post.phone}</span>
+                        <div class="post-footer-stats">
+                            <span>👁️ المشاهدات: ${post.views}</span>
+                            <span>هاتف: ${post.phone}</span>
+                        </div>
                     </div>
-                </div>
-            `).join('');
+                `;
+            }).join('');
         }
 
         function renderMyPosts() {
@@ -575,11 +588,30 @@
             `).join('');
         }
 
+        function renderSavedPosts() {
+            const container = document.getElementById('saved-posts-list');
+            const savedPosts = posts.filter(p => savedPostsIds.includes(p.id));
+            if(savedPosts.length === 0) {
+                container.innerHTML = '<p style="color: var(--text-muted); font-size: 0.85rem;">لم تقم بحفظ أي منشورات بعد.</p>';
+                return;
+            }
+            container.innerHTML = savedPosts.map(p => `
+                <div class="my-post-item">
+                    <div>
+                        <h4 style="font-size: 0.9rem; color: #fff;">${p.title}</h4>
+                        <span style="font-size: 0.75rem; color: var(--text-muted);">الناشر: ${p.publisher}</span>
+                    </div>
+                    <button class="btn btn-warning" style="width: auto; padding: 6px 12px; font-size: 0.75rem;" onclick="toggleSavePost(${p.id}, event); renderSavedPosts();">إزالة</button>
+                </div>
+            `).join('');
+        }
+
         function deletePost(id) {
-            if(confirm('هل أنت متأكد من الحذف؟')) {
+            if(confirm('هل أنت متأكد من حذف المنشور نهائياً؟')) {
                 posts = posts.filter(p => p.id !== id);
-                localStorage.setItem('nurse_libya_posts_v5', JSON.stringify(posts));
+                localStorage.setItem('nurse_libya_posts_v6', JSON.stringify(posts));
                 renderMyPosts();
+                renderPosts();
             }
         }
 
