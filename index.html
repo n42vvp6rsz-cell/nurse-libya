@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Nurse Libya - المنصة الرسمية للتمريض</title>
+    <title>Nurse Libya - المنصة الشاملة للتمريض</title>
     <link rel="manifest" href="manifest.json">
     <meta name="theme-color" content="#0f172a">
     <style>
@@ -19,7 +19,7 @@
             box-shadow: 0 10px 25px -5px rgba(15, 23, 42, 0.3); position: sticky; top: 0; z-index: 100;
         }
         .header-top { display: flex; justify-content: space-between; align-items: center; margin-bottom: 14px; }
-        .logo-box { font-size: 19px; font-weight: 800; display: flex; align-items: center; gap: 8px; }
+        .logo-box { font-size: 18px; font-weight: 800; display: flex; align-items: center; gap: 8px; }
         
         .profile-chip {
             background: rgba(255, 255, 255, 0.12); backdrop-filter: blur(10px);
@@ -51,6 +51,7 @@
         
         .badge-gov { background: #eff6ff; color: #1d4ed8; padding: 3px 10px; border-radius: 8px; font-size: 11px; font-weight: 700; }
         .badge-pvt { background: #f0fdf4; color: #15803d; padding: 3px 10px; border-radius: 8px; font-size: 11px; font-weight: 700; }
+        .badge-edu { background: #fdf4ff; color: #86198f; padding: 3px 10px; border-radius: 8px; font-size: 11px; font-weight: 700; }
 
         .btn-lux {
             width: 100%; background: linear-gradient(135deg, #0284c7 0%, #0369a1 100%);
@@ -59,20 +60,20 @@
         }
         .btn-success { background: linear-gradient(135deg, #16a34a 0%, #15803d 100%); }
 
-        /* شريط التنقل السفلي */
+        /* شريط التنقل السفلي الاحترافي */
         .bottom-nav {
             position: fixed; bottom: 0; left: 0; width: 100%; background: rgba(255, 255, 255, 0.95);
             backdrop-filter: blur(12px); border-top: 1px solid #e2e8f0; display: flex; justify-content: space-around;
-            padding: 10px 2px 16px 2px; z-index: 100; box-shadow: 0 -10px 25px rgba(0,0,0,0.05);
+            padding: 8px 2px 14px 2px; z-index: 100; box-shadow: 0 -10px 25px rgba(0,0,0,0.05);
         }
         .nav-item {
-            background: transparent; border: none; color: #64748b; font-size: 10px; font-weight: 600;
-            display: flex; flex-direction: column; align-items: center; gap: 3px; cursor: pointer;
+            background: transparent; border: none; color: #64748b; font-size: 9px; font-weight: 600;
+            display: flex; flex-direction: column; align-items: center; gap: 2px; cursor: pointer;
         }
-        .nav-item span.icon { font-size: 19px; }
+        .nav-item span.icon { font-size: 18px; }
         .nav-item.active { color: #0284c7; }
 
-        /* نظام الدردشة والمراسلة الخاصة */
+        /* نظام الدردشة الخاصة */
         .chat-box { background: #fff; border-radius: 16px; border: 1px solid #e2e8f0; height: 350px; display: flex; flex-direction: column; overflow: hidden; margin-bottom: 12px; }
         .chat-messages { flex: 1; padding: 12px; overflow-y: auto; background: #f8fafc; display: flex; flex-direction: column; gap: 8px; }
         .msg { padding: 10px 14px; border-radius: 14px; max-width: 80%; font-size: 13px; line-height: 1.4; }
@@ -93,9 +94,6 @@
         .form-group { margin-bottom: 14px; }
         .form-group label { display: block; font-size: 12px; font-weight: 700; margin-bottom: 6px; color: #334155; }
         .form-ctrl { width: 100%; padding: 11px; border: 1.5px solid #cbd5e1; border-radius: 12px; font-size: 13px; background: #f8fafc; }
-
-        .store-badges { display: flex; gap: 10px; margin-top: 15px; }
-        .store-btn { flex: 1; background: #0f172a; color: white; padding: 12px; border-radius: 14px; text-align: center; font-weight: bold; font-size: 12px; cursor: pointer; border: none; }
     </style>
 </head>
 <body>
@@ -110,30 +108,89 @@
         </div>
         <div class="search-bar">
             <span>🔍</span>
-            <input type="text" placeholder="ابحث عن وظيفة، مستشفى، أو دواء طوارئ..." onkeyup="filterApp(this.value)">
+            <input type="text" id="searchInput" placeholder="ابحث عن وظيفة، دورة، دواء ICU، أو مستشفى..." onkeyup="filterApp()">
         </div>
     </div>
 
     <div class="container">
         
-        <!-- 1. الرئيسية -->
+        <!-- 1. الرئيسية والوظائف -->
         <div id="home" class="page-sec active">
-            <div class="sec-header"><span>أحدث الفرص والوظائف</span></div>
+            <div class="sec-header"><span>أحدث الوظائف والدورات المعتمدة</span></div>
             <div id="jobsContainer"></div>
         </div>
 
-        <!-- 2. الوظائف -->
-        <div id="jobs" class="page-sec">
-            <div class="sec-header"><span>لوحة الوظائف والتدريب الشاملة</span></div>
-            <div id="fullJobsContainer"></div>
+        <!-- 2. الدورات التدريبية الطبية -->
+        <div id="courses" class="page-sec">
+            <div class="sec-header"><span>الدورات التدريبية المعتمدة (BLS, ACLS, ICU)</span></div>
+            <div class="luxury-card">
+                <div class="card-title">دورة إنعاش القلب الأساسي والمتقدم (BLS / ACLS)</div>
+                <div class="card-details"><span>📍 طرابلس • مركز الطوارئ</span> <span class="badge-edu">دورة معتمدة</span></div>
+                <p style="font-size: 13px; color: #64748b; margin-bottom: 12px;">دورة تدريبية عملية للممرضين للتعامل مع السكتات القلبية وإدارة الصدمات الكهربائية.</p>
+                <button class="btn-lux" onclick="showDetails('مركز طوارئ طرابلس', 'دورة ACLS', '0911122334', 'تشمل شهادة دولية معتمدة، التدريب العملي على الدمى الم, ورش عمل متقدمة للعناية الحرجة.')">التفاصيل ورقم التسجيل</button>
+            </div>
+            <div class="luxury-card">
+                <div class="card-title">دورة أساسيات العناية المركزة (ICU Nursing)</div>
+                <div class="card-details"><span>📍 بنغازي • مركز بنغازي الطبي</span> <span class="badge-edu">تدريب عملي</span></div>
+                <p style="font-size: 13px; color: #64748b; margin-bottom: 12px;">تعلم قراءة أجهزة التنفس الصناعي، قراءة المونيتور، وأدوية العناية الحرجة الفعالة.</p>
+                <button class="btn-lux" onclick="showDetails('مركز بنغازي الطبي', 'تخصص ICU', '0922233445', 'برنامج مكثف لمدة أسبوعين للممرضين الجدد في أقسام العناية الفائقة والعناية القلبية CCU.')">التفاصيل ورقم التسجيل</button>
+            </div>
         </div>
 
-        <!-- 3. المراسلة والدردشة الخاصة -->
+        <!-- 3. مراجع تعليمية ICU & CCU -->
+        <div id="edu" class="page-sec">
+            <div class="sec-header"><span>المراجع التعليمية السريرية (ICU & CCU)</span></div>
+            <div class="luxury-card">
+                <div class="card-title">❤️ قراءة تخطيط القلب المتقدم (ECG / EKG)</div>
+                <p style="font-size: 13px; color: #64748b; line-height: 1.6;">
+                    - <b>Normal Sinus Rhythm:</b> المعدل الطبيعي 60-100.<br>
+                    - <b>Ventricular Fibrillation (VFib):</b> رجفان بطيني خطير يستدعي صدمة فورية (Defibrillation).<br>
+                    - <b>Asystole:</b> خط توقف قلب مستقيم، يمنع الصدم ويُعالج بالأدرينالين والـ CPR.
+                </p>
+            </div>
+            <div class="luxury-card">
+                <div class="card-title">🫁 إعداد وضبط أجهزة التنفس الصناعي (Mechanical Ventilation)</div>
+                <p style="font-size: 13px; color: #64748b; line-height: 1.6;">
+                    - مراقبة معدل الأكسجين ($SpO_2$) فوق 92%.<br>
+                    - مراقبة ضغط مجرى الهواء وضغوطات الفطام (Weaning) للمريض العناية المركزة.
+                </p>
+            </div>
+        </div>
+
+        <!-- 4. أدوية الطوارئ والعناية الحرجة -->
+        <div id="drugs" class="page-sec">
+            <div class="sec-header"><span>دليل أدوية العناية والطوارئ</span></div>
+            <div class="luxury-card">
+                <div class="card-title">أدرينالين (Epinephrine / Adrenaline)</div>
+                <p style="font-size: 13px; color: #64748b;"><b>الاستخدام:</b> السكتة القلبية والإنعاش القلبي الرئوي (CPR).<br><b>الجرعة:</b> 1 ملغ وريدياً كل 3-5 دقائق.</p>
+            </div>
+            <div class="luxury-card">
+                <div class="card-title">أتروبين (Atropine)</div>
+                <p style="font-size: 13px; color: #64748b;"><b>الاستخدام:</b> علاج بطء القلب الشديد (Severe Bradycardia).<br><b>الجرعة:</b> 1 ملغ وريدياً كل 3 دقائق (بحد أقصى 3 ملغ).</p>
+            </div>
+        </div>
+
+        <!-- 5. دليل المستشفيات والمراكز -->
+        <div id="hospitals" class="page-sec">
+            <div class="sec-header"><span>دليل المستشفيات والمراكز الصحية</span></div>
+            <div class="luxury-card">
+                <div class="card-title">مستشفى طرابلس المركزي</div>
+                <div class="card-details"><span>📍 طرابلس</span> <span class="badge-gov">حكومي - طوارئ وعناية</span></div>
+                <p style="font-size: 12px; color: #64748b;">يضم أقسام متقدمة للحروق، الطوارئ العامة، والعناية المركزة الطبية والجراحية.</p>
+            </div>
+            <div class="luxury-card">
+                <div class="card-title">مركز بنغازي الطبي</div>
+                <div class="card-details"><span>📍 بنغازي</span> <span class="badge-gov">حكومي - مرجعي</span></div>
+                <p style="font-size: 12px; color: #64748b;">أكبر مركز طبي خدمي وتعليمي يضم كافة تخصصات العناية الفائقة وقلب الأطفال والكبار.</p>
+            </div>
+        </div>
+
+        <!-- 6. المراسلة والدردشة الخاصة -->
         <div id="chat" class="page-sec">
             <div class="sec-header"><span>المراسلة الخاصة والدردشة الطبية المباشرة</span></div>
             <div class="chat-box">
                 <div class="chat-messages" id="chatMsgs">
-                    <div class="msg incoming">أهلاً بك في نظام المراسلة الخاصة بـ Nurse Libya. يمكنك التواصل مباشرة مع الإدارات أو الزملاء هنا.</div>
+                    <div class="msg incoming">أهلاً بك في نظام المراسلة الخاصة. تواصل مباشرة مع الزملاء أو الإدارات.</div>
                 </div>
                 <div class="chat-input-area">
                     <input type="text" id="chatInput" placeholder="اكتب رسالتك الخاصة هنا..." onkeypress="checkEnter(event)">
@@ -142,73 +199,58 @@
             </div>
         </div>
 
-        <!-- 4. نشر إعلان -->
+        <!-- 7. نشر إعلان وظيفي أو دورة -->
         <div id="addJob" class="page-sec">
-            <div class="sec-header"><span>نشر فرصة عمل أو دورة رسمية</span></div>
+            <div class="sec-header"><span>نشر فرصة عمل أو دورة تدريبية</span></div>
             <div class="luxury-card">
                 <form onsubmit="handlePublish(event)">
                     <div class="form-group">
-                        <label>نوع جهة العمل:</label>
+                        <label>نوع الإعلان:</label>
                         <select id="pubSector" class="form-ctrl">
-                            <option value="gov">مستشفى أو مركز حكومي</option>
-                            <option value="pvt">مصحة أو مركز خاص</option>
+                            <option value="gov">وظيفة في مستشفى حكومي</option>
+                            <option value="pvt">وظيفة في مصحة خاصة</option>
+                            <option value="edu">دورة تدريبية أو ورشة عمل</option>
                         </select>
                     </div>
                     <div class="form-group">
-                        <label>اسم الجهة المعلنة:</label>
-                        <input type="text" id="pubEntity" class="form-ctrl" placeholder="مثال: مستشفى طرابلس المركزي" required>
+                        <label>اسم الجهة المنظمة أو المستشفى:</label>
+                        <input type="text" id="pubEntity" class="form-ctrl" placeholder="مثال: مركز طرابلس الطبي" required>
                     </div>
                     <div class="form-group">
-                        <label>المسمى الوظيفي:</label>
-                        <input type="text" id="pubTitle" class="form-ctrl" placeholder="مثال: ممرض ICU أو طوارئ" required>
+                        <label>عنوان الإعلان (المسمى أو الدورة):</label>
+                        <input type="text" id="pubTitle" class="form-ctrl" placeholder="مثال: دورة BLS المعتمدة أو ممرض ICU" required>
                     </div>
                     <div class="form-group">
-                        <label>المدينة / المنطقة:</label>
-                        <input type="text" id="pubCity" class="form-ctrl" placeholder="مثال: طرابلس، بنغازي، مصراتة" required>
+                        <label>المدينة:</label>
+                        <input type="text" id="pubCity" class="form-ctrl" placeholder="طرابلس، بنغازي، مصراتة..." required>
                     </div>
                     <div class="form-group">
-                        <label>رقم هاتف المسؤول للتواصل المباشر:</label>
+                        <label>رقم هاتف المسؤول للتواصل:</label>
                         <input type="tel" id="pubPhone" class="form-ctrl" placeholder="091XXXXXXX" required>
                     </div>
                     <div class="form-group">
-                        <label>الشروط والتفاصيل:</label>
-                        <textarea id="pubDesc" class="form-ctrl" rows="3" placeholder="الخبرة المطلوبة ومواعيد الورديات..." required></textarea>
+                        <label>التفاصيل والشروط:</label>
+                        <textarea id="pubDesc" class="form-ctrl" rows="3" placeholder="اكتب الشروط أو تفاصيل التسجيل..." required></textarea>
                     </div>
                     <button type="submit" class="btn-lux btn-success">نشر الإعلان فوراً للجميع</button>
                 </form>
             </div>
         </div>
 
-        <!-- 5. التحميل والمتاجر (متجر بلاي وابل ستور) -->
-        <div id="stores" class="page-sec">
-            <div class="sec-header"><span>تحميل التطبيق على المتاجر الرسمية</span></div>
-            <div class="luxury-card" style="text-align: center; padding: 25px;">
-                <h3 style="color: #0f172a; margin-top: 0;">تطبيق Nurse Libya للتمريض</h3>
-                <p style="font-size: 13px; color: #64748b; line-height: 1.6;">تم تجهيز التطبيق ليكون متاحاً قريباً على متاجر الهواتف الذكية الرسمية لخدمة جميع الكواّدر الطبية في ليبيا.</p>
-                
-                <div class="store-badges">
-                    <button class="store-btn" onclick="alert('جاري رفع التطبيق على Google Play، يمكنك تثبيته حالياً مباشرة من زر الشاشة الرئيسية للمتصفح!')">
-                        🟢 Google Play <br><span style="font-size: 10px; font-weight: normal; color: #94a3b8;">قريباً / متاح ويب</span>
-                    </button>
-                    <button class="store-btn" style="background: #0284c7;" onclick="alert('جاري توثيق التطبيق على Apple App Store!')">
-                        🍏 App Store <br><span style="font-size: 10px; font-weight: normal; color: #bae6fd;">قريباً للأيفون</span>
-                    </button>
-                </div>
-            </div>
-        </div>
-
     </div>
 
-    <!-- شريط التنقل السفلي الفخم -->
+    <!-- شريط التنقل السفلي الاحترافي -->
     <div class="bottom-nav">
         <button class="nav-item active" onclick="switchTab('home', this)"><span class="icon">🏠</span>الرئيسية</button>
-        <button class="nav-item" onclick="switchTab('jobs', this)"><span class="icon">💼</span>الوظائف</button>
+        <button class="nav-item" onclick="switchTab('courses', this)"><span class="icon">🎓</span>الدورات</button>
+        <button class="nav-item" onclick="switchTab('edu', this)"><span class="icon">📖</span>ICU/CCU</button>
+        <button class="nav-item" onclick="switchTab('drugs', this)"><span class="icon">💉</span>الأدوية</button>
+        <button class="nav-item" onclick="switchTab('hospitals', this)"><span class="icon">🏥</span>المستشفيات</button>
         <button class="nav-item" onclick="switchTab('chat', this)"><span class="icon">💬</span>مراسلة</button>
         <button class="nav-item" onclick="switchTab('addJob', this)"><span class="icon">➕</span>إعلان</button>
-        <button class="nav-item" onclick="switchTab('stores', this)"><span class="icon">📥</span>المتاجر</button>
     </div>
 
-    <!-- نافذة تسجيل الحساب المهني والصورة -->
+    <!-- نافذة تسجيل الحساب المهني -->
     <div id="authModal" class="modal">
         <div class="modal-content">
             <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px;">
@@ -217,8 +259,8 @@
             </div>
             <form onsubmit="saveProfile(event)">
                 <div class="form-group">
-                    <label>رابط صورة البروفايل (أو اختر رابط صورة حقيقي):</label>
-                    <input type="url" id="profImg" class="form-ctrl" placeholder="https://example.com/image.jpg أو اتركه فارغاً">
+                    <label>رابط صورة البروفايل (اختياري):</label>
+                    <input type="url" id="profImg" class="form-ctrl" placeholder="https://...">
                 </div>
                 <div class="form-group">
                     <label>الاسم الكامل:</label>
@@ -226,11 +268,11 @@
                 </div>
                 <div class="form-group">
                     <label>المؤهل العلمي / التخصص:</label>
-                    <input type="text" id="profDegree" class="form-ctrl" placeholder="بكالوريوس تمريض / إحصاء طبي" required>
+                    <input type="text" id="profDegree" class="form-ctrl" placeholder="بكالوريوس تمريض - عناية حرجة" required>
                 </div>
                 <div class="form-group">
                     <label>مكان العمل الحالي:</label>
-                    <input type="text" id="profWork" class="form-ctrl" placeholder="اسم المستشفى أو المصحة" required>
+                    <input type="text" id="profWork" class="form-ctrl" placeholder="المستشفى أو المصحة" required>
                 </div>
                 <div class="form-group">
                     <label>رقم الهاتف الشخصي:</label>
@@ -241,11 +283,11 @@
         </div>
     </div>
 
-    <!-- نافذة تفاصيل الوظيفة -->
+    <!-- نافذة التفاصيل ورقم الهاتف -->
     <div id="detModal" class="modal">
         <div class="modal-content">
             <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px;">
-                <h3 id="detTitle" style="margin:0; font-size:17px; color:#0f172a;">تفاصيل الوظيفة</h3>
+                <h3 id="detTitle" style="margin:0; font-size:17px; color:#0f172a;">التفاصيل الكاملة</h3>
                 <button onclick="closeModal('detModal')" style="background:#f1f5f9; border:none; width:30px; height:30px; border-radius:50%; font-weight:bold; cursor:pointer;">✕</button>
             </div>
             <p id="detDesc" style="color: #475569; font-size: 13px; line-height: 1.7; white-space: pre-line; margin: 0 0 14px 0;"></p>
@@ -256,7 +298,8 @@
     <script>
         let jobs = JSON.parse(localStorage.getItem('nurse_libya_jobs')) || [
             { id: 1, sector: 'pvt', entity: 'مصحة الأمهار الطبية', title: 'ممرض / ممرضة ICU', city: 'طرابلس', phone: '0912345678', desc: 'مطلوب للعمل بنظام الورديات. يشترط رخصة مزاولة المهنة وخبرة سنة على الأقل.' },
-            { id: 2, sector: 'gov', entity: 'مركز بنغازي الطبي', title: 'ممرض طوارئ إسعاف', city: 'بنغازي', phone: '0923456789', desc: 'إعلان رسمي صادر عن إدارة التمريض لاستقبال الكوادر المؤهلة.' }
+            { id: 2, sector: 'gov', entity: 'مركز بنغازي الطبي', title: 'ممرض طوارئ إسعاف', city: 'بنغازي', phone: '0923456789', desc: 'إعلان رسمي صادر عن إدارة التمريض لاستقبال الكوادر المؤهلة.' },
+            { id: 3, sector: 'edu', entity: 'الأكاديمية الطبية', title: 'دورة تخطيط القلب المتقدم ECG', city: 'مصراتة', phone: '0941122334', desc: 'دورة معتمدة تشمل التطبيق العملي على حالات الجلطات واضطرابات النظم القلبي.' }
         ];
 
         function switchTab(tabId, btn) {
@@ -267,7 +310,7 @@
                 btn.classList.add('active');
             }
             window.scrollTo(0, 0);
-            renderJobs();
+            if(tabId === 'home') renderJobs();
         }
 
         function openModal(id) { document.getElementById(id).style.display = 'flex'; }
@@ -283,10 +326,10 @@
             
             document.getElementById('profileNameTxt').innerText = name;
             if(img) {
-                document.getElementById('headerAvatar').innerHTML = `<img src="${img}" style="width:100%; height:100%; border-radius:50%; object-fit:cover;">`;
+                document.getElementById('headerAvatar').innerHTML = `<img src="${img}" style="width:100%; height:100%; border-radius:50%; object-ref:cover;">`;
             }
             closeModal('authModal');
-            alert('تم حفظ صورتك وملفك المهني بنجاح!');
+            alert('تم حفظ ملفك المهني بنجاح!');
         }
 
         function handlePublish(e) {
@@ -302,27 +345,24 @@
             };
             jobs.unshift(newJ);
             localStorage.setItem('nurse_libya_jobs', JSON.stringify(jobs));
-            alert('تم نشر الإعلان بنجاح للجميع!');
+            alert('تم نشر الإعلان والدورة بنجاح للجميع!');
             document.querySelector('form').reset();
-            switchTab('jobs', document.querySelectorAll('.nav-item')[1]);
+            switchTab('home', document.querySelectorAll('.nav-item')[0]);
         }
 
         function renderJobs() {
             let html = '';
             jobs.forEach(j => {
-                let badge = j.sector === 'gov' ? '<span class="badge-gov">مستشفى حكومي</span>' : '<span class="badge-pvt">مصحة خاصة</span>';
+                let badge = j.sector === 'gov' ? '<span class="badge-gov">مستشفى حكومي</span>' : (j.sector === 'pvt' ? '<span class="badge-pvt">مصحة خاصة</span>' : '<span class="badge-edu">دورة تدريبية</span>');
                 html += `
                 <div class="luxury-card">
                     <div class="card-title">${j.title}</div>
                     <div class="card-details"><span>📍 ${j.city} • ${j.entity}</span> ${badge}</div>
                     <p style="font-size: 13px; color: #64748b; margin: 0 0 14px 0;">${j.desc}</p>
-                    <button class="btn-lux" onclick="showDetails('${j.entity}', '${j.title}', '${j.phone}', '${j.desc}')">عرض رقم التواصل والشروط</button>
+                    <button class="btn-lux" onclick="showDetails('${j.entity}', '${j.title}', '${j.phone}', '${j.desc}')">عرض رقم التواصل والتفاصيل</button>
                 </div>`;
             });
-            let c1 = document.getElementById('jobsContainer');
-            let c2 = document.getElementById('fullJobsContainer');
-            if(c1) c1.innerHTML = html;
-            if(c2) c2.innerHTML = html;
+            document.getElementById('jobsContainer').innerHTML = html;
         }
 
         function showDetails(entity, title, phone, desc) {
@@ -332,27 +372,22 @@
             openModal('detModal');
         }
 
-        // إرسال رسالة في الدردشة الخاصة
         function sendPrivateMsg() {
             let input = document.getElementById('chatInput');
             let txt = input.value.trim();
             if(!txt) return;
-            
             let box = document.getElementById('chatMsgs');
             box.innerHTML += `<div class="msg outgoing">${txt}</div>`;
             input.value = '';
             box.scrollTop = box.scrollHeight;
-
-            // رد تلقائي ذكي من النظام أو المشرف
             setTimeout(() => {
-                box.innerHTML += `<div class="msg incoming">تم استلام رسالتك الخاصة بنجاح، سيتم الرد عليك من قِبل إدارة التواريخ قريباً.</div>`;
+                box.innerHTML += `<div class="msg incoming">تم استلام استفسارك الطبي بنجاح، سيتم الرد عليك قريباً.</div>`;
                 box.scrollTop = box.scrollHeight;
             }, 1000);
         }
 
         function checkEnter(e) { if(e.key === 'Enter') sendPrivateMsg(); }
 
-        // استرجاع البيانات المخزنة عند الفتح
         let savedName = localStorage.getItem('nurse_profile');
         let savedAvatar = localStorage.getItem('nurse_avatar');
         if(savedName) { document.getElementById('profileNameTxt').innerText = savedName; }
