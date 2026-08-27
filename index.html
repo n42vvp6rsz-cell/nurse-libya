@@ -5,33 +5,180 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Nurse Libya</title>
   <style>
-    body { font-family: sans-serif; margin: 0; padding: 15px; background: #f4f7f6; text-align: center; }
-    .card { background: white; border-radius: 10px; padding: 20px; max-width: 400px; margin: 20px auto; box-shadow: 0 2px 5px rgba(0,0,0,0.1); }
-    input { width: 90%; padding: 10px; margin: 8px 0; border: 1px solid #ccc; border-radius: 5px; }
-    button { width: 95%; padding: 10px; background: #082d59; color: white; border: none; border-radius: 5px; font-weight: bold; cursor: pointer; margin-top: 5px; }
-    button.logout { background: #d9534f; }
+    body { font-family: sans-serif; margin: 0; padding: 0; background: #f0f4f8; color: #333; padding-bottom: 70px; }
+    
+    /* الهيدر العلوي الأزرق */
+    .header-bg { background: linear-gradient(135deg, #082d59, #12518e); padding: 15px; color: white; border-bottom-left-radius: 20px; border-bottom-right-radius: 20px; }
+    .top-bar { display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px; }
+    .logo-area { font-size: 18px; font-weight: bold; display: flex; align-items: center; gap: 5px; }
+    .profile-icon { width: 35px; height: 35px; background: rgba(255,255,255,0.2); border-radius: 50%; display: flex; align-items: center; justify-content: center; }
+    
+    /* شريط البحث */
+    .search-box { background: white; border-radius: 25px; padding: 10px 15px; display: flex; align-items: center; margin-bottom: 15px; box-shadow: 0 2px 5px rgba(0,0,0,0.1); }
+    .search-box input { border: none; outline: none; width: 100%; font-size: 14px; background: transparent; text-align: right; }
+    
+    /* القائمة الأفقية */
+    .nav-tabs { display: flex; gap: 8px; overflow-x: auto; padding-bottom: 5px; scrollbar-width: none; }
+    .nav-tabs::-webkit-scrollbar { display: none; }
+    .tab-btn { background: rgba(255,255,255,0.15); border: none; color: white; padding: 8px 16px; border-radius: 20px; font-size: 13px; cursor: pointer; white-space: nowrap; }
+    .tab-btn.active { background: white; color: #082d59; font-weight: bold; }
+
+    /* المحتوى */
+    .container { padding: 15px; max-width: 500px; margin: auto; }
+    
+    /* البطاقة الترحيبية الكبيرة */
+    .hero-card { background: white; border-radius: 15px; padding: 20px; margin-bottom: 20px; box-shadow: 0 2px 8px rgba(0,0,0,0.05); position: relative; overflow: hidden; }
+    .hero-title { font-size: 18px; font-weight: bold; color: #082d59; margin-bottom: 8px; }
+    .hero-desc { font-size: 13px; color: #666; margin-bottom: 15px; line-height: 1.5; }
+    .hero-btn { background: #082d59; color: white; border: none; padding: 10px 20px; border-radius: 8px; font-weight: bold; font-size: 13px; cursor: pointer; }
+
+    /* شبكة الخدمات والبطاقات */
+    .section-title { font-size: 16px; font-weight: bold; color: #082d59; margin-bottom: 12px; display: flex; justify-content: space-between; align-items: center; }
+    .grid-cards { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 20px; }
+    .card-item { background: white; border-radius: 12px; padding: 15px; text-align: right; box-shadow: 0 2px 5px rgba(0,0,0,0.04); cursor: pointer; transition: 0.2s; }
+    .card-item:active { transform: scale(0.98); }
+    .card-icon { font-size: 24px; margin-bottom: 8px; }
+    .card-name { font-size: 14px; font-weight: bold; color: #222; margin-bottom: 4px; }
+    .card-sub { font-size: 11px; color: #888; }
+
+    /* شريط التنقل السفلي (Bottom Navigation) */
+    .bottom-nav { position: fixed; bottom: 0; left: 0; right: 0; background: white; display: flex; justify-content: space-around; padding: 10px 0; border-top: 1px solid #ddd; box-shadow: 0 -2px 5px rgba(0,0,0,0.05); z-index: 1000; }
+    .nav-item { text-align: center; color: #777; font-size: 11px; text-decoration: none; cursor: pointer; }
+    .nav-item.active { color: #082d59; font-weight: bold; }
+    .nav-item div { font-size: 18px; margin-bottom: 2px; }
+
+    /* شاشات تسجيل الدخول وحسابي */
+    .auth-section { background: white; border-radius: 15px; padding: 20px; margin-top: 15px; box-shadow: 0 2px 8px rgba(0,0,0,0.05); }
+    .auth-section input { width: 100%; padding: 10px; margin: 8px 0; border: 1px solid #ddd; border-radius: 8px; box-sizing: border-box; text-align: right; }
+    .auth-section button { width: 100%; padding: 10px; background: #082d59; color: white; border: none; border-radius: 8px; font-weight: bold; cursor: pointer; margin-top: 10px; }
     .hidden { display: none; }
   </style>
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 </head>
 <body>
 
-  <h2>Nurse Libya 🇱🇾</h2>
+  <!-- الهيدر العلوي -->
+  <div class="header-bg">
+    <div class="top-bar">
+      <div class="logo-area">
+        <span>Nurse Libya 🇱🇾 🩺</span>
+      </div>
+      <div class="profile-icon">👤</div>
+    </div>
 
-  <!-- نموذج تسجيل الدخول -->
-  <div id="auth-card" class="card">
-    <h3>تسجيل الدخول / حساب جديد</h3>
-    <input type="email" id="email" placeholder="البريد الإلكتروني">
-    <input type="password" id="password" placeholder="كلمة المرور">
-    <button onclick="handleAuth()">دخول / إنشاء حساب</button>
+    <!-- شريط البحث -->
+    <div class="search-box">
+      <span style="color:#aaa; margin-left: 8px;">🔍</span>
+      <input type="text" placeholder="ابحث عن وظيفة، دورة أو موضوع...">
+    </div>
+
+    <!-- القائمة الأفقية -->
+    <div class="nav-tabs">
+      <button class="tab-btn active" onclick="switchTab('home')">الرئيسية</button>
+      <button class="tab-btn" onclick="switchTab('jobs')">الوظائف</button>
+      <button class="tab-btn" onclick="switchTab('courses')">الدورات</button>
+      <button class="tab-btn" onclick="switchTab('references')">المراجع</button>
+      <button class="tab-btn" onclick="switchTab('account')">حسابي</button>
+    </div>
   </div>
 
-  <!-- لوحة التحكم بعد تسجيل الدخول -->
-  <div id="dashboard-card" class="card hidden">
-    <h3>مرحباً بك في لوحة تحكم الممرضين</h3>
-    <p id="user-email-display" style="color: #555; font-weight: bold;"></p>
-    <p>لقد قمت بتسجيل الدخول بنجاح إلى منصة Nurse Libya.</p>
-    <button class="logout" onclick="handleLogout()">تسجيل الخروج</button>
+  <div class="container">
+
+    <!-- قسم الصفحة الرئيسية -->
+    <div id="view-home">
+      <div class="hero-card">
+        <div style="float: left; font-size: 35px;">👩‍⚕️</div>
+        <div class="hero-title">كل عالم التمريض في مكان واحد</div>
+        <div class="hero-desc">وظائف، دورات، مراجع تمريضية ومجتمع مهني للمرضين في ليبيا.</div>
+        <button class="hero-btn" onclick="switchTab('jobs')">استكشف الوظائف</button>
+      </div>
+
+      <div class="section-title">
+        <span>الخدمات</span>
+        <span style="font-size: 12px; color: #888;">Nurse Libya V1</span>
+      </div>
+
+      <div class="grid-cards">
+        <div class="card-item" onclick="switchTab('jobs')">
+          <div class="card-icon">💼</div>
+          <div class="card-name">وظائف التمريض</div>
+          <div class="card-sub">ابحث عن فرص عمل وإعلانات جديدة.</div>
+        </div>
+        <div class="card-item" onclick="switchTab('courses')">
+          <div class="card-icon">📚</div>
+          <div class="card-name">الدورات</div>
+          <div class="card-sub">تعلم وراجع مهارات التمريض.</div>
+        </div>
+        <div class="card-item" onclick="alert('قريباً...')">
+          <div class="card-icon">🩺</div>
+          <div class="card-name">الخدمات الطبية</div>
+          <div class="card-sub">طلب رعاية منزلية واستشارات.</div>
+        </div>
+        <div class="card-item" onclick="alert('قريباً...')">
+          <div class="card-icon">⭐</div>
+          <div class="card-name">المجتمع</div>
+          <div class="card-sub">تواصل مع زملائك في المهنة.</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- قسم الوظائف -->
+    <div id="view-jobs" class="hidden">
+      <div class="hero-card">
+        <div class="hero-title">💼 وظائف التمريض المتاحة</div>
+        <div class="hero-desc">لا توجد إعلانات وظائف حالياً. سيتم إضافة فرص عمل قريباً في المستشفيات والعيادات الليبية.</div>
+      </div>
+    </div>
+
+    <!-- قسم الدورات -->
+    <div id="view-courses" class="hidden">
+      <div class="hero-card">
+        <div class="hero-title">📚 الدورات والتدريب</div>
+        <div class="hero-desc">دورات معتمدة لتطوير مهارات التمريض الأساسية والمتقدمة.</div>
+      </div>
+    </div>
+
+    <!-- قسم المراجع -->
+    <div id="view-references" class="hidden">
+      <div class="hero-card">
+        <div class="hero-title">📖 المراجع الطبية</div>
+        <div class="hero-desc">ملخصات وبروتوكولات وأدلة إرشادية للممرضين.</div>
+      </div>
+    </div>
+
+    <!-- قسم حسابي وتسجيل الدخول -->
+    <div id="view-account" class="hidden">
+      <div id="auth-card" class="auth-section">
+        <h3>تسجيل الدخول / حساب جديد</h3>
+        <input type="email" id="email" placeholder="البريد الإلكتروني">
+        <input type="password" id="password" placeholder="كلمة المرور">
+        <button onclick="handleAuth()">دخول / تسجيل</button>
+      </div>
+
+      <div id="dashboard-card" class="auth-section hidden">
+        <h3>لوحة التحكم</h3>
+        <p id="user-email-display" style="color: #555; font-size: 13px; font-weight: bold;"></p>
+        <p style="font-size: 13px; color: #666;">أنت مسجل الدخول بنجاح في منصة Nurse Libya.</p>
+        <button onclick="handleLogout()" style="background: #d9534f;">تسجيل الخروج</button>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- شريط التنقل السفلي -->
+  <div class="bottom-nav">
+    <a class="nav-item active" id="nav-home" onclick="switchTab('home')">
+      <div>🏠</div>الرئيسية
+    </a>
+    <a class="nav-item" id="nav-jobs" onclick="switchTab('jobs')">
+      <div>💼</div>الوظائف
+    </a>
+    <a class="nav-item" id="nav-courses" onclick="switchTab('courses')">
+      <div>📚</div>الدورات
+    </a>
+    <a class="nav-item" id="nav-account" onclick="switchTab('account')">
+      <div>👤</div>حسابي
+    </a>
   </div>
 
   <script>
@@ -39,7 +186,24 @@
     const SUPABASE_KEY = 'sb_publishable_mZFylkfh8cNR7yeAxIWngQ_n8lu1N8k';
     const supabaseClient = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
 
-    // التحقق هل المستخدم مسجل دخول مسبقاً عند فتح الصفحة
+    function switchTab(tabName) {
+      // إخفاء كل الأقسام
+      document.getElementById('view-home').classList.add('hidden');
+      document.getElementById('view-jobs').classList.add('hidden');
+      document.getElementById('view-courses').classList.add('hidden');
+      document.getElementById('view-references').classList.add('hidden');
+      document.getElementById('view-account').classList.add('hidden');
+
+      // إظهار القسم المطلوب
+      document.getElementById('view-' + tabName).classList.remove('hidden');
+
+      // تحديث شريط التنقل السفلي
+      document.querySelectorAll('.bottom-nav .nav-item').forEach(el => el.classList.remove('active'));
+      if(document.getElementById('nav-' + tabName)) {
+        document.getElementById('nav-' + tabName).classList.add('active');
+      }
+    }
+
     async function checkUser() {
       const { data: { session } } = await supabaseClient.auth.getSession();
       if (session) {
@@ -56,11 +220,9 @@
         return;
       }
 
-      // محاولة إنشاء حساب جديد
       const { data, error } = await supabaseClient.auth.signUp({ email, password });
 
       if (error) {
-        // إذا كان الحساب موجوداً مسبقاً، نقوم بتسجيل الدخول بدلاً من ذلك
         const { data: logData, error: logError } = await supabaseClient.auth.signInWithPassword({ email, password });
         if (logError) {
           alert('خطأ: ' + logError.message);
@@ -89,7 +251,6 @@
       document.getElementById('user-email-display').innerText = email;
     }
 
-    // تشغيل فحص الدخول عند تحميل الصفحة
     checkUser();
   </script>
 </body>
