@@ -19,7 +19,38 @@
             --danger: #ef4444;
         }
         * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; -webkit-tap-highlight-color: transparent; }
-        body { background-color: var(--bg-color); color: var(--text-main); min-height: 100vh; display: flex; flex-direction: column; padding-bottom: 75px; }
+        body { background-color: var(--bg-color); color: var(--text-main); min-height: 100vh; display: flex; flex-direction: column; }
+
+        /* Auth Screen Styling */
+        #auth-screen {
+            position: fixed;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: linear-gradient(135deg, #0b0f19, #1e293b);
+            z-index: 9999;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 16px;
+            overflow-y: auto;
+        }
+        .auth-card {
+            background: rgba(30, 41, 59, 0.7);
+            backdrop-filter: blur(12px);
+            border: 1px solid var(--border);
+            border-radius: 20px;
+            padding: 24px;
+            width: 100%;
+            max-width: 420px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.5);
+        }
+        .auth-logo { text-align: center; margin-bottom: 20px; }
+        .auth-logo h1 { font-size: 1.6rem; color: #fff; font-weight: 800; }
+        .auth-logo p { font-size: 0.85rem; color: var(--accent); margin-top: 4px; }
+        .auth-tabs { display: flex; background: #0b0f19; border-radius: 10px; padding: 4px; margin-bottom: 16px; border: 1px solid var(--border); }
+        .auth-tab { flex: 1; background: none; border: none; color: var(--text-muted); padding: 8px; font-size: 0.85rem; font-weight: 600; cursor: pointer; border-radius: 8px; transition: 0.2s; }
+        .auth-tab.active { background: var(--primary); color: #fff; }
+
+        .app-container { display: none; flex-direction: column; min-height: 100vh; padding-bottom: 75px; }
 
         header {
             background: linear-gradient(135deg, #1e293b, #0f172a);
@@ -47,38 +78,22 @@
         input, select, textarea { width: 100%; padding: 10px 12px; background: #0b0f19; border: 1px solid var(--border); border-radius: 8px; color: #fff; font-size: 0.9rem; }
         input:focus, select:focus, textarea:focus { outline: none; border-color: var(--accent); }
 
-        /* Custom File Upload Button Style */
         .file-upload-wrapper {
-            position: relative;
-            background: #0b0f19;
-            border: 2px dashed var(--border);
-            border-radius: 8px;
-            padding: 16px;
-            text-align: center;
-            cursor: pointer;
-            transition: 0.2s;
+            position: relative; background: #0b0f19; border: 2px dashed var(--border); border-radius: 8px; padding: 12px; text-align: center; cursor: pointer; transition: 0.2s;
         }
-        .file-upload-wrapper:hover { border-color: var(--accent); }
-        .file-upload-wrapper input[type="file"] {
-            position: absolute;
-            top: 0; left: 0; width: 100%; height: 100%;
-            opacity: 0;
-            cursor: pointer;
-        }
-        .file-upload-text { font-size: 0.85rem; color: var(--text-muted); display: flex; flex-direction: column; align-items: center; gap: 4px; }
-        .file-upload-text span.icon { font-size: 1.5rem; }
+        .file-upload-wrapper input[type="file"] { position: absolute; top: 0; left: 0; width: 100%; height: 100%; opacity: 0; cursor: pointer; }
+        .file-upload-text { font-size: 0.8rem; color: var(--text-muted); display: flex; align-items: center; justify-content: center; gap: 6px; }
 
         .btn { background: var(--primary); color: white; border: none; padding: 12px; border-radius: 8px; cursor: pointer; font-weight: 600; width: 100%; font-size: 0.95rem; transition: 0.2s; }
         .btn:hover { background: var(--primary-dark); }
         .btn-danger { background: var(--danger); }
+        .btn-secondary { background: #334155; color: #fff; }
 
-        /* Quick Filter Buttons Bar */
         .quick-filters { display: flex; gap: 6px; overflow-x: auto; padding-bottom: 8px; margin-bottom: 12px; scrollbar-width: none; }
         .quick-filters::-webkit-scrollbar { display: none; }
         .filter-chip { background: #1e293b; border: 1px solid var(--border); color: var(--text-muted); padding: 6px 12px; border-radius: 20px; font-size: 0.8rem; white-space: nowrap; cursor: pointer; transition: 0.2s; }
         .filter-chip.active { background: var(--primary); color: #fff; border-color: var(--accent); font-weight: 600; }
 
-        /* Post Card Style */
         .post-card { background: var(--card-bg); border: 1px solid var(--border); border-radius: 14px; padding: 14px; margin-bottom: 12px; position: relative; }
         .post-header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 8px; }
         .post-publisher-info { display: flex; align-items: center; gap: 8px; }
@@ -95,8 +110,7 @@
         .btn-wa { background: #16a34a; color: #fff; }
         .btn-msg { background: #2563eb; color: #fff; }
 
-        /* AI Chatbot UI */
-        .chat-container { display: flex; flex-direction: column; height: 400px; background: #0b0f19; border: 1px solid var(--border); border-radius: 12px; overflow: hidden; }
+        .chat-container { display: flex; flex-direction: column; height: 380px; background: #0b0f19; border: 1px solid var(--border); border-radius: 12px; overflow: hidden; }
         .chat-messages { flex: 1; padding: 12px; overflow-y: auto; display: flex; flex-direction: column; gap: 10px; }
         .message { max-width: 80%; padding: 10px 12px; border-radius: 10px; font-size: 0.85rem; line-height: 1.4; }
         .message.ai { background: #1e293b; color: #f8fafc; align-self: flex-start; border-bottom-right-radius: 2px; }
@@ -106,23 +120,11 @@
         .ai-suggestions { display: flex; gap: 6px; overflow-x: auto; padding: 6px 12px; background: #1e293b; border-bottom: 1px solid var(--border); }
         .suggestion-chip { background: rgba(56, 189, 248, 0.15); border: 1px solid var(--accent); color: var(--accent); font-size: 0.75rem; padding: 4px 10px; border-radius: 12px; white-space: nowrap; cursor: pointer; }
 
-        /* Bottom Nav Bar */
         .bottom-nav {
-            position: fixed;
-            bottom: 0; left: 0; right: 0;
-            background: #1e293b;
-            border-top: 1px solid var(--border);
-            display: flex;
-            justify-content: space-around;
-            padding: 6px 0;
-            z-index: 1000;
+            position: fixed; bottom: 0; left: 0; right: 0; background: #1e293b; border-top: 1px solid var(--border);
+            display: flex; justify-content: space-around; padding: 6px 0; z-index: 1000;
         }
-        .nav-item {
-            background: none; border: none;
-            color: var(--text-muted);
-            display: flex; flex-direction: column; align-items: center;
-            font-size: 0.68rem; cursor: pointer; gap: 2px; flex: 1;
-        }
+        .nav-item { background: none; border: none; color: var(--text-muted); display: flex; flex-direction: column; align-items: center; font-size: 0.68rem; cursor: pointer; gap: 2px; flex: 1; }
         .nav-item.active { color: var(--accent); }
         .nav-item span.icon { font-size: 1.15rem; }
         .my-post-item { background: #0b0f19; border: 1px solid var(--border); border-radius: 8px; padding: 10px; margin-bottom: 8px; display: flex; justify-content: space-between; align-items: center; }
@@ -130,176 +132,229 @@
 </head>
 <body>
 
-    <header>
-        <div class="header-content">
-            <div class="logo-area">
+    <!-- AUTHENTICATION SCREEN -->
+    <div id="auth-screen">
+        <div class="auth-card">
+            <div class="auth-logo">
                 <h1>Nurse Libya 🇱🇾</h1>
-            </div>
-            <button class="profile-btn-top" onclick="switchTab('profile')">
-                <span>👤 الحساب المهني</span>
-            </button>
-        </div>
-    </header>
-
-    <main>
-        <!-- TAB 1: HOME -->
-        <div id="tab-home" class="tab-content active">
-            <div class="card" style="background: linear-gradient(135deg, #0284c7, #0369a1); border: none; padding: 12px; text-align: center;">
-                <p style="font-size: 0.95rem; font-weight: 700; color: #fff;">⚡ المنصة الطبية الشاملة للتمريض في ليبيا</p>
+                <p>المنصة الطبية المتكاملة للتمريض في ليبيا</p>
             </div>
             
-            <div class="form-group" style="margin-top: 10px;">
-                <input type="text" id="search-box" placeholder="🔍 ابحث عن وظيفة، تمريض منزلي، أدوية..." oninput="renderPosts()">
+            <div class="auth-tabs">
+                <button class="auth-tab active" id="tab-login-btn" onclick="switchAuthMode('login')">تسجيل الدخول</button>
+                <button class="auth-tab" id="tab-register-btn" onclick="switchAuthMode('register')">حساب جديد</button>
             </div>
 
-            <!-- Quick Filter Chips Buttons -->
-            <div class="quick-filters" id="quick-filters-bar">
-                <button class="filter-chip active" onclick="filterByCategory('الكل', this)">الكل</button>
-                <button class="filter-chip" onclick="filterByCategory('تمريض منزلي', this)">🏡 تمريض منزلي</button>
-                <button class="filter-chip" onclick="filterByCategory('عناية مركزة (ICU)', this)">🏥 ICU عناية</button>
-                <button class="filter-chip" onclick="filterByCategory('دورات تدريبية', this)">🎓 الدورات</button>
-                <button class="filter-chip" onclick="filterByCategory('أدوية ومستلزمات', this)">💉 الأدوية</button>
-                <button class="filter-chip" onclick="filterByCategory('وظائف شاغرة', this)">📋 الوظائف</button>
-            </div>
+            <!-- LOGIN FORM -->
+            <form id="login-form" onsubmit="handleLogin(event)">
+                <div class="form-group">
+                    <label>البريد الإلكتروني</label>
+                    <input type="email" id="login-email" required placeholder="name@example.com">
+                </div>
+                <div class="form-group">
+                    <label>كلمة المرور</label>
+                    <input type="password" id="login-password" required placeholder="••••••••">
+                </div>
+                <button type="submit" class="btn" style="margin-top: 8px;">دخول للمنصة</button>
+            </form>
 
-            <div id="posts-container"></div>
+            <!-- REGISTER FORM -->
+            <form id="register-form" style="display: none;" onsubmit="handleRegister(event)">
+                <div class="form-group">
+                    <label>الاسم الكامل أو اسم المؤسسة</label>
+                    <input type="text" id="reg-name" required placeholder="مثال: أحمد التواتي / مصحة الأمهار">
+                </div>
+                <div class="form-group">
+                    <label>نوع الحساب (الصلاحية)</label>
+                    <select id="reg-role" required>
+                        <option value="ممرض / ممرضة معتمد">🩺 ممرض / ممرضة معتمد</option>
+                        <option value="مصحة أو مستشفى">🏥 مصحة أو مستشفى / عيادة</option>
+                        <option value="مستفيد / مريض">👤 مستفيد (بحث عن رعاية)</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>البريد الإلكتروني</label>
+                    <input type="email" id="reg-email" required placeholder="name@example.com">
+                </div>
+                <div class="form-group">
+                    <label>كلمة المرور</label>
+                    <input type="password" id="reg-password" required placeholder="••••••••">
+                </div>
+                <button type="submit" class="btn" style="margin-top: 8px;">إنشاء الحساب والانطلاق</button>
+            </form>
         </div>
+    </div>
 
-        <!-- TAB 2: POST AD -->
-        <div id="tab-post" class="tab-content">
-            <div class="card">
-                <h2>➕ إضافة منشور / خدمة جديدة</h2>
-                <form id="create-post-form" onsubmit="submitNewPost(event)">
-                    <div class="form-group">
-                        <label>عنوان المنشور / الخدمة</label>
-                        <input type="text" id="p-title" required placeholder="مثال: مطلوب ممرض لفترة المساء في طرابلس">
-                    </div>
-                    <div class="form-group">
-                        <label>التخصص أو التصنيف</label>
-                        <select id="p-spec" required>
-                            <option value="تمريض منزلي">تمريض منزلي</option>
-                            <option value="عناية مركزة (ICU)">عناية مركزة (ICU)</option>
-                            <option value="دورات تدريبية">دورات تدريبية</option>
-                            <option value="أدوية ومستلزمات">أدوية ومستلزمات</option>
-                            <option value="وظائف شاغرة">وظائف شاغرة</option>
-                        </select>
-                    </div>
-                    <div class="form-group">
-                        <label>البريد الإلكتروني للناشر</label>
-                        <input type="email" id="p-email" required placeholder="example@gmail.com">
-                    </div>
-                    <div class="form-group">
-                        <label>رقم الهاتف / الواتساب</label>
-                        <input type="text" id="p-phone" required placeholder="091xxxxxxx">
-                    </div>
-                    <div class="form-group">
-                        <label>تفاصيل المنشور</label>
-                        <textarea id="p-desc" rows="3" required placeholder="اكتب تفاصيل الخدمة والمكان..."></textarea>
-                    </div>
-                    
-                    <!-- Easy Direct Image Upload Box -->
-                    <div class="form-group">
-                        <label>صورة الإعلان (اختياري - ارفع مباشرة من هاتفك)</label>
-                        <div class="file-upload-wrapper">
-                            <input type="file" id="p-file" accept="image/*" onchange="previewImage(event)">
-                            <div class="file-upload-text">
-                                <span class="icon">📁</span>
-                                <span id="upload-label-text">اضغط هنا لاختيار صورة من جهازك</span>
+    <!-- MAIN APP CONTAINER -->
+    <div class="app-container" id="app-container">
+        <header>
+            <div class="header-content">
+                <div class="logo-area">
+                    <h1 id="app-logo-title">Nurse Libya 🇱🇾</h1>
+                </div>
+                <button class="profile-btn-top" onclick="switchTab('profile')">
+                    <span id="header-user-name">👤 حسابي</span>
+                </button>
+            </div>
+        </header>
+
+        <main>
+            <!-- TAB 1: HOME -->
+            <div id="tab-home" class="tab-content active">
+                <div class="card" style="background: linear-gradient(135deg, #0284c7, #0369a1); border: none; padding: 12px; text-align: center;">
+                    <p style="font-size: 0.95rem; font-weight: 700; color: #fff;">⚡ المنصة الطبية الشاملة للتمريض في ليبيا</p>
+                </div>
+                
+                <div class="form-group" style="margin-top: 10px;">
+                    <input type="text" id="search-box" placeholder="🔍 ابحث عن وظيفة، تمريض منزلي، أدوية..." oninput="renderPosts()">
+                </div>
+
+                <div class="quick-filters" id="quick-filters-bar">
+                    <button class="filter-chip active" onclick="filterByCategory('الكل', this)">الكل</button>
+                    <button class="filter-chip" onclick="filterByCategory('تمريض منزلي', this)">🏡 تمريض منزلي</button>
+                    <button class="filter-chip" onclick="filterByCategory('عناية مركزة (ICU)', this)">🏥 ICU عناية</button>
+                    <button class="filter-chip" onclick="filterByCategory('دورات تدريبية', this)">🎓 الدورات</button>
+                    <button class="filter-chip" onclick="filterByCategory('أدوية ومستلزمات', this)">💉 الأدوية</button>
+                    <button class="filter-chip" onclick="filterByCategory('وظائف شاغرة', this)">📋 الوظائف</button>
+                </div>
+
+                <div id="posts-container"></div>
+            </div>
+
+            <!-- TAB 2: POST AD -->
+            <div id="tab-post" class="tab-content">
+                <div class="card">
+                    <h2>➕ إضافة منشور / خدمة جديدة</h2>
+                    <form id="create-post-form" onsubmit="submitNewPost(event)">
+                        <div class="form-group">
+                            <label>عنوان المنشور / الخدمة</label>
+                            <input type="text" id="p-title" required placeholder="مثال: مطلوب ممرض لفترة المساء في طرابلس">
+                        </div>
+                        <div class="form-group">
+                            <label>التخصص أو التصنيف</label>
+                            <select id="p-spec" required>
+                                <option value="تمريض منزلي">تمريض منزلي</option>
+                                <option value="عناية مركزة (ICU)">عناية مركزة (ICU)</option>
+                                <option value="دورات تدريبية">دورات تدريبية</option>
+                                <option value="أدوية ومستلزمات">أدوية ومستلزمات</option>
+                                <option value="وظائف شاغرة">وظائف شاغرة</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>رقم الهاتف / الواتساب للتواصل</label>
+                            <input type="text" id="p-phone" required placeholder="091xxxxxxx">
+                        </div>
+                        <div class="form-group">
+                            <label>تفاصيل المنشور والخدمة</label>
+                            <textarea id="p-desc" rows="3" required placeholder="اكتب تفاصيل الخدمة والمكان..."></textarea>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label>صورة الإعلان (اختياري)</label>
+                            <div class="file-upload-wrapper">
+                                <input type="file" id="p-file" accept="image/*" onchange="previewImage(event)">
+                                <div class="file-upload-text">
+                                    <span>📁</span>
+                                    <span id="upload-label-text">اختر صورة من جهازك</span>
+                                </div>
+                            </div>
+                            <div id="img-preview-box" style="margin-top: 10px; display: none; text-align: center;">
+                                <img id="preview-tag" style="max-height: 140px; border-radius: 8px; border: 1px solid var(--border);">
+                                <br>
+                                <button type="button" class="btn btn-danger" style="width: auto; padding: 4px 10px; font-size: 0.75rem; margin-top: 6px;" onclick="removePreviewImage()">حذف الصورة</button>
                             </div>
                         </div>
-                        <div id="img-preview-box" style="margin-top: 10px; display: none; text-align: center; position: relative;">
-                            <img id="preview-tag" style="max-height: 150px; border-radius: 8px; border: 1px solid var(--border);">
-                            <br>
-                            <button type="button" class="btn btn-danger" style="width: auto; padding: 4px 10px; font-size: 0.75rem; margin-top: 6px;" onclick="removePreviewImage()">إزالة الصورة</button>
+
+                        <button type="submit" class="btn">نشر المنشور الآن</button>
+                    </form>
+                </div>
+            </div>
+
+            <!-- TAB 3: AI ASSISTANT -->
+            <div id="tab-ai" class="tab-content">
+                <div class="card" style="padding: 10px;">
+                    <h2>🤖 مساعد Nurse Libya الذكي</h2>
+                    <p style="font-size: 0.8rem; color: var(--text-muted); margin-bottom: 8px;">اسأل المساعد الطبي عن الإسعافات، شروط التمريض، أو استفسارات المنصة:</p>
+                    
+                    <div class="ai-suggestions">
+                        <span class="suggestion-chip" onclick="sendAiPrompt('كيف أتحصل على رخصة مزاولة مهنة في ليبيا؟')">📜 رخصة المزاولة</span>
+                        <span class="suggestion-chip" onclick="sendAiPrompt('ماهي الإسعافات الأولية لحالات ارتفاع الضغط؟')">🩺 إسعافات الضغط</span>
+                        <span class="suggestion-chip" onclick="sendAiPrompt('كيف أنشر إعلان خدمة تمريض منزلي؟')">📢 كيفية النشر</span>
+                    </div>
+
+                    <div class="chat-container">
+                        <div class="chat-messages" id="ai-chat-messages">
+                            <div class="message ai">مرحباً بك زميلي العزيز في منصة Nurse Libya 🇱🇾. أنا مساعدك الذكي، كيف يمكنني مساعدتك اليوم؟</div>
+                        </div>
+                        <div class="chat-input-area">
+                            <input type="text" id="ai-input" placeholder="اكتب سؤالك هنا..." onkeypress="if(event.key==='Enter') sendUserAiMessage()">
+                            <button class="btn" style="width: auto; padding: 8px 14px;" onclick="sendUserAiMessage()">إرسال</button>
                         </div>
                     </div>
-
-                    <button type="submit" class="btn">نشر المنشور الآن</button>
-                </form>
-            </div>
-        </div>
-
-        <!-- TAB 3: AI ASSISTANT -->
-        <div id="tab-ai" class="tab-content">
-            <div class="card" style="padding: 10px;">
-                <h2>🤖 مساعد Nurse Libya الذكي</h2>
-                <p style="font-size: 0.8rem; color: var(--text-muted); margin-bottom: 8px;">اسأل المساعد الطبي عن الإسعافات، شروط التمريض، أو استفسارات المنصة:</p>
-                
-                <div class="ai-suggestions">
-                    <span class="suggestion-chip" onclick="sendAiPrompt('كيف أتحصل على رخصة مزاولة مهنة في ليبيا؟')">📜 شروط رخصة المزاولة</span>
-                    <span class="suggestion-chip" onclick="sendAiPrompt('ماهي الإسعافات الأولية لحالات ارتفاع الضغط؟')">🩺 إسعافات ارتفاع الضغط</span>
-                    <span class="suggestion-chip" onclick="sendAiPrompt('كيف أنشر إعلان خدمة تمريض منزلي؟')">📢 كيفية النشر في التطبيق</span>
-                </div>
-
-                <div class="chat-container">
-                    <div class="chat-messages" id="ai-chat-messages">
-                        <div class="message ai">مرحباً بك زميلي العزيز في منصة Nurse Libya 🇱🇾. أنا مساعدك الذكي، كيف يمكنني مساعدتك اليوم في التمريض أو الاستعلامات الطبية؟</div>
-                    </div>
-                    <div class="chat-input-area">
-                        <input type="text" id="ai-input" placeholder="اكتب سؤالك الطبي أو الاستفسار هنا..." onkeypress="if(event.key==='Enter') sendUserAiMessage()">
-                        <button class="btn" style="width: auto; padding: 8px 14px;" onclick="sendUserAiMessage()">إرسال</button>
-                    </div>
                 </div>
             </div>
-        </div>
 
-        <!-- TAB 4: MESSAGES -->
-        <div id="tab-messages" class="tab-content">
-            <div class="card">
-                <h2>💬 صندوق المراسلات الفورية</h2>
-                <p style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 12px;">المراسلات الواردة:</p>
-                <div class="chat-item" style="background: #0b0f19; padding: 10px; border-radius: 8px; border: 1px solid var(--border);">
-                    <div>
+            <!-- TAB 4: MESSAGES -->
+            <div id="tab-messages" class="tab-content">
+                <div class="card">
+                    <h2>💬 صندوق المراسلات الفورية</h2>
+                    <p style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 12px;">المراسلات الواردة:</p>
+                    <div style="background: #0b0f19; padding: 10px; border-radius: 8px; border: 1px solid var(--border);">
                         <h4 style="font-size: 0.9rem; color: #fff;">د. محمد الهادي</h4>
                         <p style="font-size: 0.75rem; color: var(--text-muted);">مرحباً، هل الخدمة متوفرة في حي الأندلس؟</p>
                     </div>
                 </div>
             </div>
-        </div>
 
-        <!-- TAB 5: PROFILE & SETTINGS -->
-        <div id="tab-profile" class="tab-content">
-            <div class="card">
-                <h2>⚙️ إدارة حسابك ومنشوراتك</h2>
-                <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 14px; background: #0b0f19; padding: 10px; border-radius: 8px;">
-                    <img src="https://images.unsplash.com/photo-1584515979956-d9f6e5d09982?w=100" style="width: 50px; height: 50px; border-radius: 50%; object-fit: cover;">
-                    <div>
-                        <h4 style="font-size: 0.95rem; color: #fff;">أحمد التواتي</h4>
-                        <p style="font-size: 0.8rem; color: var(--accent);">ahmed@nurselibya.ly</p>
+            <!-- TAB 5: PROFILE & SETTINGS -->
+            <div id="tab-profile" class="tab-content">
+                <div class="card">
+                    <h2>⚙️ الملف الشخصي والصلاحيات</h2>
+                    <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 14px; background: #0b0f19; padding: 10px; border-radius: 8px;">
+                        <div style="width: 50px; height: 50px; border-radius: 50%; background: var(--primary); display: flex; align-items: center; justify-content: center; font-size: 1.3rem;">👤</div>
+                        <div>
+                            <h4 id="profile-display-name" style="font-size: 0.95rem; color: #fff;">اسم المستخدم</h4>
+                            <p id="profile-display-role" style="font-size: 0.75rem; color: var(--accent);">الصلاحية</p>
+                            <p id="profile-display-email" style="font-size: 0.75rem; color: var(--text-muted);">email@domain.com</p>
+                        </div>
                     </div>
-                </div>
-                <h3 style="font-size: 0.95rem; color: var(--accent); margin-bottom: 8px; margin-top: 14px;">📊 منشوراتي النشطة (عدد المشاهدات والحذف)</h3>
-                <div id="my-posts-list"></div>
-            </div>
-        </div>
-    </main>
 
-    <!-- Bottom Navigation Bar -->
-    <nav class="bottom-nav">
-        <button class="nav-item active" onclick="switchTab('home')">
-            <span class="icon">🏠</span>
-            <span>الرئيسية</span>
-        </button>
-        <button class="nav-item" onclick="switchTab('ai')" id="nav-ai-btn">
-            <span class="icon">🤖</span>
-            <span>مساعد AI</span>
-        </button>
-        <button class="nav-item" onclick="switchTab('messages')">
-            <span class="icon">💬</span>
-            <span>مراسلة</span>
-        </button>
-        <button class="nav-item" onclick="switchTab('post')">
-            <span class="icon">➕</span>
-            <span>إعلان</span>
-        </button>
-        <button class="nav-item" onclick="switchTab('profile')">
-            <span class="icon">⚙️</span>
-            <span>الإعدادات</span>
-        </button>
-    </nav>
+                    <button class="btn btn-secondary" style="margin-bottom: 16px;" onclick="handleLogout()">🚪 تسجيل الخروج من الحساب</button>
+
+                    <h3 style="font-size: 0.95rem; color: var(--accent); margin-bottom: 8px;">📊 منشوراتي النشطة</h3>
+                    <div id="my-posts-list"></div>
+                </div>
+            </div>
+        </main>
+
+        <!-- Bottom Navigation Bar -->
+        <nav class="bottom-nav">
+            <button class="nav-item active" onclick="switchTab('home')">
+                <span class="icon">🏠</span>
+                <span>الرئيسية</span>
+            </button>
+            <button class="nav-item" onclick="switchTab('ai')" id="nav-ai-btn">
+                <span class="icon">🤖</span>
+                <span>مساعد AI</span>
+            </button>
+            <button class="nav-item" onclick="switchTab('messages')">
+                <span class="icon">💬</span>
+                <span>مراسلة</span>
+            </button>
+            <button class="nav-item" onclick="switchTab('post')">
+                <span class="icon">➕</span>
+                <span>إعلان</span>
+            </button>
+            <button class="nav-item" onclick="switchTab('profile')">
+                <span class="icon">⚙️</span>
+                <span>الحساب</span>
+            </button>
+        </nav>
+    </div>
 
     <script>
-        let posts = JSON.parse(localStorage.getItem('nurse_libya_posts_v4')) || [
+        let currentUser = JSON.parse(localStorage.getItem('nurse_libya_user')) || null;
+        let posts = JSON.parse(localStorage.getItem('nurse_libya_posts_v5')) || [
             {
                 id: 101,
                 title: 'ممرض / ممرضة ICU',
@@ -317,6 +372,68 @@
 
         let tempImage = '';
         let currentCategoryFilter = 'الكل';
+
+        // Check authentication state on load
+        window.addEventListener('DOMContentLoaded', () => {
+            if(currentUser) {
+                showAppInterface();
+            } else {
+                document.getElementById('auth-screen').style.display = 'flex';
+                document.getElementById('app-container').style.display = 'none';
+            }
+        });
+
+        function switchAuthMode(mode) {
+            if(mode === 'login') {
+                document.getElementById('tab-login-btn').classList.add('active');
+                document.getElementById('tab-register-btn').classList.remove('active');
+                document.getElementById('login-form').style.display = 'block';
+                document.getElementById('register-form').style.display = 'none';
+            } else {
+                document.getElementById('tab-register-btn').classList.add('active');
+                document.getElementById('tab-login-btn').classList.remove('active');
+                document.getElementById('register-form').style.display = 'block';
+                document.getElementById('login-form').style.display = 'none';
+            }
+        }
+
+        function handleLogin(e) {
+            e.preventDefault();
+            const email = document.getElementById('login-email').value;
+            currentUser = { name: email.split('@')[0], email: email, role: 'ممرض / ممرضة معتمد' };
+            localStorage.setItem('nurse_libya_user', JSON.stringify(currentUser));
+            showAppInterface();
+        }
+
+        function handleRegister(e) {
+            e.preventDefault();
+            const name = document.getElementById('reg-name').value;
+            const email = document.getElementById('reg-email').value;
+            const role = document.getElementById('reg-role').value;
+            
+            currentUser = { name: name, email: email, role: role };
+            localStorage.setItem('nurse_libya_user', JSON.stringify(currentUser));
+            showAppInterface();
+        }
+
+        function handleLogout() {
+            if(confirm('هل تريد تسجيل الخروج؟')) {
+                localStorage.removeItem('nurse_libya_user');
+                currentUser = null;
+                document.getElementById('auth-screen').style.display = 'flex';
+                document.getElementById('app-container').style.display = 'none';
+            }
+        }
+
+        function showAppInterface() {
+            document.getElementById('auth-screen').style.display = 'none';
+            document.getElementById('app-container').style.display = 'flex';
+            document.getElementById('header-user-name').innerText = currentUser.name;
+            document.getElementById('profile-display-name').innerText = currentUser.name;
+            document.getElementById('profile-display-role').innerText = currentUser.role;
+            document.getElementById('profile-display-email').innerText = currentUser.email;
+            renderPosts();
+        }
 
         function switchTab(tabId) {
             document.querySelectorAll('.tab-content').forEach(el => el.classList.remove('active'));
@@ -348,7 +465,7 @@
                     tempImage = e.target.result;
                     document.getElementById('preview-tag').src = tempImage;
                     document.getElementById('img-preview-box').style.display = 'block';
-                    document.getElementById('upload-label-text').innerText = "✅ تم اختيار الصورة بنجاح (اضغط لتغييرها)";
+                    document.getElementById('upload-label-text').innerText = "✅ تم اختيار الصورة بنجاح";
                 }
                 reader.readAsDataURL(file);
             }
@@ -358,7 +475,7 @@
             tempImage = '';
             document.getElementById('p-file').value = '';
             document.getElementById('img-preview-box').style.display = 'none';
-            document.getElementById('upload-label-text').innerText = "اضغط هنا لاختيار صورة من جهازك";
+            document.getElementById('upload-label-text').innerText = "اختر صورة من جهازك";
         }
 
         function submitNewPost(event) {
@@ -370,19 +487,19 @@
                 id: Date.now(),
                 title: document.getElementById('p-title').value,
                 specialty: document.getElementById('p-spec').value,
-                email: document.getElementById('p-email').value,
+                email: currentUser.email,
                 phone: document.getElementById('p-phone').value,
                 desc: document.getElementById('p-desc').value,
                 image: tempImage,
                 avatar: 'https://images.unsplash.com/photo-1584515979956-d9f6e5d09982?w=100',
-                publisher: 'أحمد التواتي',
+                publisher: currentUser.name,
                 date: dateStr,
                 views: 1
             };
 
             posts.unshift(newPost);
-            localStorage.setItem('nurse_libya_posts_v4', JSON.stringify(posts));
-            alert('تم نشر الخدمة بنجاح وأصبحت مرئية للجميع!');
+            localStorage.setItem('nurse_libya_posts_v5', JSON.stringify(posts));
+            alert('تم نشر الإعلان بنجاح!');
             document.getElementById('create-post-form').reset();
             removePreviewImage();
             switchTab('home');
@@ -392,7 +509,7 @@
             const post = posts.find(p => p.id === id);
             if(post) {
                 post.views += 1;
-                localStorage.setItem('nurse_libya_posts_v4', JSON.stringify(posts));
+                localStorage.setItem('nurse_libya_posts_v5', JSON.stringify(posts));
             }
         }
 
@@ -402,12 +519,12 @@
             
             const filtered = posts.filter(p => {
                 const matchCat = (currentCategoryFilter === 'الكل' || p.specialty === currentCategoryFilter);
-                const matchText = p.title.toLowerCase().includes(searchQ) || p.desc.toLowerCase().includes(searchQ) || p.email.toLowerCase().includes(searchQ);
+                const matchText = p.title.toLowerCase().includes(searchQ) || p.desc.toLowerCase().includes(searchQ);
                 return matchCat && matchText;
             });
 
             if(filtered.length === 0) {
-                container.innerHTML = '<p style="text-align:center; color: var(--text-muted); padding: 2rem;">لا توجد منشورات مطابقة لبحثك أو هذا التصنيف.</p>';
+                container.innerHTML = '<p style="text-align:center; color: var(--text-muted); padding: 2rem;">لا توجد منشورات مطابقة حالياً.</p>';
                 return;
             }
 
@@ -418,7 +535,7 @@
                             <img src="${post.avatar}" class="post-avatar">
                             <div class="post-meta-text">
                                 <h4>${post.publisher}</h4>
-                                <span>📧 ${post.email} | 🕒 ${post.date}</span>
+                                <span>🕒 ${post.date}</span>
                             </div>
                         </div>
                         <span class="post-badge">${post.specialty}</span>
@@ -428,13 +545,13 @@
                     ${post.image ? `<img src="${post.image}" class="post-img">` : ''}
                     
                     <div class="post-actions">
-                        <a href="https://wa.me/218${post.phone.replace(/^0/, '')}?text=مرحباً، اطلعت على منشورك (${post.title}) في منصة Nurse Libya" target="_blank" class="action-btn btn-wa">💬 واتساب</a>
-                        <a href="mailto:${post.email}?subject=استفسار بخصوص منشور: ${post.title}" class="action-btn btn-msg">✉️ إيميل</a>
+                        <a href="https://wa.me/218${post.phone.replace(/^0/, '')}?text=مرحباً، اطلعت على منشورك (${post.title})" target="_blank" class="action-btn btn-wa">💬 واتساب</a>
+                        <a href="mailto:${post.email}?subject=استفسار" class="action-btn btn-msg">✉️ إيميل</a>
                     </div>
 
                     <div class="post-footer-stats">
                         <span>👁️ المشاهدات: ${post.views}</span>
-                        <span>رقم الاتصال: ${post.phone}</span>
+                        <span>هاتف: ${post.phone}</span>
                     </div>
                 </div>
             `).join('');
@@ -442,15 +559,16 @@
 
         function renderMyPosts() {
             const container = document.getElementById('my-posts-list');
-            if(posts.length === 0) {
-                container.innerHTML = '<p style="color: var(--text-muted); font-size: 0.85rem;">ليس لديك أي منشورات حالياً.</p>';
+            const myPosts = posts.filter(p => p.email === currentUser.email);
+            if(myPosts.length === 0) {
+                container.innerHTML = '<p style="color: var(--text-muted); font-size: 0.85rem;">ليس لديك أي منشورات نشطة حالياً.</p>';
                 return;
             }
-            container.innerHTML = posts.map(p => `
+            container.innerHTML = myPosts.map(p => `
                 <div class="my-post-item">
                     <div>
                         <h4 style="font-size: 0.9rem; color: #fff;">${p.title}</h4>
-                        <span style="font-size: 0.75rem; color: var(--text-muted);">👁️ المشاهدات: ${p.views} | 🕒 ${p.date}</span>
+                        <span style="font-size: 0.75rem; color: var(--text-muted);">👁️ المشاهدات: ${p.views}</span>
                     </div>
                     <button class="btn btn-danger" style="width: auto; padding: 6px 12px; font-size: 0.75rem;" onclick="deletePost(${p.id})">حذف</button>
                 </div>
@@ -458,15 +576,13 @@
         }
 
         function deletePost(id) {
-            if(confirm('هل أنت متأكد من حذف هذا المنشور؟')) {
+            if(confirm('هل أنت متأكد من الحذف؟')) {
                 posts = posts.filter(p => p.id !== id);
-                localStorage.setItem('nurse_libya_posts_v4', JSON.stringify(posts));
+                localStorage.setItem('nurse_libya_posts_v5', JSON.stringify(posts));
                 renderMyPosts();
-                alert('تم حذف المنشور بنجاح.');
             }
         }
 
-        // AI Assistant Logic
         function sendAiPrompt(text) {
             document.getElementById('ai-input').value = text;
             sendUserAiMessage();
@@ -483,22 +599,14 @@
             chatMessages.scrollTop = chatMessages.scrollHeight;
 
             setTimeout(() => {
-                let reply = "أهلاً بك. بصفتي مساعدك الطبي في منصة Nurse Libya، أنصحك دائماً بمراجعة الجهات الطبية الرسمية أو نقابة التمريض الليبية للتأكد من الإجراءات واللوائح المعتمدة.";
-                const lower = text.toLowerCase();
-                if(lower.includes('رخصة') || lower.includes('مزاولة')) {
-                    reply = "📜 للحصول على رخصة مزاولة المهنة في ليبيا، يجب تقديم شهادة التخرج المعتمدة ودفتر التكليف إلى وزارة الصحة أو نقابة التمريض الفرعية في مدينتك لإتمام اجراءات الاختبار والاعتماد الرسمي.";
-                } else if(lower.includes('ضغط') || lower.includes('إسعاف')) {
-                    reply = "🩺 في حالات الطوارئ الطبية أو ارتفاع ضغط الدم المفاجئ، يجب إبقاء المريض هادئاً في وضعية مريحة، قياس العلامات الحيوية فوراً، والاتصال بخدمة الإسعاف أو التوجه لأقرب مركز طوارئ طبي في منطقتك.";
-                } else if(lower.includes('إعلان') || lower.includes('نشر')) {
-                    reply = "📢 يمكنك نشر أي خدمة تمريضية، وظيفة، أو طلب أدوية بسهولة عبر الانتقال إلى تبويب (➕ إعلان) في شريط التنقل السفلي، واختيار صورة مباشرة من هاتفك لتظهر للجميع فوراً!";
-                }
-
+                let reply = "مرحباً بك زميلي. أنا مساعد Nurse Libya الذكي، أنصحك بمراجعة نقابة التمريض أو الجهات الرسمية لأي إجراءات قانونية أو ترخيص.";
+                if(text.includes('رخصة')) reply = "📜 لاستخراج رخصة المزاولة بليبيا: تتوجه لنقابة التمريض الفرعية بمدينتك مع شهادة التخرج ودفتر التكليف.";
+                if(text.includes('ضغط')) reply = "🩺 إسعافات ارتفاع الضغط: إراحة المريض، تجنب الإزعاج، قياس العلامات، والاتصال بالطوارئ فوراً عند وجود أعراض خطيرة.";
+                
                 chatMessages.innerHTML += `<div class="message ai">${reply}</div>`;
                 chatMessages.scrollTop = chatMessages.scrollHeight;
             }, 600);
         }
-
-        renderPosts();
     </script>
 </body>
 </html>
