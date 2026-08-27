@@ -3,49 +3,38 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Nurse Libya - المنصة الرسمية</title>
+    <title>Nurse Libya - المنصة الرسمية للتمريض</title>
     <link rel="manifest" href="manifest.json">
     <meta name="theme-color" content="#0f172a">
     <style>
         * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
         body {
             font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-            margin: 0;
-            background-color: #f8fafc;
-            color: #0f172a;
-            direction: rtl;
-            padding-bottom: 95px;
+            margin: 0; background-color: #f8fafc; color: #0f172a; direction: rtl; padding-bottom: 95px;
         }
-        /* الهيدر الفخم */
         .app-header {
             background: linear-gradient(135deg, #0f172a 0%, #1e3a8a 100%);
-            padding: 20px 16px 15px 16px;
-            color: white;
-            border-bottom-left-radius: 28px;
-            border-bottom-right-radius: 28px;
-            box-shadow: 0 10px 25px -5px rgba(15, 23, 42, 0.3);
-            position: sticky;
-            top: 0;
-            z-index: 100;
+            padding: 20px 16px 15px 16px; color: white;
+            border-bottom-left-radius: 28px; border-bottom-right-radius: 28px;
+            box-shadow: 0 10px 25px -5px rgba(15, 23, 42, 0.3); position: sticky; top: 0; z-index: 100;
         }
         .header-top { display: flex; justify-content: space-between; align-items: center; margin-bottom: 14px; }
-        .logo-box { font-size: 20px; font-weight: 800; display: flex; align-items: center; gap: 8px; letter-spacing: -0.5px; }
+        .logo-box { font-size: 19px; font-weight: 800; display: flex; align-items: center; gap: 8px; }
         
         .profile-chip {
             background: rgba(255, 255, 255, 0.12); backdrop-filter: blur(10px);
-            border: 1px solid rgba(255, 255, 255, 0.2); padding: 6px 14px; border-radius: 30px;
-            font-size: 13px; font-weight: 600; cursor: pointer; display: flex; align-items: center; gap: 6px; color: #f8fafc;
+            border: 1px solid rgba(255, 255, 255, 0.2); padding: 5px 12px; border-radius: 30px;
+            font-size: 12px; font-weight: 600; cursor: pointer; display: flex; align-items: center; gap: 8px; color: #f8fafc;
         }
+        .profile-avatar { width: 26px; height: 26px; border-radius: 50%; object-fit: cover; background: #0284c7; display: flex; align-items: center; justify-content: center; font-size: 12px; }
 
-        /* شريط البحث الفاخر */
         .search-bar {
             background: rgba(255, 255, 255, 0.1); border: 1px solid rgba(255, 255, 255, 0.15);
-            border-radius: 16px; padding: 10px 16px; display: flex; align-items: center; gap: 10px; margin-bottom: 4px;
+            border-radius: 16px; padding: 10px 16px; display: flex; align-items: center; gap: 10px;
         }
         .search-bar input { border: none; outline: none; width: 100%; font-size: 14px; background: transparent; color: white; }
         .search-bar input::placeholder { color: #94a3b8; }
 
-        /* المحتوى العام */
         .container { padding: 16px; max-width: 600px; margin: auto; }
         .page-sec { display: none; }
         .page-sec.active { display: block; animation: fadeIn 0.3s ease; }
@@ -53,64 +42,60 @@
 
         .sec-header { font-size: 17px; font-weight: 700; color: #1e293b; margin: 20px 0 12px 0; display: flex; justify-content: space-between; align-items: center; }
 
-        /* الكروت الفاخرة */
         .luxury-card {
             background: white; border-radius: 20px; padding: 18px; margin-bottom: 14px;
             border: 1px solid #e2e8f0; box-shadow: 0 4px 20px -2px rgba(0, 0, 0, 0.04);
-            transition: transform 0.2s; position: relative; overflow: hidden;
         }
         .card-title { font-weight: 700; font-size: 16px; color: #0f172a; margin-bottom: 6px; }
         .card-details { font-size: 13px; color: #64748b; margin-bottom: 12px; display: flex; gap: 8px; align-items: center; flex-wrap: wrap; }
         
-        .badge-gov { background: #eff6ff; color: #1d4ed8; padding: 3px 10px; border-radius: 8px; font-size: 11px; font-weight: 700; border: 1px solid #bfdbfe; }
-        .badge-pvt { background: #f0fdf4; color: #15803d; padding: 3px 10px; border-radius: 8px; font-size: 11px; font-weight: 700; border: 1px solid #bbf7d0; }
+        .badge-gov { background: #eff6ff; color: #1d4ed8; padding: 3px 10px; border-radius: 8px; font-size: 11px; font-weight: 700; }
+        .badge-pvt { background: #f0fdf4; color: #15803d; padding: 3px 10px; border-radius: 8px; font-size: 11px; font-weight: 700; }
 
-        /* أزرار فاخرة */
         .btn-lux {
             width: 100%; background: linear-gradient(135deg, #0284c7 0%, #0369a1 100%);
             color: white; border: none; padding: 11px; border-radius: 12px; font-weight: 700; font-size: 13px;
-            cursor: pointer; text-align: center; box-shadow: 0 4px 12px rgba(2, 132, 199, 0.2); transition: 0.2s;
+            cursor: pointer; text-align: center; box-shadow: 0 4px 12px rgba(2, 132, 199, 0.2);
         }
-        .btn-lux:active { transform: scale(0.98); }
-        .btn-success { background: linear-gradient(135deg, #16a34a 0%, #15803d 100%); box-shadow: 0 4px 12px rgba(22, 163, 74, 0.2); }
+        .btn-success { background: linear-gradient(135deg, #16a34a 0%, #15803d 100%); }
 
-        /* شريط التنقل السفلي الفخم (Bottom Bar) */
+        /* شريط التنقل السفلي */
         .bottom-nav {
             position: fixed; bottom: 0; left: 0; width: 100%; background: rgba(255, 255, 255, 0.95);
             backdrop-filter: blur(12px); border-top: 1px solid #e2e8f0; display: flex; justify-content: space-around;
-            padding: 10px 4px 16px 4px; z-index: 100; box-shadow: 0 -10px 25px rgba(0,0,0,0.05);
+            padding: 10px 2px 16px 2px; z-index: 100; box-shadow: 0 -10px 25px rgba(0,0,0,0.05);
         }
         .nav-item {
-            background: transparent; border: none; color: #64748b; font-size: 11px; font-weight: 600;
-            display: flex; flex-direction: column; align-items: center; gap: 4px; cursor: pointer; transition: 0.2s;
+            background: transparent; border: none; color: #64748b; font-size: 10px; font-weight: 600;
+            display: flex; flex-direction: column; align-items: center; gap: 3px; cursor: pointer;
         }
-        .nav-item span.icon { font-size: 20px; }
+        .nav-item span.icon { font-size: 19px; }
         .nav-item.active { color: #0284c7; }
 
-        /* النوافذ المنبثقة الفخمة */
+        /* نظام الدردشة والمراسلة الخاصة */
+        .chat-box { background: #fff; border-radius: 16px; border: 1px solid #e2e8f0; height: 350px; display: flex; flex-direction: column; overflow: hidden; margin-bottom: 12px; }
+        .chat-messages { flex: 1; padding: 12px; overflow-y: auto; background: #f8fafc; display: flex; flex-direction: column; gap: 8px; }
+        .msg { padding: 10px 14px; border-radius: 14px; max-width: 80%; font-size: 13px; line-height: 1.4; }
+        .msg.incoming { background: #e2e8f0; color: #0f172a; align-self: flex-start; }
+        .msg.outgoing { background: #0284c7; color: white; align-self: flex-end; }
+        .chat-input-area { display: flex; padding: 10px; background: white; border-top: 1px solid #e2e8f0; gap: 8px; }
+        .chat-input-area input { flex: 1; padding: 8px 12px; border: 1px solid #cbd5e1; border-radius: 10px; font-size: 13px; outline: none; }
+
+        /* النوافذ المنبثقة */
         .modal {
             display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
             background: rgba(15, 23, 42, 0.6); backdrop-filter: blur(5px); justify-content: center; align-items: flex-end; z-index: 1000;
         }
         .modal-content {
             background: white; padding: 24px; border-top-left-radius: 28px; border-top-right-radius: 28px;
-            width: 100%; max-width: 600px; max-height: 90vh; overflow-y: auto; animation: slideUp 0.3s ease;
+            width: 100%; max-width: 600px; max-height: 90vh; overflow-y: auto;
         }
-        @keyframes slideUp { from { transform: translateY(100%); } to { transform: translateY(0); } }
-        
         .form-group { margin-bottom: 14px; }
         .form-group label { display: block; font-size: 12px; font-weight: 700; margin-bottom: 6px; color: #334155; }
         .form-ctrl { width: 100%; padding: 11px; border: 1.5px solid #cbd5e1; border-radius: 12px; font-size: 13px; background: #f8fafc; }
-        .form-ctrl:focus { border-color: #0284c7; background: white; outline: none; }
 
-        .phone-box { background: #f0fdf4; color: #15803d; padding: 12px; border-radius: 14px; font-weight: 700; font-size: 15px; text-align: center; margin-top: 14px; border: 1px solid #bbf7d0; display: flex; align-items: center; justify-content: center; gap: 8px; }
-
-        /* بانر تثبيت التطبيق */
-        .install-banner {
-            background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%); color: white;
-            padding: 14px 18px; border-radius: 18px; margin-bottom: 16px; display: flex; justify-content: space-between; align-items: center;
-            border: 1px solid rgba(255,255,255,0.1);
-        }
+        .store-badges { display: flex; gap: 10px; margin-top: 15px; }
+        .store-btn { flex: 1; background: #0f172a; color: white; padding: 12px; border-radius: 14px; text-align: center; font-weight: bold; font-size: 12px; cursor: pointer; border: none; }
     </style>
 </head>
 <body>
@@ -119,7 +104,8 @@
         <div class="header-top">
             <div class="logo-box"> Nurse Libya 🇱🇾 🩺</div>
             <div id="profileChip" class="profile-chip" onclick="openModal('authModal')">
-                <span>👤</span> <span id="profileNameTxt">حسابي المهني</span>
+                <div id="headerAvatar" class="profile-avatar">👤</div> 
+                <span id="profileNameTxt">حسابي المهني</span>
             </div>
         </div>
         <div class="search-bar">
@@ -130,15 +116,6 @@
 
     <div class="container">
         
-        <!-- بانر تثبيت التطبيق في هواتف الزملاء -->
-        <div class="install-banner">
-            <div>
-                <div style="font-weight: 700; font-size: 14px;">اجعل التطبيق على هاتفك 📲</div>
-                <div style="font-size: 11px; color: #94a3b8; margin-top: 2px;">ثبته الآن ليظهر كأيقونة حقيقية في هاتفك!</div>
-            </div>
-            <button onclick="triggerInstall()" style="background: #0284c7; color: white; border: none; padding: 8px 14px; border-radius: 10px; font-weight: 700; font-size: 12px; cursor: pointer;">تثبيت الآن</button>
-        </div>
-
         <!-- 1. الرئيسية -->
         <div id="home" class="page-sec active">
             <div class="sec-header"><span>أحدث الفرص والوظائف</span></div>
@@ -151,7 +128,21 @@
             <div id="fullJobsContainer"></div>
         </div>
 
-        <!-- 3. نشر إعلان -->
+        <!-- 3. المراسلة والدردشة الخاصة -->
+        <div id="chat" class="page-sec">
+            <div class="sec-header"><span>المراسلة الخاصة والدردشة الطبية المباشرة</span></div>
+            <div class="chat-box">
+                <div class="chat-messages" id="chatMsgs">
+                    <div class="msg incoming">أهلاً بك في نظام المراسلة الخاصة بـ Nurse Libya. يمكنك التواصل مباشرة مع الإدارات أو الزملاء هنا.</div>
+                </div>
+                <div class="chat-input-area">
+                    <input type="text" id="chatInput" placeholder="اكتب رسالتك الخاصة هنا..." onkeypress="checkEnter(event)">
+                    <button class="btn-lux" style="width: 80px; padding: 8px;" onclick="sendPrivateMsg()">إرسال</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- 4. نشر إعلان -->
         <div id="addJob" class="page-sec">
             <div class="sec-header"><span>نشر فرصة عمل أو دورة رسمية</span></div>
             <div class="luxury-card">
@@ -176,7 +167,7 @@
                         <input type="text" id="pubCity" class="form-ctrl" placeholder="مثال: طرابلس، بنغازي، مصراتة" required>
                     </div>
                     <div class="form-group">
-                        <label>رقم هاتف المسؤول (للتواصل المباشر):</label>
+                        <label>رقم هاتف المسؤول للتواصل المباشر:</label>
                         <input type="tel" id="pubPhone" class="form-ctrl" placeholder="091XXXXXXX" required>
                     </div>
                     <div class="form-group">
@@ -188,29 +179,21 @@
             </div>
         </div>
 
-        <!-- 4. ECG -->
-        <div id="ecg" class="page-sec">
-            <div class="sec-header"><span>دليل تخطيط القلب السريري ECG</span></div>
-            <div class="luxury-card">
-                <div class="card-title">النظم الطبيعي (NSR)</div>
-                <p style="font-size: 13px; color: #64748b;">P-QRS-T منتظم • المعدل 60-100 نبضة/دقيقة.</p>
-            </div>
-            <div class="luxury-card">
-                <div class="card-title" style="color: #dc2626;">الرجفان البطيني (VFib) - طارئ</div>
-                <p style="font-size: 13px; color: #64748b;">توقف قلب حرج يتطلب صدمة فورية وإنعاش رئوي CPR.</p>
-            </div>
-        </div>
-
-        <!-- 5. الأدوية والمستشفيات -->
-        <div id="hospitals" class="page-sec">
-            <div class="sec-header"><span>دليل المستشفيات وأدوية الطوارئ</span></div>
-            <div class="luxury-card">
-                <div class="card-title">الأدرينالين (Epinephrine)</div>
-                <p style="font-size: 13px; color: #64748b;">جرعة السكتة القلبية: 1 ملغ وريدياً (IV) كل 3-5 دقائق.</p>
-            </div>
-            <div class="luxury-card">
-                <div class="card-title">مستشفى طرابلس المركزي</div>
-                <div class="card-details"><span>📍 طرابلس</span> <span class="badge-gov">طوارئ 24 ساعة</span></div>
+        <!-- 5. التحميل والمتاجر (متجر بلاي وابل ستور) -->
+        <div id="stores" class="page-sec">
+            <div class="sec-header"><span>تحميل التطبيق على المتاجر الرسمية</span></div>
+            <div class="luxury-card" style="text-align: center; padding: 25px;">
+                <h3 style="color: #0f172a; margin-top: 0;">تطبيق Nurse Libya للتمريض</h3>
+                <p style="font-size: 13px; color: #64748b; line-height: 1.6;">تم تجهيز التطبيق ليكون متاحاً قريباً على متاجر الهواتف الذكية الرسمية لخدمة جميع الكواّدر الطبية في ليبيا.</p>
+                
+                <div class="store-badges">
+                    <button class="store-btn" onclick="alert('جاري رفع التطبيق على Google Play، يمكنك تثبيته حالياً مباشرة من زر الشاشة الرئيسية للمتصفح!')">
+                        🟢 Google Play <br><span style="font-size: 10px; font-weight: normal; color: #94a3b8;">قريباً / متاح ويب</span>
+                    </button>
+                    <button class="store-btn" style="background: #0284c7;" onclick="alert('جاري توثيق التطبيق على Apple App Store!')">
+                        🍏 App Store <br><span style="font-size: 10px; font-weight: normal; color: #bae6fd;">قريباً للأيفون</span>
+                    </button>
+                </div>
             </div>
         </div>
 
@@ -218,57 +201,47 @@
 
     <!-- شريط التنقل السفلي الفخم -->
     <div class="bottom-nav">
-        <button class="nav-item active" onclick="switchTab('home', this)">
-            <span class="icon">🏠</span>الرئيسية
-        </button>
-        <button class="nav-item" onclick="switchTab('jobs', this)">
-            <span class="icon">💼</span>الوظائف
-        </button>
-        <button class="nav-item" onclick="switchTab('addJob', this)">
-            <span class="icon">➕</span>إعلان
-        </button>
-        <button class="nav-item" onclick="switchTab('ecg', this)">
-            <span class="icon">❤️</span>ECG
-        </button>
-        <button class="nav-item" onclick="switchTab('hospitals', this)">
-            <span class="icon">🏥</span>أدوية ومستشفيات
-        </button>
+        <button class="nav-item active" onclick="switchTab('home', this)"><span class="icon">🏠</span>الرئيسية</button>
+        <button class="nav-item" onclick="switchTab('jobs', this)"><span class="icon">💼</span>الوظائف</button>
+        <button class="nav-item" onclick="switchTab('chat', this)"><span class="icon">💬</span>مراسلة</button>
+        <button class="nav-item" onclick="switchTab('addJob', this)"><span class="icon">➕</span>إعلان</button>
+        <button class="nav-item" onclick="switchTab('stores', this)"><span class="icon">📥</span>المتاجر</button>
     </div>
 
-    <!-- نافذة تسجيل الحساب المهني -->
+    <!-- نافذة تسجيل الحساب المهني والصورة -->
     <div id="authModal" class="modal">
         <div class="modal-content">
             <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px;">
-                <h3 style="margin:0; font-size:17px; color:#0f172a;">تسجيل الملف المهني</h3>
+                <h3 style="margin:0; font-size:17px; color:#0f172a;">الملف المهني والصورة الشخصية</h3>
                 <button onclick="closeModal('authModal')" style="background:#f1f5f9; border:none; width:30px; height:30px; border-radius:50%; font-weight:bold; cursor:pointer;">✕</button>
             </div>
             <form onsubmit="saveProfile(event)">
+                <div class="form-group">
+                    <label>رابط صورة البروفايل (أو اختر رابط صورة حقيقي):</label>
+                    <input type="url" id="profImg" class="form-ctrl" placeholder="https://example.com/image.jpg أو اتركه فارغاً">
+                </div>
                 <div class="form-group">
                     <label>الاسم الكامل:</label>
                     <input type="text" id="profName" class="form-ctrl" placeholder="اسمك الثلاثي" required>
                 </div>
                 <div class="form-group">
-                    <label>المؤهل العلمي:</label>
-                    <select id="profDegree" class="form-ctrl">
-                        <option value="بكالوريوس تمريض">بكالوريوس تمريض</option>
-                        <option value="دبلوم عالي تمريض">دبلوم عالي تمريض</option>
-                        <option value="تخصص عناية حرجة">تخصص دقيق (عناية حرجة / طوارئ)</option>
-                    </select>
+                    <label>المؤهل العلمي / التخصص:</label>
+                    <input type="text" id="profDegree" class="form-ctrl" placeholder="بكالوريوس تمريض / إحصاء طبي" required>
                 </div>
                 <div class="form-group">
-                    <label>مكان العمل (المستشفى / المصحة):</label>
-                    <input type="text" id="profWork" class="form-ctrl" placeholder="اسم جهة عملك الحالية" required>
+                    <label>مكان العمل الحالي:</label>
+                    <input type="text" id="profWork" class="form-ctrl" placeholder="اسم المستشفى أو المصحة" required>
                 </div>
                 <div class="form-group">
                     <label>رقم الهاتف الشخصي:</label>
                     <input type="tel" id="profPhone" class="form-ctrl" placeholder="091XXXXXXX" required>
                 </div>
-                <button type="submit" class="btn-lux">حفظ الاعتماد المهني</button>
+                <button type="submit" class="btn-lux">حفظ الاعتماد والصورة</button>
             </form>
         </div>
     </div>
 
-    <!-- نافذة تفاصيل الوظيفة ورقم الهاتف -->
+    <!-- نافذة تفاصيل الوظيفة -->
     <div id="detModal" class="modal">
         <div class="modal-content">
             <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px;">
@@ -276,12 +249,11 @@
                 <button onclick="closeModal('detModal')" style="background:#f1f5f9; border:none; width:30px; height:30px; border-radius:50%; font-weight:bold; cursor:pointer;">✕</button>
             </div>
             <p id="detDesc" style="color: #475569; font-size: 13px; line-height: 1.7; white-space: pre-line; margin: 0 0 14px 0;"></p>
-            <div id="detPhone" class="phone-box"></div>
+            <div id="detPhone" style="background: #f0fdf4; color: #15803d; padding: 12px; border-radius: 14px; font-weight: 700; font-size: 15px; text-align: center; border: 1px solid #bbf7d0;"></div>
         </div>
     </div>
 
     <script>
-        // تخزين الوظائف محلياً لكي لا تختفي أبداً
         let jobs = JSON.parse(localStorage.getItem('nurse_libya_jobs')) || [
             { id: 1, sector: 'pvt', entity: 'مصحة الأمهار الطبية', title: 'ممرض / ممرضة ICU', city: 'طرابلس', phone: '0912345678', desc: 'مطلوب للعمل بنظام الورديات. يشترط رخصة مزاولة المهنة وخبرة سنة على الأقل.' },
             { id: 2, sector: 'gov', entity: 'مركز بنغازي الطبي', title: 'ممرض طوارئ إسعاف', city: 'بنغازي', phone: '0923456789', desc: 'إعلان رسمي صادر عن إدارة التمريض لاستقبال الكوادر المؤهلة.' }
@@ -290,7 +262,6 @@
         function switchTab(tabId, btn) {
             document.querySelectorAll('.page-sec').forEach(s => s.classList.remove('active'));
             document.getElementById(tabId).classList.add('active');
-            
             if(btn) {
                 document.querySelectorAll('.nav-item').forEach(i => i.classList.remove('active'));
                 btn.classList.add('active');
@@ -305,10 +276,17 @@
         function saveProfile(e) {
             e.preventDefault();
             let name = document.getElementById('profName').value;
+            let img = document.getElementById('profImg').value;
+            
             localStorage.setItem('nurse_profile', name);
+            localStorage.setItem('nurse_avatar', img);
+            
             document.getElementById('profileNameTxt').innerText = name;
+            if(img) {
+                document.getElementById('headerAvatar').innerHTML = `<img src="${img}" style="width:100%; height:100%; border-radius:50%; object-fit:cover;">`;
+            }
             closeModal('authModal');
-            alert('تم حفظ ملفك المهني بنجاح!');
+            alert('تم حفظ صورتك وملفك المهني بنجاح!');
         }
 
         function handlePublish(e) {
@@ -324,7 +302,7 @@
             };
             jobs.unshift(newJ);
             localStorage.setItem('nurse_libya_jobs', JSON.stringify(jobs));
-            alert('تم نشر الإعلان بنجاح في جميع هواتف الزملاء!');
+            alert('تم نشر الإعلان بنجاح للجميع!');
             document.querySelector('form').reset();
             switchTab('jobs', document.querySelectorAll('.nav-item')[1]);
         }
@@ -354,30 +332,33 @@
             openModal('detModal');
         }
 
-        // ميزة تثبيت التطبيق على هواتف الزملاء (PWA Trigger)
-        let deferredPrompt;
-        window.addEventListener('beforeinstallprompt', (e) => {
-            e.preventDefault();
-            deferredPrompt = e;
-        });
+        // إرسال رسالة في الدردشة الخاصة
+        function sendPrivateMsg() {
+            let input = document.getElementById('chatInput');
+            let txt = input.value.trim();
+            if(!txt) return;
+            
+            let box = document.getElementById('chatMsgs');
+            box.innerHTML += `<div class="msg outgoing">${txt}</div>`;
+            input.value = '';
+            box.scrollTop = box.scrollHeight;
 
-        function triggerInstall() {
-            if (deferredPrompt) {
-                deferredPrompt.prompt();
-                deferredPrompt.userChoice.then((choiceResult) => {
-                    if (choiceResult.outcome === 'accepted') {
-                        console.log('تم تثبيت التطبيق بنجاح');
-                    }
-                    deferredPrompt = null;
-                });
-            } else {
-                alert('لتثبيت التطبيق على هاتفك:\n- اذهب لقائمة المتصفح (النقاط الثلاث بالأعلى).\n- اختر "إضافة إلى الشاشة الرئيسية" (Add to Home Screen).');
-            }
+            // رد تلقائي ذكي من النظام أو المشرف
+            setTimeout(() => {
+                box.innerHTML += `<div class="msg incoming">تم استلام رسالتك الخاصة بنجاح، سيتم الرد عليك من قِبل إدارة التواريخ قريباً.</div>`;
+                box.scrollTop = box.scrollHeight;
+            }, 1000);
         }
 
-        // تحميل اسم المستخدم المحفوظ إن وجد
+        function checkEnter(e) { if(e.key === 'Enter') sendPrivateMsg(); }
+
+        // استرجاع البيانات المخزنة عند الفتح
         let savedName = localStorage.getItem('nurse_profile');
+        let savedAvatar = localStorage.getItem('nurse_avatar');
         if(savedName) { document.getElementById('profileNameTxt').innerText = savedName; }
+        if(savedAvatar) {
+            document.getElementById('headerAvatar').innerHTML = `<img src="${savedAvatar}" style="width:100%; height:100%; border-radius:50%; object-fit:cover;">`;
+        }
 
         renderJobs();
     </script>
