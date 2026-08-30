@@ -1,614 +1,329 @@
-<!DOCTYPE html>
-<html lang="ar" dir="rtl">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="theme-color" content="#0B1625">
-  <title>Nurse Libya 🇱🇾</title>
-
-  <style>
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Arial, sans-serif;
-    }
-
-    body {
-      background: #07111f;
-      color: #ffffff;
-      min-height: 100vh;
-    }
-
-    .app {
-      max-width: 600px;
-      margin: auto;
-      min-height: 100vh;
-      padding-bottom: 90px;
-    }
-
-    /* Header */
-    header {
-      padding: 25px 20px 15px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-    }
-
-    .brand {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-    }
-
-    .logo {
-      width: 48px;
-      height: 48px;
-      border-radius: 15px;
-      background: #18a7ff;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 25px;
-      font-weight: 800;
-    }
-
-    .brand h1 {
-      font-size: 22px;
-    }
-
-    .menu {
-      width: 45px;
-      height: 45px;
-      border: 0;
-      border-radius: 15px;
-      background: #142033;
-      color: white;
-      font-size: 24px;
-    }
-
-    /* Welcome */
-    .welcome {
-      padding: 25px 20px;
-    }
-
-    .welcome h2 {
-      font-size: 30px;
-      margin-bottom: 8px;
-    }
-
-    .welcome p {
-      color: #9aa8ba;
-      font-size: 16px;
-    }
-
-    /* Search */
-    .search {
-      margin: 0 20px 25px;
-      background: #101d2d;
-      border: 1px solid #25364d;
-      border-radius: 18px;
-      padding: 15px;
-      display: flex;
-      align-items: center;
-      gap: 10px;
-    }
-
-    .search input {
-      flex: 1;
-      background: transparent;
-      border: 0;
-      outline: 0;
-      color: white;
-      font-size: 16px;
-    }
-
-    .search input::placeholder {
-      color: #7d8b9c;
-    }
-
-    /* Cards */
-    .section {
-      padding: 0 20px;
-      margin-bottom: 25px;
-    }
-
-    .section-title {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-bottom: 15px;
-    }
-
-    .section-title h3 {
-      font-size: 20px;
-    }
-
-    .section-title span {
-      color: #18a7ff;
-      font-size: 14px;
-    }
-
-    .card {
-      background: #101d2d;
-      border: 1px solid #25364d;
-      border-radius: 20px;
-      padding: 18px;
-      margin-bottom: 12px;
-    }
-
-    .card-row {
-      display: flex;
-      align-items: center;
-      gap: 14px;
-    }
-
-    .icon {
-      width: 48px;
-      height: 48px;
-      border-radius: 15px;
-      background: #172941;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 23px;
-    }
-
-    .card h4 {
-      font-size: 17px;
-      margin-bottom: 5px;
-    }
-
-    .card p {
-      color: #8998aa;
-      font-size: 13px;
-    }
-
-    /* Emergency */
-    .emergency {
-      margin: 0 20px 25px;
-      padding: 22px;
-      border-radius: 22px;
-      background: linear-gradient(135deg, #b51f3b, #74152b);
-      border: 1px solid #e14c68;
-    }
-
-    .emergency h3 {
-      font-size: 21px;
-      margin-bottom: 8px;
-    }
-
-    .emergency p {
-      color: #ffdbe1;
-      font-size: 14px;
-      margin-bottom: 15px;
-    }
-
-    .emergency button {
-      border: 0;
-      background: white;
-      color: #a61936;
-      padding: 12px 20px;
-      border-radius: 14px;
-      font-weight: 700;
-      font-size: 15px;
-    }
-
-    /* Quick actions */
-    .actions {
-      display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: 12px;
-    }
-
-    .action {
-      background: #101d2d;
-      border: 1px solid #25364d;
-      border-radius: 20px;
-      padding: 20px;
-      text-align: center;
-    }
-
-    .action .big-icon {
-      font-size: 30px;
-      margin-bottom: 10px;
-    }
-
-    .action h4 {
-      font-size: 15px;
-    }
-
-    .action p {
-      margin-top: 5px;
-      color: #8392a5;
-      font-size: 12px;
-    }
-
-    /* Bottom navigation */
-    .bottom-nav {
-      position: fixed;
-      bottom: 0;
-      left: 50%;
-      transform: translateX(-50%);
-      width: min(600px, 100%);
-      background: #0c1726;
-      border-top: 1px solid #26374d;
-      padding: 10px 15px 12px;
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      z-index: 10;
-    }
-
-    .nav-item {
-      text-align: center;
-      color: #8290a2;
-      font-size: 12px;
-      background: none;
-      border: 0;
-    }
-
-    .nav-item span {
-      display: block;
-      font-size: 22px;
-      margin-bottom: 4px;
-    }
-
-    .nav-item.active {
-      color: #18a7ff;
-    }
-
-    /* Pages */
-    .page {
-      display: none;
-    }
-
-    .page.active {
-      display: block;
-    }
-
-    .back {
-      margin: 20px;
-      background: #142033;
-      border: 0;
-      color: white;
-      border-radius: 14px;
-      padding: 12px 18px;
-      font-size: 15px;
-    }
-
-    .profile {
-      text-align: center;
-      padding: 30px 20px;
-    }
-
-    .profile-avatar {
-      width: 100px;
-      height: 100px;
-      border-radius: 50%;
-      margin: auto;
-      background: #c9efd9;
-      color: #12804e;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 50px;
-      font-weight: 700;
-      margin-bottom: 15px;
-    }
-
-    .profile h2 {
-      font-size: 25px;
-    }
-
-    .profile p {
-      color: #8998aa;
-      margin-top: 7px;
-    }
-
-    .info {
-      margin: 20px;
-      background: #101d2d;
-      border: 1px solid #25364d;
-      border-radius: 20px;
-      padding: 20px;
-    }
-
-    .info div {
-      padding: 14px 0;
-      border-bottom: 1px solid #25364d;
-    }
-
-    .info div:last-child {
-      border-bottom: 0;
-    }
-
-    .info strong {
-      display: block;
-      margin-bottom: 5px;
-    }
-
-    .info span {
-      color: #8998aa;
-    }
-
-    @media (min-width: 601px) {
-      body {
-        background: #030a13;
-      }
-
-      .app {
-        background: #07111f;
-      }
-    }
-  </style>
-</head>
-
-<body>
-
-<div class="app">
-
-  <!-- HOME -->
-  <main id="home" class="page active">
-
-    <header>
-      <div class="brand">
-        <div class="logo">N</div>
-        <h1>Nurse Libya</h1>
-      </div>
-
-      <button class="menu" onclick="showPage('profile')">☰</button>
-    </header>
-
-    <section class="welcome">
-      <h2>مرحباً بك 👋</h2>
-      <p>منصة التمريض الليبية الذكية</p>
-    </section>
-
-    <div class="search">
-      🔎
-      <input
-        type="text"
-        id="searchInput"
-        placeholder="ابحث عن دواء، معلومة أو قسم..."
-        oninput="searchCards()"
-      >
-    </div>
-
-    <div class="emergency">
-      <h3>🚨 حالة طارئة؟</h3>
-      <p>الوصول السريع إلى أرقام وخدمات الطوارئ.</p>
-      <button onclick="callEmergency()">اتصال بالطوارئ</button>
-    </div>
-
-    <section class="section">
-      <div class="section-title">
-        <h3>الخدمات السريعة</h3>
-      </div>
-
-      <div class="actions">
-
-        <button class="action" onclick="showMessage('حاسبة الجرعات قريباً')">
-          <div class="big-icon">💊</div>
-          <h4>حاسبة الجرعات</h4>
-          <p>حساب الجرعات</p>
-        </button>
-
-        <button class="action" onclick="showMessage('الأدوية قريباً')">
-          <div class="big-icon">🩺</div>
-          <h4>الأدوية</h4>
-          <p>دليل الأدوية</p>
-        </button>
-
-        <button class="action" onclick="showMessage('الإرشادات قريباً')">
-          <div class="big-icon">📚</div>
-          <h4>الإرشادات</h4>
-          <p>معلومات تمريضية</p>
-        </button>
-
-        <button class="action" onclick="showMessage('الطوارئ قريباً')">
-          <div class="big-icon">🚑</div>
-          <h4>الطوارئ</h4>
-          <p>الإجراءات السريعة</p>
-        </button>
-
-      </div>
-    </section>
-
-    <section class="section">
-
-      <div class="section-title">
-        <h3>أهم الأقسام</h3>
-        <span>عرض الكل</span>
-      </div>
-
-      <div id="cards">
-
-        <div class="card searchable">
-          <div class="card-row">
-            <div class="icon">💉</div>
-            <div>
-              <h4>العناية المركزة</h4>
-              <p>معلومات وإرشادات ICU</p>
-            </div>
-          </div>
-        </div>
-
-        <div class="card searchable">
-          <div class="card-row">
-            <div class="icon">❤️</div>
-            <div>
-              <h4>الإنعاش القلبي</h4>
-              <p>CPR والإسعافات الأولية</p>
-            </div>
-          </div>
-        </div>
-
-        <div class="card searchable">
-          <div class="card-row">
-            <div class="icon">👶</div>
-            <div>
-              <h4>تمريض الأطفال</h4>
-              <p>رعاية الأطفال وحديثي الولادة</p>
-            </div>
-          </div>
-        </div>
-
-        <div class="card searchable">
-          <div class="card-row">
-            <div class="icon">🤰</div>
-            <div>
-              <h4>تمريض النساء والولادة</h4>
-              <p>رعاية الأم والطفل</p>
-            </div>
-          </div>
-        </div>
-
-      </div>
-
-    </section>
-
-  </main>
-
-
-  <!-- PROFILE -->
-  <main id="profile" class="page">
-
-    <button class="back" onclick="showPage('home')">
-      ← رجوع
-    </button>
-
-    <section class="profile">
-      <div class="profile-avatar">N</div>
-      <h2>Nurse Libya</h2>
-      <p>الملف الشخصي</p>
-    </section>
-
-    <div class="info">
-
-      <div>
-        <strong>👤 الاسم</strong>
-        <span>مستخدم Nurse Libya</span>
-      </div>
-
-      <div>
-        <strong>🇱🇾 الدولة</strong>
-        <span>ليبيا</span>
-      </div>
-
-      <div>
-        <strong>🩺 التخصص</strong>
-        <span>التمريض</span>
-      </div>
-
-      <div>
-        <strong>📱 الإصدار</strong>
-        <span>1.0.0</span>
-      </div>
-
-    </div>
-
-  </main>
-
-
-  <!-- BOTTOM NAV -->
-  <nav class="bottom-nav">
-
-    <button class="nav-item active" onclick="showPage('home', this)">
-      <span>🏠</span>
-      الرئيسية
-    </button>
-
-    <button class="nav-item" onclick="showMessage('قسم الأدوية قريباً')">
-      <span>💊</span>
-      الأدوية
-    </button>
-
-    <button class="nav-item" onclick="showMessage('قسم المراجع قريباً')">
-      <span>📚</span>
-      المراجع
-    </button>
-
-    <button class="nav-item" onclick="showPage('profile', this)">
-      <span>👤</span>
-      حسابي
-    </button>
-
-  </nav>
-
-</div>
-
-
-<script>
-
-  function showPage(pageId, button) {
-
-    document.querySelectorAll(".page").forEach(function(page) {
-      page.classList.remove("active");
-    });
-
-    const page = document.getElementById(pageId);
-
-    if (page) {
-      page.classList.add("active");
-    }
-
-    document.querySelectorAll(".nav-item").forEach(function(item) {
-      item.classList.remove("active");
-    });
-
-    if (button) {
-      button.classList.add("active");
-    }
-
-    window.scrollTo({
-      top: 0,
-      behavior: "smooth"
-    });
-  }
-
-
-  function showMessage(message) {
-    alert(message);
-  }
-
-
-  function callEmergency() {
-
-    const confirmed = confirm(
-      "هل تريد الاتصال بالطوارئ؟"
+import 'package:flutter/material.dart';
+
+void main() => runApp(const NurseLibya());
+
+class NurseLibya extends StatelessWidget {
+  const NurseLibya({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      debugShowCheckedModeBanner: false,
+      theme: ThemeData(
+        useMaterial3: true,
+        fontFamily: 'Arial',
+        colorScheme: ColorScheme.fromSeed(
+          seedColor: const Color(0xff18A9ED),
+          brightness: Brightness.dark,
+        ),
+      ),
+      home: const Home(),
     );
-
-    if (confirmed) {
-      window.location.href = "tel:112";
-    }
   }
+}
 
+class Home extends StatelessWidget {
+  const Home({super.key});
 
-  function searchCards() {
+  @override
+  Widget build(BuildContext context) {
+    final services = [
+      [Icons.local_hospital, 'مستشفيات'],
+      [Icons.medical_services, 'أطباء'],
+      [Icons.medication, 'صيدليات'],
+      [Icons.science, 'مختبرات'],
+      [Icons.home_health, 'تمريض منزلي'],
+      [Icons.emergency, 'طوارئ'],
+      [Icons.work, 'وظائف تمريض'],
+      [Icons.school, 'دورات وكليات'],
+    ];
 
-    const input =
-      document.getElementById("searchInput")
-      .value
-      .toLowerCase();
+    return Directionality(
+      textDirection: TextDirection.rtl,
+      child: Scaffold(
+        backgroundColor: const Color(0xff041522),
+        bottomNavigationBar: NavigationBar(
+          backgroundColor: const Color(0xff06111b),
+          selectedIndex: 0,
+          destinations: const [
+            NavigationDestination(icon: Icon(Icons.home), label: 'الرئيسية'),
+            NavigationDestination(icon: Icon(Icons.calendar_month), label: 'الحجز'),
+            NavigationDestination(icon: Icon(Icons.work), label: 'الوظائف'),
+            NavigationDestination(icon: Icon(Icons.school), label: 'التعليم'),
+            NavigationDestination(icon: Icon(Icons.person), label: 'حسابي'),
+          ],
+        ),
+        body: SafeArea(
+          child: ListView(
+            padding: const EdgeInsets.all(18),
+            children: [
+              // HEADER
+              const Row(
+                children: [
+                  CircleAvatar(
+                    radius: 25,
+                    backgroundColor: Color(0xff10344A),
+                    child: Icon(Icons.person, color: Colors.white),
+                  ),
+                  Spacer(),
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.end,
+                    children: [
+                      Text(
+                        'Nurse Libya',
+                        style: TextStyle(
+                          fontSize: 24,
+                          fontWeight: FontWeight.w900,
+                        ),
+                      ),
+                      Text(
+                        'الرعاية الصحية في ليبيا',
+                        style: TextStyle(
+                          color: Color(0xff55C9FA),
+                          fontSize: 13,
+                        ),
+                      ),
+                    ],
+                  ),
+                  SizedBox(width: 10),
+                  Icon(
+                    Icons.add_box_rounded,
+                    size: 48,
+                    color: Color(0xff5CCBFA),
+                  ),
+                ],
+              ),
 
-    const cards =
-      document.querySelectorAll(".searchable");
+              const SizedBox(height: 20),
 
-    cards.forEach(function(card) {
+              // HERO
+              Container(
+                height: 245,
+                padding: const EdgeInsets.all(22),
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(30),
+                  image: const DecorationImage(
+                    fit: BoxFit.cover,
+                    image: NetworkImage(
+                      'https://images.unsplash.com/photo-1551076805-e1869033e561?auto=format&fit=crop&w=1200&q=90',
+                    ),
+                  ),
+                ),
+                child: Container(
+                  alignment: Alignment.bottomRight,
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(30),
+                    gradient: const LinearGradient(
+                      colors: [Colors.transparent, Colors.black87],
+                      begin: Alignment.topCenter,
+                      end: Alignment.bottomCenter,
+                    ),
+                  ),
+                  child: const Padding(
+                    padding: EdgeInsets.all(4),
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.end,
+                      crossAxisAlignment: CrossAxisAlignment.end,
+                      children: [
+                        Text(
+                          'منصة طبية ليبية 🇱🇾',
+                          style: TextStyle(
+                            color: Color(0xff60D0FF),
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                        SizedBox(height: 7),
+                        Text(
+                          'الرعاية الصحية\nأقرب إليك',
+                          textAlign: TextAlign.right,
+                          style: TextStyle(
+                            fontSize: 30,
+                            fontWeight: FontWeight.w900,
+                            height: 1.05,
+                          ),
+                        ),
+                        SizedBox(height: 6),
+                        Text(
+                          'أطباء • تمريض • وظائف • دورات • كليات',
+                          style: TextStyle(color: Colors.white70),
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+              ),
 
-      const text =
-        card.innerText.toLowerCase();
+              const SizedBox(height: 18),
 
-      if (text.includes(input)) {
-        card.style.display = "block";
-      } else {
-        card.style.display = "none";
-      }
+              // SEARCH
+              TextField(
+                decoration: InputDecoration(
+                  hintText: 'ابحث عن طبيب، مستشفى، خدمة...',
+                  prefixIcon: const Icon(Icons.search),
+                  filled: true,
+                  fillColor: const Color(0xff0A2436),
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(20),
+                    borderSide: BorderSide.none,
+                  ),
+                ),
+              ),
 
-    });
+              const SizedBox(height: 22),
+
+              const Text(
+                'الخدمات الصحية',
+                style: TextStyle(
+                  fontSize: 23,
+                  fontWeight: FontWeight.w900,
+                ),
+              ),
+
+              const SizedBox(height: 12),
+
+              // SERVICES
+              GridView.builder(
+                shrinkWrap: true,
+                physics: const NeverScrollableScrollPhysics(),
+                itemCount: services.length,
+                gridDelegate:
+                    const SliverGridDelegateWithFixedCrossAxisCount(
+                  crossAxisCount: 4,
+                  crossAxisSpacing: 9,
+                  mainAxisSpacing: 9,
+                  childAspectRatio: .82,
+                ),
+                itemBuilder: (_, i) {
+                  return Container(
+                    decoration: BoxDecoration(
+                      color: const Color(0xff092337),
+                      borderRadius: BorderRadius.circular(18),
+                      border: Border.all(
+                        color: const Color(0xff173B53),
+                      ),
+                    ),
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Icon(
+                          services[i][0] as IconData,
+                          size: 31,
+                          color: const Color(0xff60CCFA),
+                        ),
+                        const SizedBox(height: 8),
+                        Text(
+                          services[i][1] as String,
+                          textAlign: TextAlign.center,
+                          style: const TextStyle(
+                            fontSize: 11,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                      ],
+                    ),
+                  );
+                },
+              ),
+
+              const SizedBox(height: 20),
+
+              // EMERGENCY
+              Container(
+                padding: const EdgeInsets.all(17),
+                decoration: BoxDecoration(
+                  color: const Color(0xff300E1A),
+                  borderRadius: BorderRadius.circular(23),
+                  border: Border.all(color: const Color(0xff7B1D39)),
+                ),
+                child: const Row(
+                  children: [
+                    Icon(
+                      Icons.emergency,
+                      color: Color(0xffff4166),
+                      size: 42,
+                    ),
+                    SizedBox(width: 12),
+                    Expanded(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.end,
+                        children: [
+                          Text(
+                            'خدمات الطوارئ',
+                            style: TextStyle(
+                              fontSize: 19,
+                              fontWeight: FontWeight.w900,
+                            ),
+                          ),
+                          Text(
+                            'للحالات العاجلة تواصل مع الطوارئ المحلية.',
+                            textAlign: TextAlign.right,
+                            style: TextStyle(color: Colors.white60),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+
+              const SizedBox(height: 22),
+
+              const Text(
+                'اكتشف Nurse Libya',
+                style: TextStyle(
+                  fontSize: 23,
+                  fontWeight: FontWeight.w900,
+                ),
+              ),
+
+              const SizedBox(height: 12),
+
+              const Row(
+                children: [
+                  Expanded(child: Feature(Icons.medical_information, 'الملف الصحي')),
+                  SizedBox(width: 10),
+                  Expanded(child: Feature(Icons.calendar_month, 'الحجز الحقيقي')),
+                ],
+              ),
+
+              const SizedBox(height: 10),
+
+              const Row(
+                children: [
+                  Expanded(child: Feature(Icons.home_health, 'خدمات التمريض')),
+                  SizedBox(width: 10),
+                  Expanded(child: Feature(Icons.school, 'التعليم والكليات')),
+                ],
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
   }
+}
 
-</script>
+class Feature extends StatelessWidget {
+  final IconData icon;
+  final String title;
 
-</body>
-</html>
+  const Feature(this.icon, this.title, {super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      padding: const EdgeInsets.all(17),
+      decoration: BoxDecoration(
+        color: const Color(0xff092337),
+        borderRadius: BorderRadius.circular(19),
+      ),
+      child: Row(
+        children: [
+          Icon(icon, color: const Color(0xff60CCFA)),
+          const SizedBox(width: 8),
+          Expanded(child: Text(title)),
+        ],
+      ),
+    );
+  }
+}
