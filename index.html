@@ -1,329 +1,193 @@
-import 'package:flutter/material.dart';
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-void main() => runApp(const NurseLibya());
+  <title>Nurse Libya 🇱🇾</title>
 
-class NurseLibya extends StatelessWidget {
-  const NurseLibya({super.key});
+  <meta name="theme-color" content="#0b1625">
+  <meta name="description" content="Nurse Libya - منصة الرعاية الصحية الليبية">
 
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      theme: ThemeData(
-        useMaterial3: true,
-        fontFamily: 'Arial',
-        colorScheme: ColorScheme.fromSeed(
-          seedColor: const Color(0xff18A9ED),
-          brightness: Brightness.dark,
-        ),
-      ),
-      home: const Home(),
-    );
-  }
-}
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family:
+        -apple-system,
+        BlinkMacSystemFont,
+        "Segoe UI",
+        Arial,
+        sans-serif;
+    }
 
-class Home extends StatelessWidget {
-  const Home({super.key});
+    :root {
+      --bg: #f5f8fb;
+      --card: #ffffff;
+      --primary: #18a7ff;
+      --primary-dark: #0788d6;
+      --green: #21b573;
+      --red: #ef4444;
+      --text: #102033;
+      --muted: #718096;
+      --border: #e5eaf0;
+      --shadow: 0 8px 25px rgba(15, 35, 55, 0.08);
+    }
 
-  @override
-  Widget build(BuildContext context) {
-    final services = [
-      [Icons.local_hospital, 'مستشفيات'],
-      [Icons.medical_services, 'أطباء'],
-      [Icons.medication, 'صيدليات'],
-      [Icons.science, 'مختبرات'],
-      [Icons.home_health, 'تمريض منزلي'],
-      [Icons.emergency, 'طوارئ'],
-      [Icons.work, 'وظائف تمريض'],
-      [Icons.school, 'دورات وكليات'],
-    ];
+    body {
+      background: var(--bg);
+      color: var(--text);
+      min-height: 100vh;
+    }
 
-    return Directionality(
-      textDirection: TextDirection.rtl,
-      child: Scaffold(
-        backgroundColor: const Color(0xff041522),
-        bottomNavigationBar: NavigationBar(
-          backgroundColor: const Color(0xff06111b),
-          selectedIndex: 0,
-          destinations: const [
-            NavigationDestination(icon: Icon(Icons.home), label: 'الرئيسية'),
-            NavigationDestination(icon: Icon(Icons.calendar_month), label: 'الحجز'),
-            NavigationDestination(icon: Icon(Icons.work), label: 'الوظائف'),
-            NavigationDestination(icon: Icon(Icons.school), label: 'التعليم'),
-            NavigationDestination(icon: Icon(Icons.person), label: 'حسابي'),
-          ],
-        ),
-        body: SafeArea(
-          child: ListView(
-            padding: const EdgeInsets.all(18),
-            children: [
-              // HEADER
-              const Row(
-                children: [
-                  CircleAvatar(
-                    radius: 25,
-                    backgroundColor: Color(0xff10344A),
-                    child: Icon(Icons.person, color: Colors.white),
-                  ),
-                  Spacer(),
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.end,
-                    children: [
-                      Text(
-                        'Nurse Libya',
-                        style: TextStyle(
-                          fontSize: 24,
-                          fontWeight: FontWeight.w900,
-                        ),
-                      ),
-                      Text(
-                        'الرعاية الصحية في ليبيا',
-                        style: TextStyle(
-                          color: Color(0xff55C9FA),
-                          fontSize: 13,
-                        ),
-                      ),
-                    ],
-                  ),
-                  SizedBox(width: 10),
-                  Icon(
-                    Icons.add_box_rounded,
-                    size: 48,
-                    color: Color(0xff5CCBFA),
-                  ),
-                ],
-              ),
+    button {
+      border: 0;
+      cursor: pointer;
+    }
 
-              const SizedBox(height: 20),
+    .app {
+      width: 100%;
+      max-width: 520px;
+      margin: auto;
+      min-height: 100vh;
+      background: var(--bg);
+      padding-bottom: 90px;
+    }
 
-              // HERO
-              Container(
-                height: 245,
-                padding: const EdgeInsets.all(22),
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(30),
-                  image: const DecorationImage(
-                    fit: BoxFit.cover,
-                    image: NetworkImage(
-                      'https://images.unsplash.com/photo-1551076805-e1869033e561?auto=format&fit=crop&w=1200&q=90',
-                    ),
-                  ),
-                ),
-                child: Container(
-                  alignment: Alignment.bottomRight,
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(30),
-                    gradient: const LinearGradient(
-                      colors: [Colors.transparent, Colors.black87],
-                      begin: Alignment.topCenter,
-                      end: Alignment.bottomCenter,
-                    ),
-                  ),
-                  child: const Padding(
-                    padding: EdgeInsets.all(4),
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.end,
-                      crossAxisAlignment: CrossAxisAlignment.end,
-                      children: [
-                        Text(
-                          'منصة طبية ليبية 🇱🇾',
-                          style: TextStyle(
-                            color: Color(0xff60D0FF),
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
-                        SizedBox(height: 7),
-                        Text(
-                          'الرعاية الصحية\nأقرب إليك',
-                          textAlign: TextAlign.right,
-                          style: TextStyle(
-                            fontSize: 30,
-                            fontWeight: FontWeight.w900,
-                            height: 1.05,
-                          ),
-                        ),
-                        SizedBox(height: 6),
-                        Text(
-                          'أطباء • تمريض • وظائف • دورات • كليات',
-                          style: TextStyle(color: Colors.white70),
-                        ),
-                      ],
-                    ),
-                  ),
-                ),
-              ),
+    /* HEADER */
 
-              const SizedBox(height: 18),
+    header {
+      background: linear-gradient(135deg, #071b30, #0d2d4b);
+      color: white;
+      padding: 22px 18px 28px;
+      border-radius: 0 0 28px 28px;
+    }
 
-              // SEARCH
-              TextField(
-                decoration: InputDecoration(
-                  hintText: 'ابحث عن طبيب، مستشفى، خدمة...',
-                  prefixIcon: const Icon(Icons.search),
-                  filled: true,
-                  fillColor: const Color(0xff0A2436),
-                  border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(20),
-                    borderSide: BorderSide.none,
-                  ),
-                ),
-              ),
+    .top {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 22px;
+    }
 
-              const SizedBox(height: 22),
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
 
-              const Text(
-                'الخدمات الصحية',
-                style: TextStyle(
-                  fontSize: 23,
-                  fontWeight: FontWeight.w900,
-                ),
-              ),
+    .logo {
+      width: 48px;
+      height: 48px;
+      background: white;
+      border-radius: 15px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--primary);
+      font-size: 27px;
+      font-weight: 900;
+    }
 
-              const SizedBox(height: 12),
+    .brand h1 {
+      font-size: 21px;
+      font-weight: 800;
+    }
 
-              // SERVICES
-              GridView.builder(
-                shrinkWrap: true,
-                physics: const NeverScrollableScrollPhysics(),
-                itemCount: services.length,
-                gridDelegate:
-                    const SliverGridDelegateWithFixedCrossAxisCount(
-                  crossAxisCount: 4,
-                  crossAxisSpacing: 9,
-                  mainAxisSpacing: 9,
-                  childAspectRatio: .82,
-                ),
-                itemBuilder: (_, i) {
-                  return Container(
-                    decoration: BoxDecoration(
-                      color: const Color(0xff092337),
-                      borderRadius: BorderRadius.circular(18),
-                      border: Border.all(
-                        color: const Color(0xff173B53),
-                      ),
-                    ),
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Icon(
-                          services[i][0] as IconData,
-                          size: 31,
-                          color: const Color(0xff60CCFA),
-                        ),
-                        const SizedBox(height: 8),
-                        Text(
-                          services[i][1] as String,
-                          textAlign: TextAlign.center,
-                          style: const TextStyle(
-                            fontSize: 11,
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
-                      ],
-                    ),
-                  );
-                },
-              ),
+    .brand p {
+      font-size: 12px;
+      opacity: .75;
+      margin-top: 2px;
+    }
 
-              const SizedBox(height: 20),
+    .notification {
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      background: rgba(255,255,255,.12);
+      color: white;
+      font-size: 21px;
+    }
 
-              // EMERGENCY
-              Container(
-                padding: const EdgeInsets.all(17),
-                decoration: BoxDecoration(
-                  color: const Color(0xff300E1A),
-                  borderRadius: BorderRadius.circular(23),
-                  border: Border.all(color: const Color(0xff7B1D39)),
-                ),
-                child: const Row(
-                  children: [
-                    Icon(
-                      Icons.emergency,
-                      color: Color(0xffff4166),
-                      size: 42,
-                    ),
-                    SizedBox(width: 12),
-                    Expanded(
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.end,
-                        children: [
-                          Text(
-                            'خدمات الطوارئ',
-                            style: TextStyle(
-                              fontSize: 19,
-                              fontWeight: FontWeight.w900,
-                            ),
-                          ),
-                          Text(
-                            'للحالات العاجلة تواصل مع الطوارئ المحلية.',
-                            textAlign: TextAlign.right,
-                            style: TextStyle(color: Colors.white60),
-                          ),
-                        ],
-                      ),
-                    ),
-                  ],
-                ),
-              ),
+    .welcome {
+      margin-bottom: 18px;
+    }
 
-              const SizedBox(height: 22),
+    .welcome small {
+      opacity: .75;
+      font-size: 14px;
+    }
 
-              const Text(
-                'اكتشف Nurse Libya',
-                style: TextStyle(
-                  fontSize: 23,
-                  fontWeight: FontWeight.w900,
-                ),
-              ),
+    .welcome h2 {
+      margin-top: 5px;
+      font-size: 27px;
+      font-weight: 850;
+    }
 
-              const SizedBox(height: 12),
+    .search {
+      height: 54px;
+      background: white;
+      border-radius: 17px;
+      display: flex;
+      align-items: center;
+      padding: 0 16px;
+      gap: 10px;
+      color: #8b98a8;
+    }
 
-              const Row(
-                children: [
-                  Expanded(child: Feature(Icons.medical_information, 'الملف الصحي')),
-                  SizedBox(width: 10),
-                  Expanded(child: Feature(Icons.calendar_month, 'الحجز الحقيقي')),
-                ],
-              ),
+    .search input {
+      flex: 1;
+      border: none;
+      outline: none;
+      font-size: 15px;
+      color: var(--text);
+      background: transparent;
+      direction: rtl;
+    }
 
-              const SizedBox(height: 10),
+    /* CONTENT */
 
-              const Row(
-                children: [
-                  Expanded(child: Feature(Icons.home_health, 'خدمات التمريض')),
-                  SizedBox(width: 10),
-                  Expanded(child: Feature(Icons.school, 'التعليم والكليات')),
-                ],
-              ),
-            ],
-          ),
-        ),
-      ),
-    );
-  }
-}
+    main {
+      padding: 20px 16px;
+    }
 
-class Feature extends StatelessWidget {
-  final IconData icon;
-  final String title;
+    .section-title {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin: 5px 0 14px;
+    }
 
-  const Feature(this.icon, this.title, {super.key});
+    .section-title h3 {
+      font-size: 20px;
+      font-weight: 850;
+    }
 
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      padding: const EdgeInsets.all(17),
-      decoration: BoxDecoration(
-        color: const Color(0xff092337),
-        borderRadius: BorderRadius.circular(19),
-      ),
-      child: Row(
-        children: [
-          Icon(icon, color: const Color(0xff60CCFA)),
-          const SizedBox(width: 8),
-          Expanded(child: Text(title)),
-        ],
-      ),
-    );
-  }
-}
+    .section-title a {
+      color: var(--primary);
+      font-size: 13px;
+      text-decoration: none;
+    }
+
+    /* QUICK ACTIONS */
+
+    .quick {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 9px;
+      margin-bottom: 24px;
+    }
+
+    .quick-item {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 17px;
+      min-height: 88px;
+      padding: 10px 5px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 7px;
+      box-shadow: var(--
