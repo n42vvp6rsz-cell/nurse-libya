@@ -1,1845 +1,612 @@
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-
-<title>Nurse Libya 🇱🇾</title>
-
-<style>
-*{
-  box-sizing:border-box;
-  margin:0;
-  padding:0;
-  -webkit-tap-highlight-color:transparent;
-}
-
-:root{
-  --bg:#071018;
-  --card:#0d1923;
-  --card2:#12222e;
-  --primary:#19b878;
-  --primary2:#25d895;
-  --blue:#168cff;
-  --red:#ff4d5e;
-  --yellow:#ffc857;
-  --text:#f4f7f8;
-  --muted:#8d9aa5;
-  --border:rgba(255,255,255,.09);
-}
-
-body{
-  font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-serif;
-  background:var(--bg);
-  color:var(--text);
-  min-height:100vh;
-}
-
-button,
-input,
-select,
-textarea{
-  font:inherit;
-}
-
-button{
-  border:0;
-  cursor:pointer;
-}
-
-.app{
-  max-width:600px;
-  margin:auto;
-  min-height:100vh;
-  padding-bottom:95px;
-}
-
-/* HEADER */
-
-.header{
-  padding:22px 18px 10px;
-  position:sticky;
-  top:0;
-  z-index:20;
-  background:rgba(7,16,24,.92);
-  backdrop-filter:blur(18px);
-}
-
-.header-row{
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
-  gap:12px;
-}
-
-.logo{
-  display:flex;
-  align-items:center;
-  gap:10px;
-}
-
-.logo-icon{
-  width:45px;
-  height:45px;
-  border-radius:14px;
-  background:linear-gradient(135deg,#1dd88b,#0e8e5e);
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  font-size:24px;
-  box-shadow:0 8px 25px rgba(25,184,120,.25);
-}
-
-.logo h1{
-  font-size:20px;
-  font-weight:800;
-}
-
-.logo small{
-  display:block;
-  color:var(--muted);
-  font-size:11px;
-  margin-top:2px;
-}
-
-.header-actions{
-  display:flex;
-  gap:8px;
-}
-
-.icon-btn{
-  width:42px;
-  height:42px;
-  border-radius:14px;
-  background:var(--card);
-  color:white;
-  border:1px solid var(--border);
-  font-size:19px;
-}
-
-/* CONTENT */
-
-.content{
-  padding:10px 18px 30px;
-}
-
-.page{
-  display:none;
-  animation:fade .25s ease;
-}
-
-.page.active{
-  display:block;
-}
-
-@keyframes fade{
-  from{opacity:0;transform:translateY(8px)}
-  to{opacity:1;transform:none}
-}
-
-/* WELCOME */
-
-.welcome{
-  margin-top:14px;
-  padding:25px 20px;
-  border-radius:25px;
-  background:
-    radial-gradient(circle at 90% 20%,rgba(37,216,149,.22),transparent 35%),
-    linear-gradient(135deg,#0e2930,#0b1720);
-  border:1px solid var(--border);
-  overflow:hidden;
-}
-
-.welcome h2{
-  font-size:27px;
-  line-height:1.35;
-  margin-bottom:8px;
-}
-
-.welcome p{
-  color:#aebbc3;
-  line-height:1.7;
-  font-size:14px;
-}
-
-.primary-btn{
-  margin-top:18px;
-  background:linear-gradient(135deg,var(--primary2),var(--primary));
-  color:#03140d;
-  padding:13px 20px;
-  border-radius:14px;
-  font-weight:800;
-}
-
-.section-title{
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
-  margin:27px 0 14px;
-}
-
-.section-title h2{
-  font-size:20px;
-}
-
-.section-title button{
-  color:var(--primary2);
-  background:none;
-  font-size:13px;
-}
-
-/* SEARCH */
-
-.search{
-  display:flex;
-  align-items:center;
-  gap:10px;
-  background:var(--card);
-  border:1px solid var(--border);
-  border-radius:15px;
-  padding:12px 15px;
-  margin-top:15px;
-}
-
-.search span{
-  color:var(--muted);
-}
-
-.search input{
-  flex:1;
-  border:0;
-  outline:0;
-  background:none;
-  color:white;
-}
-
-.search input::placeholder{
-  color:#687781;
-}
-
-/* SERVICE GRID */
-
-.service-grid{
-  display:grid;
-  grid-template-columns:repeat(2,1fr);
-  gap:11px;
-}
-
-.service{
-  background:var(--card);
-  border:1px solid var(--border);
-  padding:18px 14px;
-  border-radius:18px;
-  text-align:right;
-  transition:.2s;
-}
-
-.service:active{
-  transform:scale(.97);
-}
-
-.service-icon{
-  width:46px;
-  height:46px;
-  border-radius:14px;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  background:rgba(25,184,120,.13);
-  font-size:23px;
-  margin-bottom:12px;
-}
-
-.service h3{
-  font-size:15px;
-  margin-bottom:5px;
-}
-
-.service p{
-  color:var(--muted);
-  font-size:11px;
-}
-
-/* NURSES */
-
-.nurse-card{
-  display:flex;
-  align-items:center;
-  gap:13px;
-  background:var(--card);
-  border:1px solid var(--border);
-  padding:13px;
-  border-radius:18px;
-  margin-bottom:10px;
-}
-
-.avatar{
-  width:57px;
-  height:57px;
-  border-radius:18px;
-  background:linear-gradient(135deg,#d7f5e8,#83d9b5);
-  color:#08724a;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  font-size:24px;
-  font-weight:900;
-  flex-shrink:0;
-}
-
-.nurse-info{
-  flex:1;
-}
-
-.nurse-info h3{
-  font-size:15px;
-  margin-bottom:4px;
-}
-
-.nurse-info p{
-  color:var(--muted);
-  font-size:12px;
-}
-
-.rating{
-  color:var(--yellow);
-  font-size:12px;
-  margin-top:4px;
-}
-
-.book-small{
-  background:#12352b;
-  color:#5be5ac;
-  padding:9px 11px;
-  border-radius:11px;
-  font-size:11px;
-  font-weight:700;
-}
-
-/* EMERGENCY */
-
-.emergency{
-  margin-top:25px;
-  padding:17px;
-  border-radius:20px;
-  background:linear-gradient(135deg,#3a121b,#211018);
-  border:1px solid rgba(255,77,94,.2);
-  display:flex;
-  align-items:center;
-  gap:13px;
-}
-
-.emergency-icon{
-  width:48px;
-  height:48px;
-  border-radius:15px;
-  background:rgba(255,77,94,.15);
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  font-size:22px;
-}
-
-.emergency div:nth-child(2){
-  flex:1;
-}
-
-.emergency h3{
-  font-size:14px;
-  margin-bottom:4px;
-}
-
-.emergency p{
-  color:#b38d94;
-  font-size:11px;
-}
-
-.emergency button{
-  background:var(--red);
-  color:white;
-  padding:10px 12px;
-  border-radius:11px;
-  font-weight:800;
-}
-
-/* PAGE HEADER */
-
-.page-header{
-  padding:18px 0 10px;
-}
-
-.page-header h2{
-  font-size:26px;
-  margin-bottom:7px;
-}
-
-.page-header p{
-  color:var(--muted);
-  font-size:13px;
-}
-
-/* SERVICE LIST */
-
-.service-large{
-  background:var(--card);
-  border:1px solid var(--border);
-  border-radius:19px;
-  padding:17px;
-  display:flex;
-  gap:14px;
-  align-items:center;
-  margin-bottom:11px;
-}
-
-.service-large .service-icon{
-  margin:0;
-  flex-shrink:0;
-}
-
-.service-large-info{
-  flex:1;
-}
-
-.service-large-info h3{
-  font-size:15px;
-  margin-bottom:5px;
-}
-
-.service-large-info p{
-  color:var(--muted);
-  font-size:11px;
-  line-height:1.5;
-}
-
-.price{
-  color:var(--primary2);
-  font-size:13px;
-  font-weight:800;
-  margin-top:5px;
-}
-
-/* APPOINTMENTS */
-
-.appointment{
-  background:var(--card);
-  border:1px solid var(--border);
-  border-radius:19px;
-  padding:17px;
-  margin-bottom:11px;
-}
-
-.appointment-top{
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-}
-
-.appointment h3{
-  font-size:15px;
-}
-
-.status{
-  padding:6px 9px;
-  border-radius:9px;
-  font-size:10px;
-  background:rgba(25,184,120,.13);
-  color:#5be5ac;
-}
-
-.appointment-info{
-  display:grid;
-  grid-template-columns:1fr 1fr;
-  gap:9px;
-  margin-top:14px;
-}
-
-.info-box{
-  background:var(--card2);
-  border-radius:11px;
-  padding:10px;
-}
-
-.info-box small{
-  display:block;
-  color:var(--muted);
-  font-size:9px;
-  margin-bottom:4px;
-}
-
-.info-box strong{
-  font-size:12px;
-}
-
-/* MEDICATION */
-
-.med-card{
-  background:var(--card);
-  border:1px solid var(--border);
-  border-radius:18px;
-  padding:16px;
-  margin-bottom:11px;
-}
-
-.med-top{
-  display:flex;
-  gap:12px;
-  align-items:center;
-}
-
-.med-icon{
-  width:46px;
-  height:46px;
-  border-radius:14px;
-  background:rgba(22,140,255,.13);
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  font-size:21px;
-}
-
-.med-card h3{
-  font-size:14px;
-}
-
-.med-card p{
-  color:var(--muted);
-  font-size:11px;
-  margin-top:4px;
-}
-
-.med-details{
-  display:flex;
-  gap:8px;
-  margin-top:13px;
-}
-
-.med-tag{
-  background:var(--card2);
-  padding:7px 9px;
-  border-radius:9px;
-  color:#aebbc3;
-  font-size:10px;
-}
-
-/* PROFILE */
-
-.profile-card{
-  text-align:center;
-  background:linear-gradient(135deg,#0f2b28,#0d1923);
-  border:1px solid var(--border);
-  border-radius:24px;
-  padding:27px 18px;
-}
-
-.profile-avatar{
-  width:88px;
-  height:88px;
-  border-radius:28px;
-  background:#d8f6e8;
-  color:#08724a;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  margin:auto;
-  font-size:38px;
-  font-weight:900;
-}
-
-.profile-card h2{
-  margin-top:13px;
-  font-size:21px;
-}
-
-.profile-card p{
-  color:var(--muted);
-  font-size:12px;
-  margin-top:4px;
-}
-
-.profile-menu{
-  margin-top:16px;
-  background:var(--card);
-  border:1px solid var(--border);
-  border-radius:18px;
-  overflow:hidden;
-}
-
-.profile-item{
-  display:flex;
-  align-items:center;
-  gap:12px;
-  width:100%;
-  background:none;
-  color:white;
-  padding:16px;
-  border-bottom:1px solid var(--border);
-  text-align:right;
-}
-
-.profile-item:last-child{
-  border-bottom:0;
-}
-
-.profile-item span:first-child{
-  font-size:19px;
-}
-
-.profile-item div{
-  flex:1;
-}
-
-.profile-item strong{
-  display:block;
-  font-size:13px;
-}
-
-.profile-item small{
-  color:var(--muted);
-  font-size:10px;
-}
-
-.profile-item > span:last-child{
-  color:var(--muted);
-}
-
-/* EMPTY */
-
-.empty{
-  text-align:center;
-  padding:55px 20px;
-  background:var(--card);
-  border:1px solid var(--border);
-  border-radius:20px;
-}
-
-.empty-icon{
-  font-size:45px;
-  margin-bottom:12px;
-}
-
-.empty h3{
-  font-size:16px;
-  margin-bottom:7px;
-}
-
-.empty p{
-  color:var(--muted);
-  font-size:12px;
-  line-height:1.6;
-}
-
-/* BOTTOM NAV */
-
-.bottom-nav{
-  position:fixed;
-  bottom:0;
-  left:50%;
-  transform:translateX(-50%);
-  width:min(600px,100%);
-  padding:10px 14px calc(10px + env(safe-area-inset-bottom));
-  background:rgba(7,16,24,.94);
-  backdrop-filter:blur(20px);
-  border-top:1px solid var(--border);
-  z-index:30;
-  display:grid;
-  grid-template-columns:repeat(5,1fr);
-}
-
-.nav-btn{
-  background:none;
-  color:#65737d;
-  display:flex;
-  flex-direction:column;
-  align-items:center;
-  gap:4px;
-  padding:7px 3px;
-  font-size:19px;
-}
-
-.nav-btn span:last-child{
-  font-size:9px;
-}
-
-.nav-btn.active{
-  color:var(--primary2);
-}
-
-/* MODAL */
-
-.overlay{
-  position:fixed;
-  inset:0;
-  background:rgba(0,0,0,.72);
-  backdrop-filter:blur(7px);
-  z-index:100;
-  display:none;
-  align-items:flex-end;
-  justify-content:center;
-}
-
-.overlay.show{
-  display:flex;
-}
-
-.modal{
-  width:min(600px,100%);
-  background:#0d1923;
-  border-radius:27px 27px 0 0;
-  padding:22px 18px calc(25px + env(safe-area-inset-bottom));
-  max-height:90vh;
-  overflow-y:auto;
-  animation:slide .25s ease;
-}
-
-@keyframes slide{
-  from{transform:translateY(100%)}
-  to{transform:none}
-}
-
-.modal-header{
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-  margin-bottom:18px;
-}
-
-.modal-header h2{
-  font-size:20px;
-}
-
-.close{
-  width:38px;
-  height:38px;
-  border-radius:12px;
-  background:var(--card2);
-  color:white;
-  font-size:20px;
-}
-
-.form-group{
-  margin-bottom:14px;
-}
-
-.form-group label{
-  display:block;
-  color:#aebbc3;
-  font-size:11px;
-  margin-bottom:7px;
-}
-
-.form-control{
-  width:100%;
-  background:#09131c;
-  color:white;
-  border:1px solid var(--border);
-  border-radius:13px;
-  padding:13px;
-  outline:none;
-}
-
-.form-control:focus{
-  border-color:var(--primary);
-}
-
-.submit{
-  width:100%;
-  padding:14px;
-  border-radius:14px;
-  background:linear-gradient(135deg,var(--primary2),var(--primary));
-  color:#03140d;
-  font-weight:900;
-  margin-top:5px;
-}
-
-/* TOAST */
-
-.toast{
-  position:fixed;
-  top:20px;
-  left:50%;
-  transform:translate(-50%,-120px);
-  width:calc(100% - 36px);
-  max-width:560px;
-  background:#10241e;
-  border:1px solid rgba(37,216,149,.25);
-  color:white;
-  padding:14px 16px;
-  border-radius:15px;
-  z-index:200;
-  transition:.3s;
-  text-align:center;
-  font-size:13px;
-  box-shadow:0 12px 40px rgba(0,0,0,.4);
-}
-
-.toast.show{
-  transform:translate(-50%,0);
-}
-
-/* DESKTOP */
-
-@media(min-width:700px){
-  body{
-    padding:20px 0;
-  }
-
-  .app{
-    border:1px solid var(--border);
-    border-radius:30px;
-    overflow:hidden;
-    box-shadow:0 30px 80px rgba(0,0,0,.35);
-  }
-
-  .bottom-nav{
-    position:fixed;
-    width:600px;
-    border:1px solid var(--border);
-    border-radius:20px 20px 0 0;
-  }
-}
-</style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#0B1625">
+  <title>Nurse Libya 🇱🇾</title>
+
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Arial, sans-serif;
+    }
+
+    body {
+      background: #07111f;
+      color: #ffffff;
+      min-height: 100vh;
+    }
+
+    .app {
+      max-width: 600px;
+      margin: auto;
+      min-height: 100vh;
+      padding-bottom: 90px;
+    }
+
+    /* Header */
+    header {
+      padding: 25px 20px 15px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .logo {
+      width: 48px;
+      height: 48px;
+      border-radius: 15px;
+      background: #18a7ff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 25px;
+      font-weight: 800;
+    }
+
+    .brand h1 {
+      font-size: 22px;
+    }
+
+    .menu {
+      width: 45px;
+      height: 45px;
+      border: 0;
+      border-radius: 15px;
+      background: #142033;
+      color: white;
+      font-size: 24px;
+    }
+
+    /* Welcome */
+    .welcome {
+      padding: 25px 20px;
+    }
+
+    .welcome h2 {
+      font-size: 30px;
+      margin-bottom: 8px;
+    }
+
+    .welcome p {
+      color: #9aa8ba;
+      font-size: 16px;
+    }
+
+    /* Search */
+    .search {
+      margin: 0 20px 25px;
+      background: #101d2d;
+      border: 1px solid #25364d;
+      border-radius: 18px;
+      padding: 15px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .search input {
+      flex: 1;
+      background: transparent;
+      border: 0;
+      outline: 0;
+      color: white;
+      font-size: 16px;
+    }
+
+    .search input::placeholder {
+      color: #7d8b9c;
+    }
+
+    /* Cards */
+    .section {
+      padding: 0 20px;
+      margin-bottom: 25px;
+    }
+
+    .section-title {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 15px;
+    }
+
+    .section-title h3 {
+      font-size: 20px;
+    }
+
+    .section-title span {
+      color: #18a7ff;
+      font-size: 14px;
+    }
+
+    .card {
+      background: #101d2d;
+      border: 1px solid #25364d;
+      border-radius: 20px;
+      padding: 18px;
+      margin-bottom: 12px;
+    }
+
+    .card-row {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+
+    .icon {
+      width: 48px;
+      height: 48px;
+      border-radius: 15px;
+      background: #172941;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 23px;
+    }
+
+    .card h4 {
+      font-size: 17px;
+      margin-bottom: 5px;
+    }
+
+    .card p {
+      color: #8998aa;
+      font-size: 13px;
+    }
+
+    /* Emergency */
+    .emergency {
+      margin: 0 20px 25px;
+      padding: 22px;
+      border-radius: 22px;
+      background: linear-gradient(135deg, #b51f3b, #74152b);
+      border: 1px solid #e14c68;
+    }
+
+    .emergency h3 {
+      font-size: 21px;
+      margin-bottom: 8px;
+    }
+
+    .emergency p {
+      color: #ffdbe1;
+      font-size: 14px;
+      margin-bottom: 15px;
+    }
+
+    .emergency button {
+      border: 0;
+      background: white;
+      color: #a61936;
+      padding: 12px 20px;
+      border-radius: 14px;
+      font-weight: 700;
+      font-size: 15px;
+    }
+
+    /* Quick actions */
+    .actions {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 12px;
+    }
+
+    .action {
+      background: #101d2d;
+      border: 1px solid #25364d;
+      border-radius: 20px;
+      padding: 20px;
+      text-align: center;
+    }
+
+    .action .big-icon {
+      font-size: 30px;
+      margin-bottom: 10px;
+    }
+
+    .action h4 {
+      font-size: 15px;
+    }
+
+    .action p {
+      margin-top: 5px;
+      color: #8392a5;
+      font-size: 12px;
+    }
+
+    /* Bottom navigation */
+    .bottom-nav {
+      position: fixed;
+      bottom: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      width: min(600px, 100%);
+      background: #0c1726;
+      border-top: 1px solid #26374d;
+      padding: 10px 15px 12px;
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      z-index: 10;
+    }
+
+    .nav-item {
+      text-align: center;
+      color: #8290a2;
+      font-size: 12px;
+      background: none;
+      border: 0;
+    }
+
+    .nav-item span {
+      display: block;
+      font-size: 22px;
+      margin-bottom: 4px;
+    }
+
+    .nav-item.active {
+      color: #18a7ff;
+    }
+
+    /* Pages */
+    .page {
+      display: none;
+    }
+
+    .page.active {
+      display: block;
+    }
+
+    .back {
+      margin: 20px;
+      background: #142033;
+      border: 0;
+      color: white;
+      border-radius: 14px;
+      padding: 12px 18px;
+      font-size: 15px;
+    }
+
+    .profile {
+      text-align: center;
+      padding: 30px 20px;
+    }
+
+    .profile-avatar {
+      width: 100px;
+      height: 100px;
+      border-radius: 50%;
+      margin: auto;
+      background: #c9efd9;
+      color: #12804e;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 50px;
+      font-weight: 700;
+      margin-bottom: 15px;
+    }
+
+    .profile h2 {
+      font-size: 25px;
+    }
+
+    .profile p {
+      color: #8998aa;
+      margin-top: 7px;
+    }
+
+    .info {
+      margin: 20px;
+      background: #101d2d;
+      border: 1px solid #25364d;
+      border-radius: 20px;
+      padding: 20px;
+    }
+
+    .info div {
+      padding: 14px 0;
+      border-bottom: 1px solid #25364d;
+    }
+
+    .info div:last-child {
+      border-bottom: 0;
+    }
+
+    .info strong {
+      display: block;
+      margin-bottom: 5px;
+    }
+
+    .info span {
+      color: #8998aa;
+    }
+
+    @media (min-width: 601px) {
+      body {
+        background: #030a13;
+      }
+
+      .app {
+        background: #07111f;
+      }
+    }
+  </style>
 </head>
 
 <body>
 
 <div class="app">
 
-<!-- HEADER -->
-<header class="header">
-  <div class="header-row">
+  <!-- HOME -->
+  <main id="home" class="page active">
 
-    <div class="logo">
-      <div class="logo-icon">✚</div>
-      <div>
+    <header>
+      <div class="brand">
+        <div class="logo">N</div>
         <h1>Nurse Libya</h1>
-        <small>الرعاية الصحية في ليبيا 🇱🇾</small>
       </div>
+
+      <button class="menu" onclick="showPage('profile')">☰</button>
+    </header>
+
+    <section class="welcome">
+      <h2>مرحباً بك 👋</h2>
+      <p>منصة التمريض الليبية الذكية</p>
+    </section>
+
+    <div class="search">
+      🔎
+      <input
+        type="text"
+        id="searchInput"
+        placeholder="ابحث عن دواء، معلومة أو قسم..."
+        oninput="searchCards()"
+      >
     </div>
 
-    <div class="header-actions">
-      <button class="icon-btn" onclick="openSearch()">⌕</button>
-      <button class="icon-btn" onclick="showToast('مرحباً بك في Nurse Libya ❤️')">☰</button>
+    <div class="emergency">
+      <h3>🚨 حالة طارئة؟</h3>
+      <p>الوصول السريع إلى أرقام وخدمات الطوارئ.</p>
+      <button onclick="callEmergency()">اتصال بالطوارئ</button>
     </div>
 
-  </div>
+    <section class="section">
+      <div class="section-title">
+        <h3>الخدمات السريعة</h3>
+      </div>
 
-  <div class="search" id="searchBox" style="display:none">
-    <span>⌕</span>
-    <input id="searchInput" placeholder="ابحث عن خدمة أو ممرض..." oninput="searchAll()">
-  </div>
-</header>
+      <div class="actions">
+
+        <button class="action" onclick="showMessage('حاسبة الجرعات قريباً')">
+          <div class="big-icon">💊</div>
+          <h4>حاسبة الجرعات</h4>
+          <p>حساب الجرعات</p>
+        </button>
+
+        <button class="action" onclick="showMessage('الأدوية قريباً')">
+          <div class="big-icon">🩺</div>
+          <h4>الأدوية</h4>
+          <p>دليل الأدوية</p>
+        </button>
+
+        <button class="action" onclick="showMessage('الإرشادات قريباً')">
+          <div class="big-icon">📚</div>
+          <h4>الإرشادات</h4>
+          <p>معلومات تمريضية</p>
+        </button>
+
+        <button class="action" onclick="showMessage('الطوارئ قريباً')">
+          <div class="big-icon">🚑</div>
+          <h4>الطوارئ</h4>
+          <p>الإجراءات السريعة</p>
+        </button>
+
+      </div>
+    </section>
+
+    <section class="section">
+
+      <div class="section-title">
+        <h3>أهم الأقسام</h3>
+        <span>عرض الكل</span>
+      </div>
+
+      <div id="cards">
+
+        <div class="card searchable">
+          <div class="card-row">
+            <div class="icon">💉</div>
+            <div>
+              <h4>العناية المركزة</h4>
+              <p>معلومات وإرشادات ICU</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="card searchable">
+          <div class="card-row">
+            <div class="icon">❤️</div>
+            <div>
+              <h4>الإنعاش القلبي</h4>
+              <p>CPR والإسعافات الأولية</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="card searchable">
+          <div class="card-row">
+            <div class="icon">👶</div>
+            <div>
+              <h4>تمريض الأطفال</h4>
+              <p>رعاية الأطفال وحديثي الولادة</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="card searchable">
+          <div class="card-row">
+            <div class="icon">🤰</div>
+            <div>
+              <h4>تمريض النساء والولادة</h4>
+              <p>رعاية الأم والطفل</p>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+    </section>
+
+  </main>
 
 
-<main class="content">
+  <!-- PROFILE -->
+  <main id="profile" class="page">
 
-<!-- ================= HOME ================= -->
-
-<section id="home" class="page active">
-
-  <div class="welcome">
-    <h2>رعايتك الصحية<br>أقرب مما تتوقع 💚</h2>
-    <p>
-      احجز ممرض أو ممرضة إلى منزلك بسهولة،
-      واختار الخدمة والموعد المناسب لك.
-    </p>
-
-    <button class="primary-btn" onclick="openBooking()">
-      احجز موعد الآن ←
+    <button class="back" onclick="showPage('home')">
+      ← رجوع
     </button>
-  </div>
 
+    <section class="profile">
+      <div class="profile-avatar">N</div>
+      <h2>Nurse Libya</h2>
+      <p>الملف الشخصي</p>
+    </section>
 
-  <div class="section-title">
-    <h2>الخدمات الصحية</h2>
-    <button onclick="goTo('services')">عرض الكل</button>
-  </div>
+    <div class="info">
 
-  <div class="service-grid">
+      <div>
+        <strong>👤 الاسم</strong>
+        <span>مستخدم Nurse Libya</span>
+      </div>
 
-    <button class="service" onclick="selectService('تمريض منزلي')">
-      <div class="service-icon">🏠</div>
-      <h3>تمريض منزلي</h3>
-      <p>رعاية صحية في منزلك</p>
-    </button>
+      <div>
+        <strong>🇱🇾 الدولة</strong>
+        <span>ليبيا</span>
+      </div>
 
-    <button class="service" onclick="selectService('حقن وأدوية')">
-      <div class="service-icon">💉</div>
-      <h3>حقن وأدوية</h3>
-      <p>إعطاء الأدوية والحقن</p>
-    </button>
+      <div>
+        <strong>🩺 التخصص</strong>
+        <span>التمريض</span>
+      </div>
 
-    <button class="service" onclick="selectService('قياس العلامات الحيوية')">
-      <div class="service-icon">❤️</div>
-      <h3>علامات حيوية</h3>
-      <p>ضغط وسكر وحرارة</p>
-    </button>
+      <div>
+        <strong>📱 الإصدار</strong>
+        <span>1.0.0</span>
+      </div>
 
-    <button class="service" onclick="selectService('رعاية كبار السن')">
-      <div class="service-icon">👵</div>
-      <h3>كبار السن</h3>
-      <p>رعاية ومتابعة مستمرة</p>
-    </button>
-
-  </div>
-
-
-  <div class="section-title">
-    <h2>ممرضون متاحون</h2>
-    <button onclick="goTo('services')">المزيد</button>
-  </div>
-
-
-  <div id="homeNurses"></div>
-
-
-  <div class="emergency">
-    <div class="emergency-icon">🚨</div>
-
-    <div>
-      <h3>حالة طارئة؟</h3>
-      <p>اتصل بخدمات الطوارئ فوراً</p>
     </div>
 
-    <button onclick="emergency()">اتصال</button>
-  </div>
-
-</section>
+  </main>
 
 
-<!-- ================= SERVICES ================= -->
+  <!-- BOTTOM NAV -->
+  <nav class="bottom-nav">
 
-<section id="services" class="page">
+    <button class="nav-item active" onclick="showPage('home', this)">
+      <span>🏠</span>
+      الرئيسية
+    </button>
 
-  <div class="page-header">
-    <h2>الخدمات الصحية 🩺</h2>
-    <p>اختر الخدمة التي تحتاجها</p>
-  </div>
+    <button class="nav-item" onclick="showMessage('قسم الأدوية قريباً')">
+      <span>💊</span>
+      الأدوية
+    </button>
 
-  <div id="servicesList"></div>
+    <button class="nav-item" onclick="showMessage('قسم المراجع قريباً')">
+      <span>📚</span>
+      المراجع
+    </button>
 
-</section>
-
-
-<!-- ================= APPOINTMENTS ================= -->
-
-<section id="appointments" class="page">
-
-  <div class="page-header">
-    <h2>مواعيدي 📅</h2>
-    <p>تابع حجوزاتك القادمة</p>
-  </div>
-
-  <div id="appointmentsList"></div>
-
-</section>
-
-
-<!-- ================= MEDICINES ================= -->
-
-<section id="medicines" class="page">
-
-  <div class="page-header">
-    <h2>الأدوية 💊</h2>
-    <p>تابع أدويتك ومواعيدها</p>
-  </div>
-
-  <div id="medicinesList"></div>
-
-</section>
-
-
-<!-- ================= PROFILE ================= -->
-
-<section id="profile" class="page">
-
-  <div class="page-header">
-    <h2>حسابي 👤</h2>
-    <p>إدارة معلوماتك الشخصية</p>
-  </div>
-
-  <div class="profile-card">
-
-    <div class="profile-avatar" id="profileAvatar">H</div>
-
-    <h2 id="profileName">حاتم محمد</h2>
-
-    <p id="profilePhone">09xxxxxxxx</p>
-
-  </div>
-
-
-  <div class="profile-menu">
-
-    <button class="profile-item" onclick="editProfile()">
+    <button class="nav-item" onclick="showPage('profile', this)">
       <span>👤</span>
-      <div>
-        <strong>المعلومات الشخصية</strong>
-        <small>الاسم ورقم الهاتف</small>
-      </div>
-      <span>‹</span>
+      حسابي
     </button>
 
-    <button class="profile-item" onclick="goTo('appointments')">
-      <span>📅</span>
-      <div>
-        <strong>مواعيدي</strong>
-        <small>مشاهدة الحجوزات</small>
-      </div>
-      <span>‹</span>
-    </button>
-
-    <button class="profile-item" onclick="showToast('الإشعارات مفعلة 🔔')">
-      <span>🔔</span>
-      <div>
-        <strong>الإشعارات</strong>
-        <small>تنبيهات المواعيد</small>
-      </div>
-      <span>‹</span>
-    </button>
-
-    <button class="profile-item" onclick="showToast('Nurse Libya — الإصدار 1.0.0')">
-      <span>ℹ️</span>
-      <div>
-        <strong>عن التطبيق</strong>
-        <small>معلومات Nurse Libya</small>
-      </div>
-      <span>‹</span>
-    </button>
-
-  </div>
-
-</section>
-
-</main>
-
-
-<!-- BOTTOM NAV -->
-
-<nav class="bottom-nav">
-
-  <button class="nav-btn active" data-page="home" onclick="goTo('home')">
-    <span>⌂</span>
-    <span>الرئيسية</span>
-  </button>
-
-  <button class="nav-btn" data-page="services" onclick="goTo('services')">
-    <span>✚</span>
-    <span>الخدمات</span>
-  </button>
-
-  <button class="nav-btn" data-page="appointments" onclick="goTo('appointments')">
-    <span>📅</span>
-    <span>مواعيدي</span>
-  </button>
-
-  <button class="nav-btn" data-page="medicines" onclick="goTo('medicines')">
-    <span>💊</span>
-    <span>الأدوية</span>
-  </button>
-
-  <button class="nav-btn" data-page="profile" onclick="goTo('profile')">
-    <span>👤</span>
-    <span>حسابي</span>
-  </button>
-
-</nav>
+  </nav>
 
 </div>
-
-
-<!-- ================= BOOKING MODAL ================= -->
-
-<div class="overlay" id="bookingModal">
-
-  <div class="modal">
-
-    <div class="modal-header">
-      <h2>حجز موعد 📅</h2>
-      <button class="close" onclick="closeBooking()">×</button>
-    </div>
-
-    <form onsubmit="saveAppointment(event)">
-
-      <div class="form-group">
-        <label>الخدمة</label>
-
-        <select class="form-control" id="bookingService" required>
-          <option value="">اختر الخدمة</option>
-          <option>تمريض منزلي</option>
-          <option>حقن وأدوية</option>
-          <option>قياس العلامات الحيوية</option>
-          <option>رعاية كبار السن</option>
-          <option>تغيير الضمادات</option>
-          <option>رعاية ما بعد العمليات</option>
-        </select>
-      </div>
-
-
-      <div class="form-group">
-        <label>الممرض / الممرضة</label>
-
-        <select class="form-control" id="bookingNurse" required>
-          <option value="">اختر مقدم الخدمة</option>
-          <option>ممرض محمد علي</option>
-          <option>ممرضة سارة أحمد</option>
-          <option>ممرض خالد سالم</option>
-          <option>ممرضة آية محمود</option>
-        </select>
-      </div>
-
-
-      <div class="form-group">
-        <label>التاريخ</label>
-        <input class="form-control" type="date" id="bookingDate" required>
-      </div>
-
-
-      <div class="form-group">
-        <label>الوقت</label>
-
-        <select class="form-control" id="bookingTime" required>
-          <option value="">اختر الوقت</option>
-          <option>09:00 صباحاً</option>
-          <option>10:00 صباحاً</option>
-          <option>11:00 صباحاً</option>
-          <option>12:00 ظهراً</option>
-          <option>02:00 مساءً</option>
-          <option>03:00 مساءً</option>
-          <option>04:00 مساءً</option>
-          <option>05:00 مساءً</option>
-          <option>07:00 مساءً</option>
-          <option>08:00 مساءً</option>
-        </select>
-
-      </div>
-
-
-      <div class="form-group">
-        <label>العنوان</label>
-        <input class="form-control" id="bookingAddress" placeholder="مثال: طرابلس، حي الأندلس" required>
-      </div>
-
-
-      <div class="form-group">
-        <label>ملاحظات إضافية</label>
-        <textarea class="form-control" id="bookingNotes" rows="3" placeholder="اكتب أي ملاحظات مهمة..."></textarea>
-      </div>
-
-
-      <button class="submit" type="submit">
-        تأكيد الحجز ✓
-      </button>
-
-    </form>
-
-  </div>
-
-</div>
-
-
-<!-- ================= PROFILE MODAL ================= -->
-
-<div class="overlay" id="profileModal">
-
-  <div class="modal">
-
-    <div class="modal-header">
-      <h2>معلوماتي 👤</h2>
-      <button class="close" onclick="closeProfile()">×</button>
-    </div>
-
-    <form onsubmit="saveProfile(event)">
-
-      <div class="form-group">
-        <label>الاسم</label>
-        <input class="form-control" id="editName" required>
-      </div>
-
-      <div class="form-group">
-        <label>رقم الهاتف</label>
-        <input class="form-control" id="editPhone" type="tel" required>
-      </div>
-
-      <button class="submit" type="submit">
-        حفظ المعلومات
-      </button>
-
-    </form>
-
-  </div>
-
-</div>
-
-
-<div class="toast" id="toast"></div>
 
 
 <script>
 
-/* ================= DATA ================= */
+  function showPage(pageId, button) {
 
-const nurses = [
-  {
-    name:"ممرض محمد علي",
-    specialty:"تمريض منزلي",
-    rating:"4.9",
-    emoji:"👨‍⚕️"
-  },
-  {
-    name:"ممرضة سارة أحمد",
-    specialty:"رعاية كبار السن",
-    rating:"4.8",
-    emoji:"👩‍⚕️"
-  },
-  {
-    name:"ممرض خالد سالم",
-    specialty:"حقن وأدوية",
-    rating:"4.9",
-    emoji:"👨‍⚕️"
-  },
-  {
-    name:"ممرضة آية محمود",
-    specialty:"رعاية ما بعد العمليات",
-    rating:"5.0",
-    emoji:"👩‍⚕️"
-  }
-];
+    document.querySelectorAll(".page").forEach(function(page) {
+      page.classList.remove("active");
+    });
 
+    const page = document.getElementById(pageId);
 
-const services = [
-  {
-    name:"تمريض منزلي",
-    description:"رعاية تمريضية متكاملة داخل المنزل.",
-    icon:"🏠",
-    price:"يبدأ من 50 د.ل"
-  },
-  {
-    name:"حقن وأدوية",
-    description:"إعطاء الحقن والأدوية حسب الوصفة الطبية.",
-    icon:"💉",
-    price:"يبدأ من 20 د.ل"
-  },
-  {
-    name:"قياس العلامات الحيوية",
-    description:"قياس الضغط والسكر والحرارة ونبض القلب.",
-    icon:"❤️",
-    price:"يبدأ من 15 د.ل"
-  },
-  {
-    name:"رعاية كبار السن",
-    description:"مساعدة ومتابعة كبار السن في المنزل.",
-    icon:"👵",
-    price:"يبدأ من 60 د.ل"
-  },
-  {
-    name:"تغيير الضمادات",
-    description:"تنظيف وتغيير الضمادات بطريقة آمنة.",
-    icon:"🩹",
-    price:"يبدأ من 25 د.ل"
-  },
-  {
-    name:"رعاية ما بعد العمليات",
-    description:"متابعة المريض بعد العمليات الجراحية.",
-    icon:"🏥",
-    price:"يبدأ من 70 د.ل"
-  }
-];
-
-
-const medicines = [
-  {
-    name:"دواء حسب وصفة الطبيب",
-    description:"تذكير بتناول الدواء في الوقت المحدد.",
-    time:"08:00 صباحاً",
-    dose:"حسب الوصفة"
-  },
-  {
-    name:"دواء مسائي",
-    description:"جرعة المساء.",
-    time:"08:00 مساءً",
-    dose:"حسب الوصفة"
-  }
-];
-
-
-/* ================= STORAGE ================= */
-
-let appointments =
-  JSON.parse(localStorage.getItem("nurseAppointments")) || [];
-
-let profile =
-  JSON.parse(localStorage.getItem("nurseProfile")) || {
-    name:"حاتم محمد",
-    phone:"09xxxxxxxx"
-  };
-
-
-/* ================= NAVIGATION ================= */
-
-function goTo(page){
-
-  document.querySelectorAll(".page").forEach(p=>{
-    p.classList.remove("active");
-  });
-
-  const target=document.getElementById(page);
-
-  if(target){
-    target.classList.add("active");
-  }
-
-  document.querySelectorAll(".nav-btn").forEach(btn=>{
-    btn.classList.remove("active");
-
-    if(btn.dataset.page===page){
-      btn.classList.add("active");
+    if (page) {
+      page.classList.add("active");
     }
-  });
 
-  window.scrollTo({
-    top:0,
-    behavior:"smooth"
-  });
-}
+    document.querySelectorAll(".nav-item").forEach(function(item) {
+      item.classList.remove("active");
+    });
 
+    if (button) {
+      button.classList.add("active");
+    }
 
-/* ================= HOME NURSES ================= */
-
-function renderHomeNurses(){
-
-  const container=document.getElementById("homeNurses");
-
-  container.innerHTML=nurses.slice(0,3).map(n=>`
-
-    <div class="nurse-card">
-
-      <div class="avatar">
-        ${n.emoji}
-      </div>
-
-      <div class="nurse-info">
-
-        <h3>${n.name}</h3>
-
-        <p>${n.specialty}</p>
-
-        <div class="rating">
-          ★ ${n.rating}
-        </div>
-
-      </div>
-
-      <button class="book-small"
-        onclick="bookNurse('${n.name}')">
-        حجز
-      </button>
-
-    </div>
-
-  `).join("");
-}
-
-
-/* ================= SERVICES ================= */
-
-function renderServices(){
-
-  const container=document.getElementById("servicesList");
-
-  container.innerHTML=services.map(s=>`
-
-    <div class="service-large">
-
-      <div class="service-icon">
-        ${s.icon}
-      </div>
-
-      <div class="service-large-info">
-
-        <h3>${s.name}</h3>
-
-        <p>${s.description}</p>
-
-        <div class="price">
-          ${s.price}
-        </div>
-
-      </div>
-
-      <button class="book-small"
-        onclick="selectService('${s.name}')">
-        احجز
-      </button>
-
-    </div>
-
-  `).join("");
-}
-
-
-/* ================= MEDICINES ================= */
-
-function renderMedicines(){
-
-  const container=document.getElementById("medicinesList");
-
-  container.innerHTML=medicines.map(m=>`
-
-    <div class="med-card">
-
-      <div class="med-top">
-
-        <div class="med-icon">💊</div>
-
-        <div>
-          <h3>${m.name}</h3>
-          <p>${m.description}</p>
-        </div>
-
-      </div>
-
-      <div class="med-details">
-
-        <span class="med-tag">
-          ⏰ ${m.time}
-        </span>
-
-        <span class="med-tag">
-          💊 ${m.dose}
-        </span>
-
-      </div>
-
-    </div>
-
-  `).join("");
-}
-
-
-/* ================= APPOINTMENTS ================= */
-
-function renderAppointments(){
-
-  const container=document.getElementById("appointmentsList");
-
-  if(appointments.length===0){
-
-    container.innerHTML=`
-
-      <div class="empty">
-
-        <div class="empty-icon">📅</div>
-
-        <h3>لا توجد مواعيد</h3>
-
-        <p>
-          لم تقم بحجز أي موعد حتى الآن.
-          احجز موعدك الأول مع Nurse Libya.
-        </p>
-
-        <button class="primary-btn"
-          onclick="openBooking()">
-          احجز موعد
-        </button>
-
-      </div>
-
-    `;
-
-    return;
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth"
+    });
   }
 
 
-  container.innerHTML=appointments.map((a,index)=>`
-
-    <div class="appointment">
-
-      <div class="appointment-top">
-
-        <h3>${a.service}</h3>
-
-        <span class="status">
-          ${a.status}
-        </span>
-
-      </div>
-
-      <div class="appointment-info">
-
-        <div class="info-box">
-          <small>الممرض</small>
-          <strong>${a.nurse}</strong>
-        </div>
-
-        <div class="info-box">
-          <small>التاريخ</small>
-          <strong>${a.date}</strong>
-        </div>
-
-        <div class="info-box">
-          <small>الوقت</small>
-          <strong>${a.time}</strong>
-        </div>
-
-        <div class="info-box">
-          <small>العنوان</small>
-          <strong>${a.address}</strong>
-        </div>
-
-      </div>
-
-      ${
-        a.notes
-        ?
-        `<p style="color:#8d9aa5;font-size:11px;margin-top:12px">
-          📝 ${a.notes}
-        </p>`
-        :
-        ""
-      }
-
-      <button
-        onclick="cancelAppointment(${index})"
-        style="
-          margin-top:13px;
-          background:#32151b;
-          color:#ff7180;
-          padding:9px 12px;
-          border-radius:10px;
-          font-size:10px;
-        ">
-        إلغاء الموعد
-      </button>
-
-    </div>
-
-  `).join("");
-}
+  function showMessage(message) {
+    alert(message);
+  }
 
 
-/* ================= BOOKING ================= */
+  function callEmergency() {
 
-function openBooking(){
-
-  document.getElementById("bookingModal")
-    .classList.add("show");
-
-  const today=new Date()
-    .toISOString()
-    .split("T")[0];
-
-  document.getElementById("bookingDate")
-    .min=today;
-}
-
-
-function closeBooking(){
-
-  document.getElementById("bookingModal")
-    .classList.remove("show");
-
-}
-
-
-function selectService(service){
-
-  document.getElementById("bookingService").value=service;
-
-  openBooking();
-
-}
-
-
-function bookNurse(nurse){
-
-  document.getElementById("bookingNurse").value=nurse;
-
-  openBooking();
-
-}
-
-
-function saveAppointment(event){
-
-  event.preventDefault();
-
-
-  const appointment={
-    service:document.getElementById("bookingService").value,
-    nurse:document.getElementById("bookingNurse").value,
-    date:document.getElementById("bookingDate").value,
-    time:document.getElementById("bookingTime").value,
-    address:document.getElementById("bookingAddress").value,
-    notes:document.getElementById("bookingNotes").value,
-    status:"مؤكد"
-  };
-
-
-  appointments.push(appointment);
-
-  localStorage.setItem(
-    "nurseAppointments",
-    JSON.stringify(appointments)
-  );
-
-
-  closeBooking();
-
-  event.target.reset();
-
-  renderAppointments();
-
-  goTo("appointments");
-
-  showToast("تم تأكيد حجزك بنجاح ✅");
-
-}
-
-
-/* ================= CANCEL ================= */
-
-function cancelAppointment(index){
-
-  if(confirm("هل تريد فعلاً إلغاء هذا الموعد؟")){
-
-    appointments.splice(index,1);
-
-    localStorage.setItem(
-      "nurseAppointments",
-      JSON.stringify(appointments)
+    const confirmed = confirm(
+      "هل تريد الاتصال بالطوارئ؟"
     );
 
-    renderAppointments();
-
-    showToast("تم إلغاء الموعد");
-
+    if (confirmed) {
+      window.location.href = "tel:112";
+    }
   }
 
-}
 
+  function searchCards() {
 
-/* ================= PROFILE ================= */
-
-function updateProfile(){
-
-  document.getElementById("profileName").textContent=
-    profile.name;
-
-  document.getElementById("profilePhone").textContent=
-    profile.phone;
-
-  document.getElementById("profileAvatar").textContent=
-    profile.name.charAt(0).toUpperCase();
-}
-
-
-function editProfile(){
-
-  document.getElementById("editName").value=
-    profile.name;
-
-  document.getElementById("editPhone").value=
-    profile.phone;
-
-  document.getElementById("profileModal")
-    .classList.add("show");
-}
-
-
-function closeProfile(){
-
-  document.getElementById("profileModal")
-    .classList.remove("show");
-}
-
-
-function saveProfile(event){
-
-  event.preventDefault();
-
-  profile={
-    name:document.getElementById("editName").value,
-    phone:document.getElementById("editPhone").value
-  };
-
-  localStorage.setItem(
-    "nurseProfile",
-    JSON.stringify(profile)
-  );
-
-  updateProfile();
-
-  closeProfile();
-
-  showToast("تم حفظ معلوماتك بنجاح ✅");
-
-}
-
-
-/* ================= SEARCH ================= */
-
-function openSearch(){
-
-  const box=document.getElementById("searchBox");
-
-  box.style.display=
-    box.style.display==="none"
-    ?
-    "flex"
-    :
-    "none";
-
-  if(box.style.display==="flex"){
-    document.getElementById("searchInput").focus();
-  }
-}
-
-
-function searchAll(){
-
-  const value=
-    document.getElementById("searchInput")
+    const input =
+      document.getElementById("searchInput")
       .value
-      .trim()
       .toLowerCase();
 
-  if(!value){
-    renderHomeNurses();
-    return;
+    const cards =
+      document.querySelectorAll(".searchable");
+
+    cards.forEach(function(card) {
+
+      const text =
+        card.innerText.toLowerCase();
+
+      if (text.includes(input)) {
+        card.style.display = "block";
+      } else {
+        card.style.display = "none";
+      }
+
+    });
   }
-
-  const filtered=nurses.filter(n=>
-    n.name.toLowerCase().includes(value) ||
-    n.specialty.toLowerCase().includes(value)
-  );
-
-  const container=document.getElementById("homeNurses");
-
-  if(filtered.length===0){
-
-    container.innerHTML=`
-
-      <div class="empty">
-
-        <div class="empty-icon">🔎</div>
-
-        <h3>لم نجد نتائج</h3>
-
-        <p>جرب البحث بكلمة أخرى.</p>
-
-      </div>
-
-    `;
-
-    return;
-  }
-
-
-  container.innerHTML=filtered.map(n=>`
-
-    <div class="nurse-card">
-
-      <div class="avatar">${n.emoji}</div>
-
-      <div class="nurse-info">
-
-        <h3>${n.name}</h3>
-
-        <p>${n.specialty}</p>
-
-        <div class="rating">
-          ★ ${n.rating}
-        </div>
-
-      </div>
-
-      <button class="book-small"
-        onclick="bookNurse('${n.name}')">
-        حجز
-      </button>
-
-    </div>
-
-  `).join("");
-}
-
-
-/* ================= EMERGENCY ================= */
-
-function emergency(){
-
-  const number="1412";
-
-  window.location.href="tel:"+number;
-
-}
-
-
-/* ================= TOAST ================= */
-
-let toastTimer;
-
-function showToast(message){
-
-  const toast=document.getElementById("toast");
-
-  toast.textContent=message;
-
-  toast.classList.add("show");
-
-  clearTimeout(toastTimer);
-
-  toastTimer=setTimeout(()=>{
-    toast.classList.remove("show");
-  },3000);
-
-}
-
-
-/* ================= CLOSE MODAL ================= */
-
-document.querySelectorAll(".overlay").forEach(overlay=>{
-
-  overlay.addEventListener("click",function(e){
-
-    if(e.target===overlay){
-      overlay.classList.remove("show");
-    }
-
-  });
-
-});
-
-
-/* ================= INIT ================= */
-
-renderHomeNurses();
-
-renderServices();
-
-renderAppointments();
-
-renderMedicines();
-
-updateProfile();
-
-
-/* ================= WELCOME ================= */
-
-setTimeout(()=>{
-
-  if(!localStorage.getItem("nurseWelcome")){
-
-    showToast("أهلاً بك في Nurse Libya 🇱🇾❤️");
-
-    localStorage.setItem(
-      "nurseWelcome",
-      "true"
-    );
-
-  }
-
-},700);
 
 </script>
 
