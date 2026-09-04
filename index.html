@@ -1,991 +1,404 @@
-<!DOCTYPE html>
-<html lang="ar" dir="rtl">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Nurse Libya 🇱🇾</title>
-
-  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-
-  <style>
-    *{box-sizing:border-box;margin:0;padding:0}
-    :root{
-      --primary:#08736d;
-      --dark:#04514d;
-      --light:#e8f7f5;
-      --bg:#f4f7f7;
-      --text:#172b2d;
-      --muted:#718080;
-      --white:#fff;
-    }
-
-    body{
-      font-family:"Cairo",sans-serif;
-      background:var(--bg);
-      color:var(--text);
-      padding-bottom:85px;
-    }
-
-    button,input,select,textarea{font-family:inherit}
-    button{border:0;cursor:pointer}
-
-    .app{
-      max-width:550px;
-      margin:auto;
-      min-height:100vh;
-      overflow:hidden;
-    }
-
-    .screen{
-      display:none;
-      min-height:100vh;
-    }
-
-    .screen.active{display:block}
-
-    .auth{
-      min-height:100vh;
-      background:linear-gradient(145deg,var(--primary),var(--dark));
-      display:none;
-      align-items:flex-end;
-    }
-
-    .auth.active{display:flex}
-
-    .auth-box{
-      width:100%;
-      background:white;
-      border-radius:35px 35px 0 0;
-      padding:30px 22px 40px;
-    }
-
-    .auth-logo{
-      text-align:center;
-      font-size:58px;
-    }
-
-    .auth-box h1{
-      text-align:center;
-      font-size:25px;
-    }
-
-    .auth-box>p{
-      text-align:center;
-      color:var(--muted);
-      font-size:12px;
-      margin:5px 0 25px;
-    }
-
-    .input-group{margin-bottom:14px}
-
-    .input-group label{
-      display:block;
-      margin-bottom:6px;
-      font-size:12px;
-      font-weight:700;
-    }
-
-    .input-group input,
-    .input-group select,
-    .input-group textarea{
-      width:100%;
-      border:1px solid #dfe7e7;
-      background:#f8fbfb;
-      border-radius:13px;
-      padding:14px;
-      outline:none;
-      font-size:13px;
-    }
-
-    .primary-btn{
-      width:100%;
-      background:var(--primary);
-      color:white;
-      padding:15px;
-      border-radius:14px;
-      font-size:14px;
-      font-weight:bold;
-    }
-
-    .auth-switch{
-      text-align:center;
-      margin-top:18px;
-      font-size:12px;
-    }
-
-    .auth-switch button{
-      background:transparent;
-      color:var(--primary);
-      font-weight:bold;
-    }
-
-    .header{
-      background:linear-gradient(135deg,var(--primary),#16a596);
-      color:white;
-      padding:22px 18px 35px;
-      border-radius:0 0 30px 30px;
-    }
-
-    .topbar{
-      display:flex;
-      align-items:center;
-      justify-content:space-between;
-    }
-
-    .logo{
-      font-size:19px;
-      font-weight:800;
-    }
-
-    .logo span{color:#ffe278}
-
-    .icon-btn{
-      width:42px;
-      height:42px;
-      border-radius:14px;
-      background:rgba(255,255,255,.18);
-      color:white;
-      font-size:19px;
-    }
-
-    .welcome{margin-top:25px}
-    .welcome small{opacity:.85;font-size:12px}
-    .welcome h1{font-size:22px;margin-top:5px}
-
-    .search-box{
-      margin-top:20px;
-      background:white;
-      border-radius:16px;
-      display:flex;
-      align-items:center;
-      padding:0 14px;
-      color:#555;
-    }
-
-    .search-box input{
-      width:100%;
-      border:0;
-      outline:0;
-      padding:15px 10px;
-    }
-
-    .content{padding:20px}
-
-    .section-title{
-      display:flex;
-      justify-content:space-between;
-      align-items:center;
-      margin:8px 0 14px;
-    }
-
-    .section-title h2{font-size:18px}
-
-    .section-title button{
-      color:var(--primary);
-      background:transparent;
-      font-weight:bold;
-    }
-
-    .services-grid{
-      display:grid;
-      grid-template-columns:repeat(4,1fr);
-      gap:10px;
-    }
-
-    .service{
-      background:white;
-      border-radius:17px;
-      padding:12px 4px;
-      font-size:10px;
-      box-shadow:0 4px 15px rgba(0,0,0,.04);
-    }
-
-    .emoji{
-      width:45px;
-      height:45px;
-      border-radius:14px;
-      background:var(--light);
-      display:flex;
-      align-items:center;
-      justify-content:center;
-      margin:auto auto 6px;
-      font-size:22px;
-    }
-
-    .banner{
-      background:linear-gradient(135deg,#064b47,var(--primary));
-      border-radius:23px;
-      color:white;
-      padding:20px;
-      margin:25px 0;
-    }
-
-    .banner h3{font-size:18px}
-    .banner p{font-size:12px;opacity:.85;margin-top:5px}
-
-    .banner button{
-      margin-top:15px;
-      background:white;
-      color:var(--primary);
-      padding:10px 17px;
-      border-radius:12px;
-      font-weight:bold;
-    }
-
-    .list-card{
-      background:white;
-      border-radius:18px;
-      padding:13px;
-      margin-bottom:12px;
-      display:flex;
-      align-items:center;
-      gap:12px;
-      box-shadow:0 4px 18px rgba(0,0,0,.05);
-    }
-
-    .list-icon{
-      width:55px;
-      height:55px;
-      flex-shrink:0;
-      border-radius:17px;
-      background:var(--light);
-      display:flex;
-      align-items:center;
-      justify-content:center;
-      font-size:25px;
-    }
-
-    .list-info{flex:1}
-
-    .list-info h3{font-size:14px}
-
-    .list-info p{
-      color:var(--muted);
-      font-size:11px;
-      margin-top:3px;
-    }
-
-    .list-action{
-      background:var(--primary);
-      color:white;
-      padding:8px 12px;
-      border-radius:10px;
-      font-size:11px;
-    }
-
-    .page-header{
-      background:white;
-      padding:18px;
-      display:flex;
-      gap:12px;
-      align-items:center;
-      box-shadow:0 2px 10px rgba(0,0,0,.04);
-    }
-
-    .back{
-      width:40px;
-      height:40px;
-      border-radius:13px;
-      background:var(--light);
-      color:var(--primary);
-      font-size:18px;
-    }
-
-    .page-header h2{font-size:17px}
-
-    .profile-head{
-      text-align:center;
-      background:linear-gradient(135deg,var(--primary),#16a596);
-      color:white;
-      padding:35px 20px;
-    }
-
-    .avatar{
-      width:85px;
-      height:85px;
-      border-radius:50%;
-      background:white;
-      color:var(--primary);
-      display:flex;
-      align-items:center;
-      justify-content:center;
-      margin:auto;
-      font-size:38px;
-    }
-
-    .profile-head h2{margin-top:10px}
-    .profile-head p{font-size:12px;opacity:.85}
-
-    .menu-item{
-      width:calc(100% - 40px);
-      margin:10px 20px;
-      padding:17px;
-      background:white;
-      border-radius:16px;
-      display:flex;
-      align-items:center;
-      gap:12px;
-      text-align:right;
-    }
-
-    .menu-item span:nth-child(2){
-      flex:1;
-      font-weight:600;
-    }
-
-    .bottom-nav{
-      position:fixed;
-      bottom:0;
-      left:50%;
-      transform:translateX(-50%);
-      width:100%;
-      max-width:550px;
-      height:75px;
-      background:white;
-      display:none;
-      justify-content:space-around;
-      align-items:center;
-      border-radius:25px 25px 0 0;
-      box-shadow:0 -5px 20px rgba(0,0,0,.08);
-      z-index:99;
-    }
-
-    .nav-item{
-      background:transparent;
-      color:#899898;
-      font-size:10px;
-      display:flex;
-      flex-direction:column;
-      align-items:center;
-      gap:3px;
-    }
-
-    .nav-item.active{color:var(--primary)}
-
-    .toast{
-      display:none;
-      position:fixed;
-      bottom:95px;
-      left:50%;
-      transform:translateX(-50%);
-      background:#172b2d;
-      color:white;
-      padding:12px 18px;
-      border-radius:14px;
-      font-size:12px;
-      z-index:1000;
-      white-space:nowrap;
-    }
-
-    .empty{
-      text-align:center;
-      padding:60px 20px;
-      color:var(--muted);
-    }
-
-    .empty div{font-size:55px;margin-bottom:10px}
-  </style>
-</head>
-
-<body>
-
-<div class="app">
-
-  <!-- تسجيل الدخول -->
-  <section id="loginScreen" class="screen auth active">
-    <div class="auth-box">
-      <div class="auth-logo">🩺</div>
-      <h1>Nurse Libya 🇱🇾</h1>
-      <p>منصة الخدمات الصحية والتمريضية في ليبيا</p>
-
-      <div class="input-group">
-        <label>البريد الإلكتروني</label>
-        <input id="loginEmail" type="email" placeholder="example@email.com">
-      </div>
-
-      <div class="input-group">
-        <label>كلمة المرور</label>
-        <input id="loginPassword" type="password" placeholder="••••••••">
-      </div>
-
-      <button class="primary-btn" onclick="login()">تسجيل الدخول</button>
-
-      <div class="auth-switch">
-        ليس لديك حساب؟
-        <button onclick="showScreen('registerScreen')">إنشاء حساب</button>
-      </div>
-    </div>
-  </section>
-
-  <!-- إنشاء حساب -->
-  <section id="registerScreen" class="screen auth">
-    <div class="auth-box">
-      <div class="auth-logo">🇱🇾</div>
-      <h1>إنشاء حساب جديد</h1>
-      <p>انضم إلى مجتمع Nurse Libya</p>
-
-      <div class="input-group">
-        <label>الاسم الكامل</label>
-        <input id="registerName" placeholder="اكتب اسمك">
-      </div>
-
-      <div class="input-group">
-        <label>رقم الهاتف</label>
-        <input id="registerPhone" placeholder="09XXXXXXXX">
-      </div>
-
-      <div class="input-group">
-        <label>البريد الإلكتروني</label>
-        <input id="registerEmail" type="email">
-      </div>
-
-      <div class="input-group">
-        <label>نوع الحساب</label>
-        <select id="registerRole">
-          <option value="patient">مستخدم / مريض</option>
-          <option value="nurse">ممرض / ممرضة</option>
-          <option value="doctor">طبيب</option>
-          <option value="hospital">مستشفى</option>
-        </select>
-      </div>
-
-      <div class="input-group">
-        <label>كلمة المرور</label>
-        <input id="registerPassword" type="password">
-      </div>
-
-      <button class="primary-btn" onclick="register()">إنشاء الحساب</button>
-
-      <div class="auth-switch">
-        لديك حساب؟
-        <button onclick="showScreen('loginScreen')">تسجيل الدخول</button>
-      </div>
-    </div>
-  </section>
-
-  <!-- الرئيسية -->
-  <section id="homeScreen" class="screen">
-
-    <div class="header">
-      <div class="topbar">
-        <button class="icon-btn" onclick="showScreen('profileScreen')">👤</button>
-        <div class="logo">NURSE <span>LIBYA</span> 🇱🇾</div>
-        <button class="icon-btn" onclick="showScreen('bookingsScreen')">📅</button>
-      </div>
-
-      <div class="welcome">
-        <small>مرحباً بك 👋</small>
-        <h1 id="welcomeName">أهلاً بك</h1>
-      </div>
-
-      <div class="search-box">
-        🔍
-        <input placeholder="ابحث عن طبيب، مستشفى، خدمة..." oninput="searchContent(this.value)">
-      </div>
-    </div>
-
-    <div class="content">
-
-      <div class="section-title"><h2>الخدمات</h2></div>
-
-      <div class="services-grid">
-        <button class="service" onclick="showScreen('doctorsScreen')"><div class="emoji">👨‍⚕️</div>الأطباء</button>
-        <button class="service" onclick="showScreen('hospitalsScreen')"><div class="emoji">🏥</div>المستشفيات</button>
-        <button class="service" onclick="showScreen('nursingScreen')"><div class="emoji">🩺</div>التمريض</button>
-        <button class="service" onclick="showScreen('jobsScreen')"><div class="emoji">💼</div>الوظائف</button>
-        <button class="service" onclick="showScreen('coursesScreen')"><div class="emoji">🎓</div>الكورسات</button>
-        <button class="service" onclick="showScreen('collegesScreen')"><div class="emoji">🏫</div>الكليات</button>
-        <button class="service" onclick="showScreen('bookingsScreen')"><div class="emoji">📅</div>حجوزاتي</button>
-        <button class="service" onclick="showScreen('profileScreen')"><div class="emoji">⚙️</div>حسابي</button>
-      </div>
-
-      <div class="banner">
-        <h3>احجز خدمة تمريضية 🩺</h3>
-        <p>احصل على خدمات صحية وتمريضية بسهولة وأمان.</p>
-        <button onclick="showScreen('nursingScreen')">استكشف الخدمات</button>
-      </div>
-
-      <div class="section-title">
-        <h2>أطباء مميزون</h2>
-        <button onclick="showScreen('doctorsScreen')">عرض الكل</button>
-      </div>
-
-      <div id="homeDoctors"></div>
-
-    </div>
-  </section>
-
-  <!-- الأطباء -->
-  <section id="doctorsScreen" class="screen">
-    <div class="page-header">
-      <button class="back" onclick="goHome()">←</button>
-      <h2>الأطباء</h2>
-    </div>
-    <div class="content" id="doctorsList"></div>
-  </section>
-
-  <!-- المستشفيات -->
-  <section id="hospitalsScreen" class="screen">
-    <div class="page-header">
-      <button class="back" onclick="goHome()">←</button>
-      <h2>المستشفيات</h2>
-    </div>
-    <div class="content" id="hospitalsList"></div>
-  </section>
-
-  <!-- التمريض -->
-  <section id="nursingScreen" class="screen">
-    <div class="page-header">
-      <button class="back" onclick="goHome()">←</button>
-      <h2>الخدمات التمريضية</h2>
-    </div>
-
-    <div class="content">
-
-      <div class="list-card">
-        <div class="list-icon">🏠</div>
-        <div class="list-info"><h3>تمريض منزلي</h3><p>خدمة تمريض في المنزل</p></div>
-        <button class="list-action" onclick="openBooking('تمريض منزلي')">احجز</button>
-      </div>
-
-      <div class="list-card">
-        <div class="list-icon">💉</div>
-        <div class="list-info"><h3>حقن وعلاجات</h3><p>خدمة تمريضية</p></div>
-        <button class="list-action" onclick="openBooking('حقن وعلاجات')">احجز</button>
-      </div>
-
-      <div class="list-card">
-        <div class="list-icon">🩹</div>
-        <div class="list-info"><h3>تغيير الجروح</h3><p>رعاية ومتابعة الجروح</p></div>
-        <button class="list-action" onclick="openBooking('تغيير الجروح')">احجز</button>
-      </div>
-
-      <div class="list-card">
-        <div class="list-icon">❤️</div>
-        <div class="list-info"><h3>رعاية كبار السن</h3><p>رعاية صحية منزلية</p></div>
-        <button class="list-action" onclick="openBooking('رعاية كبار السن')">احجز</button>
-      </div>
-
-    </div>
-  </section>
-
-  <!-- الوظائف -->
-  <section id="jobsScreen" class="screen">
-    <div class="page-header">
-      <button class="back" onclick="goHome()">←</button>
-      <h2>وظائف التمريض</h2>
-    </div>
-    <div class="content">
-      <div id="jobsList"></div>
-    </div>
-  </section>
-
-  <!-- الكورسات -->
-  <section id="coursesScreen" class="screen">
-    <div class="page-header">
-      <button class="back" onclick="goHome()">←</button>
-      <h2>الكورسات والدورات</h2>
-    </div>
-
-    <div class="content">
-      <div class="list-card"><div class="list-icon">📚</div><div class="list-info"><h3>أساسيات التمريض</h3><p>دورة للمبتدئين</p></div></div>
-      <div class="list-card"><div class="list-icon">🚑</div><div class="list-info"><h3>الإسعافات الأولية</h3><p>التعامل مع الحالات الطارئة</p></div></div>
-      <div class="list-card"><div class="list-icon">🫀</div><div class="list-info"><h3>رعاية الحالات الحرجة</h3><p>دورة متقدمة</p></div></div>
-    </div>
-  </section>
-
-  <!-- الكليات -->
-  <section id="collegesScreen" class="screen">
-    <div class="page-header">
-      <button class="back" onclick="goHome()">←</button>
-      <h2>الكليات والمعاهد</h2>
-    </div>
-
-    <div class="content">
-      <div class="list-card"><div class="list-icon">🏫</div><div class="list-info"><h3>كلية التمريض</h3><p>دراسة علوم التمريض</p></div></div>
-      <div class="list-card"><div class="list-icon">🎓</div><div class="list-info"><h3>المعاهد الطبية</h3><p>التعليم والتدريب الصحي</p></div></div>
-    </div>
-  </section>
-
-  <!-- الحجز -->
-  <section id="bookingScreen" class="screen">
-    <div class="page-header">
-      <button class="back" onclick="showScreen('nursingScreen')">←</button>
-      <h2>حجز خدمة</h2>
-    </div>
-
-    <div class="content">
-      <div class="input-group"><label>الخدمة</label><input id="bookingService" readonly></div>
-      <div class="input-group"><label>الاسم</label><input id="bookingName"></div>
-      <div class="input-group"><label>رقم الهاتف</label><input id="bookingPhone"></div>
-      <div class="input-group"><label>تاريخ الحجز</label><input id="bookingDate" type="date"></div>
-      <div class="input-group"><label>ملاحظات</label><textarea id="bookingNotes"></textarea></div>
-
-      <button class="primary-btn" onclick="confirmBooking()">تأكيد الحجز</button>
-    </div>
-  </section>
-
-  <!-- حجوزاتي -->
-  <section id="bookingsScreen" class="screen">
-    <div class="page-header">
-      <button class="back" onclick="goHome()">←</button>
-      <h2>حجوزاتي</h2>
-    </div>
-    <div class="content" id="bookingsList"></div>
-  </section>
-
-  <!-- الحساب -->
-  <section id="profileScreen" class="screen">
-    <div class="profile-head">
-      <div class="avatar">👤</div>
-      <h2 id="profileName">مستخدم</h2>
-      <p id="profileEmail"></p>
-    </div>
-
-    <div style="padding-top:15px">
-      <button class="menu-item" onclick="showScreen('bookingsScreen')"><span>📅</span><span>حجوزاتي</span><span>←</span></button>
-      <button class="menu-item" onclick="logout()"><span>🚪</span><span>تسجيل الخروج</span><span>←</span></button>
-    </div>
-  </section>
-
-  <nav class="bottom-nav" id="bottomNav">
-    <button class="nav-item" onclick="goHome()">🏠<span>الرئيسية</span></button>
-    <button class="nav-item" onclick="showScreen('doctorsScreen')">👨‍⚕️<span>الأطباء</span></button>
-    <button class="nav-item" onclick="showScreen('nursingScreen')">🩺<span>الخدمات</span></button>
-    <button class="nav-item" onclick="showScreen('jobsScreen')">💼<span>الوظائف</span></button>
-    <button class="nav-item" onclick="showScreen('profileScreen')">👤<span>حسابي</span></button>
-  </nav>
-
-</div>
-
-<div class="toast" id="toast"></div>
-
-<!-- Supabase -->
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-
 <script>
-const SUPABASE_URL = "https://juxiaorwaiazfjlmkcvm.supabase.co";
-const SUPABASE_KEY = "ضع_هنا_مفتاح_publishable_key_الذي_أرسلته_سابقاً";
+  // ================================
+  // SUPABASE - NURSE LIBYA
+  // ================================
 
-const supabaseClient = window.supabase.createClient(
-  SUPABASE_URL,
-  SUPABASE_KEY
-);
+  const SUPABASE_URL = "https://juxiaorwaiazfjlmkcvm.supabase.co";
+  const SUPABASE_KEY = "sb_publishable_TRboilZah9KxLKNskvtO8g_y24KpDpc";
 
-let currentUser = null;
-
-const doctors = [
-  {name:"د. أحمد علي", specialty:"طبيب قلب وأوعية دموية", city:"طرابلس", icon:"👨‍⚕️"},
-  {name:"د. سارة محمد", specialty:"طب الأطفال", city:"طرابلس", icon:"👩‍⚕️"},
-  {name:"د. عمر حسن", specialty:"الجراحة العامة", city:"بنغازي", icon:"👨‍⚕️"}
-];
-
-const hospitals = [
-  {name:"مستشفى ليبيا الطبي", city:"طرابلس", icon:"🏥"},
-  {name:"المركز الطبي", city:"بنغازي", icon:"🏥"},
-  {name:"مركز الرعاية الصحية", city:"مصراتة", icon:"🏥"}
-];
-
-const jobs = [
-  {title:"ممرض / ممرضة", place:"مركز طبي", city:"طرابلس", icon:"🩺"},
-  {title:"مساعد تمريض", place:"مستشفى خاص", city:"بنغازي", icon:"👨‍⚕️"},
-  {title:"مشرف تمريض", place:"مركز رعاية", city:"مصراتة", icon:"🏥"}
-];
-
-function showScreen(id){
-  document.querySelectorAll(".screen").forEach(s=>s.classList.remove("active"));
-  document.getElementById(id).classList.add("active");
-
-  const auth = ["loginScreen","registerScreen"];
-  document.getElementById("bottomNav").style.display =
-    auth.includes(id) ? "none" : "flex";
-
-  if(id==="doctorsScreen") renderDoctors();
-  if(id==="hospitalsScreen") renderHospitals();
-  if(id==="jobsScreen") renderJobs();
-  if(id==="bookingsScreen") renderBookings();
-
-  window.scrollTo(0,0);
-}
-
-function goHome(){
-  showScreen("homeScreen");
-}
-
-async function register(){
-  const name = document.getElementById("registerName").value.trim();
-  const phone = document.getElementById("registerPhone").value.trim();
-  const email = document.getElementById("registerEmail").value.trim();
-  const password = document.getElementById("registerPassword").value;
-  const role = document.getElementById("registerRole").value;
-
-  if(!name || !email || !password){
-    showToast("يرجى تعبئة البيانات المطلوبة");
-    return;
-  }
-
-  const {data,error} = await supabaseClient.auth.signUp({
-    email,
-    password,
-    options:{
-      data:{
-        full_name:name,
-        phone:phone,
-        role:role
-      }
-    }
-  });
-
-  if(error){
-    showToast(error.message);
-    return;
-  }
-
-  if(data.user){
-    await supabaseClient.from("profiles").upsert({
-      id:data.user.id,
-      full_name:name,
-      phone:phone,
-      role:role
-    });
-  }
-
-  showToast("تم إنشاء الحساب بنجاح 🎉");
-
-  setTimeout(()=>{
-    showScreen("loginScreen");
-  },1000);
-}
-
-async function login(){
-  const email = document.getElementById("loginEmail").value.trim();
-  const password = document.getElementById("loginPassword").value;
-
-  if(!email || !password){
-    showToast("أدخل البريد وكلمة المرور");
-    return;
-  }
-
-  const {data,error} = await supabaseClient.auth.signInWithPassword({
-    email,
-    password
-  });
-
-  if(error){
-    showToast("خطأ: "+error.message);
-    return;
-  }
-
-  currentUser = data.user;
-  await loadProfile();
-  showScreen("homeScreen");
-  showToast("تم تسجيل الدخول بنجاح ✓");
-}
-
-async function loadProfile(){
-  if(!currentUser) return;
-
-  const {data} = await supabaseClient
-    .from("profiles")
-    .select("*")
-    .eq("id",currentUser.id)
-    .single();
-
-  const name = data?.full_name || currentUser.email.split("@")[0];
-
-  document.getElementById("welcomeName").textContent =
-    "أهلاً "+name+" 👋";
-
-  document.getElementById("profileName").textContent = name;
-  document.getElementById("profileEmail").textContent = currentUser.email;
-  document.getElementById("bookingName").value = name;
-  document.getElementById("bookingPhone").value = data?.phone || "";
-}
-
-async function logout(){
-  await supabaseClient.auth.signOut();
-  currentUser = null;
-  showScreen("loginScreen");
-  showToast("تم تسجيل الخروج");
-}
-
-function renderDoctors(){
-  document.getElementById("doctorsList").innerHTML =
-    doctors.map(d=>`
-      <div class="list-card">
-        <div class="list-icon">${d.icon}</div>
-        <div class="list-info">
-          <h3>${d.name}</h3>
-          <p>${d.specialty} • ${d.city}</p>
-        </div>
-        <button class="list-action">عرض</button>
-      </div>
-    `).join("");
-}
-
-function renderHospitals(){
-  document.getElementById("hospitalsList").innerHTML =
-    hospitals.map(h=>`
-      <div class="list-card">
-        <div class="list-icon">${h.icon}</div>
-        <div class="list-info">
-          <h3>${h.name}</h3>
-          <p>${h.city}</p>
-        </div>
-      </div>
-    `).join("");
-}
-
-function renderJobs(){
-  document.getElementById("jobsList").innerHTML =
-    jobs.map(j=>`
-      <div class="list-card">
-        <div class="list-icon">${j.icon}</div>
-        <div class="list-info">
-          <h3>${j.title}</h3>
-          <p>${j.place} • ${j.city}</p>
-        </div>
-      </div>
-    `).join("");
-}
-
-function openBooking(service){
-  document.getElementById("bookingService").value = service;
-  showScreen("bookingScreen");
-}
-
-async function confirmBooking(){
-  if(!currentUser){
-    showToast("يجب تسجيل الدخول أولاً");
-    return;
-  }
-
-  const service = document.getElementById("bookingService").value;
-  const name = document.getElementById("bookingName").value.trim();
-  const phone = document.getElementById("bookingPhone").value.trim();
-  const date = document.getElementById("bookingDate").value;
-  const notes = document.getElementById("bookingNotes").value.trim();
-
-  if(!service || !name || !phone || !date){
-    showToast("يرجى تعبئة بيانات الحجز");
-    return;
-  }
-
-  const {error} = await supabaseClient.from("bookings").insert({
-    user_id:currentUser.id,
-    service:service,
-    name:name,
-    phone:phone,
-    booking_date:date,
-    notes:notes,
-    status:"قيد المراجعة"
-  });
-
-  if(error){
-    showToast("خطأ في الحجز: "+error.message);
-    return;
-  }
-
-  showToast("تم إرسال الحجز بنجاح ✓");
-  showScreen("bookingsScreen");
-}
-
-async function renderBookings(){
-  if(!currentUser) return;
-
-  const list = document.getElementById("bookingsList");
-
-  const {data,error} = await supabaseClient
-    .from("bookings")
-    .select("*")
-    .eq("user_id",currentUser.id)
-    .order("created_at",{ascending:false});
-
-  if(error){
-    list.innerHTML=`<div class="empty"><div>⚠️</div><h3>لا يمكن تحميل الحجوزات</h3></div>`;
-    return;
-  }
-
-  if(!data || !data.length){
-    list.innerHTML=`
-      <div class="empty">
-        <div>📅</div>
-        <h3>لا توجد حجوزات</h3>
-        <p>احجز خدمة وستظهر هنا</p>
-      </div>`;
-    return;
-  }
-
-  list.innerHTML=data.map(b=>`
-    <div class="list-card">
-      <div class="list-icon">📅</div>
-      <div class="list-info">
-        <h3>${b.service}</h3>
-        <p>${b.booking_date} • ${b.status}</p>
-      </div>
-    </div>
-  `).join("");
-}
-
-function searchContent(query){
-  query=query.trim();
-
-  if(!query) return;
-
-  const doctor=doctors.find(d=>
-    d.name.includes(query) || d.specialty.includes(query)
+  const supabaseClient = supabase.createClient(
+    SUPABASE_URL,
+    SUPABASE_KEY
   );
 
-  if(doctor){
-    showScreen("doctorsScreen");
-    showToast("تم العثور على "+doctor.name);
-  }
-}
+  // ================================
+  // بيانات التطبيق
+  // ================================
 
-function showToast(message){
-  const toast=document.getElementById("toast");
-  toast.textContent=message;
-  toast.style.display="block";
+  let currentUser = null;
+  let bookings = [];
 
-  clearTimeout(window.toastTimer);
+  // ================================
+  // تسجيل الدخول
+  // ================================
 
-  window.toastTimer=setTimeout(()=>{
-    toast.style.display="none";
-  },3000);
-}
+  async function login() {
+    const email = document
+      .getElementById("loginEmail")
+      .value
+      .trim();
 
-async function checkSession(){
-  const {data:{session}} =
-    await supabaseClient.auth.getSession();
+    const password = document
+      .getElementById("loginPassword")
+      .value
+      .trim();
 
-  if(session){
-    currentUser=session.user;
+    if (!email || !password) {
+      showToast("يرجى إدخال البريد وكلمة المرور");
+      return;
+    }
+
+    showToast("جاري تسجيل الدخول...");
+
+    const { data, error } =
+      await supabaseClient.auth.signInWithPassword({
+        email: email,
+        password: password
+      });
+
+    if (error) {
+      showToast(error.message);
+      return;
+    }
+
+    currentUser = data.user;
+
     await loadProfile();
-    showScreen("homeScreen");
-  }else{
-    showScreen("loginScreen");
+    await loadBookings();
+
+    updateUserUI();
+
+    showToast("تم تسجيل الدخول بنجاح ✓");
+
+    setTimeout(() => {
+      showScreen("homeScreen");
+    }, 500);
   }
-}
 
-window.onload=async()=>{
-  renderDoctors();
-  renderHospitals();
-  renderJobs();
+  // ================================
+  // إنشاء حساب
+  // ================================
 
-  document.getElementById("homeDoctors").innerHTML =
-    doctors.slice(0,2).map(d=>`
-      <div class="list-card">
-        <div class="list-icon">${d.icon}</div>
-        <div class="list-info">
-          <h3>${d.name}</h3>
-          <p>${d.specialty}</p>
+  async function register() {
+
+    const name =
+      document.getElementById("registerName").value.trim();
+
+    const phone =
+      document.getElementById("registerPhone").value.trim();
+
+    const email =
+      document.getElementById("registerEmail").value.trim();
+
+    const password =
+      document.getElementById("registerPassword").value.trim();
+
+    const role =
+      document.getElementById("registerRole").value;
+
+    if (!name || !phone || !email || !password) {
+      showToast("يرجى تعبئة جميع البيانات");
+      return;
+    }
+
+    showToast("جاري إنشاء الحساب...");
+
+    const { data, error } =
+      await supabaseClient.auth.signUp({
+        email: email,
+        password: password,
+        options: {
+          data: {
+            full_name: name,
+            phone: phone,
+            role: role
+          }
+        }
+      });
+
+    if (error) {
+      showToast(error.message);
+      return;
+    }
+
+    if (!data.user) {
+      showToast("حدث خطأ أثناء إنشاء الحساب");
+      return;
+    }
+
+    currentUser = data.user;
+
+    showToast(
+      "تم إنشاء الحساب بنجاح 🎉 تحقق من بريدك الإلكتروني إذا طلب منك ذلك"
+    );
+
+    setTimeout(() => {
+      showScreen("loginScreen");
+    }, 1500);
+  }
+
+  // ================================
+  // تحميل البروفايل
+  // ================================
+
+  async function loadProfile() {
+
+    if (!currentUser) return;
+
+    const { data, error } =
+      await supabaseClient
+        .from("profiles")
+        .select("*")
+        .eq("id", currentUser.id)
+        .single();
+
+    if (data && !error) {
+      currentUser = {
+        ...currentUser,
+        name: data.full_name,
+        phone: data.phone,
+        role: data.role
+      };
+    } else {
+
+      currentUser = {
+        ...currentUser,
+        name:
+          currentUser.user_metadata?.full_name ||
+          currentUser.email.split("@")[0],
+
+        phone:
+          currentUser.user_metadata?.phone || "",
+
+        role:
+          currentUser.user_metadata?.role || "patient"
+      };
+    }
+  }
+
+  // ================================
+  // تحديث الواجهة
+  // ================================
+
+  function updateUserUI() {
+
+    if (!currentUser) return;
+
+    const name =
+      currentUser.name ||
+      currentUser.email?.split("@")[0] ||
+      "مستخدم";
+
+    document.getElementById("welcomeName").textContent =
+      "أهلاً " + name + " 👋";
+
+    document.getElementById("profileName").textContent =
+      name;
+
+    document.getElementById("profileEmail").textContent =
+      currentUser.email || "";
+
+    document.getElementById("bookingName").value =
+      name;
+
+    document.getElementById("bookingPhone").value =
+      currentUser.phone || "";
+  }
+
+  // ================================
+  // تسجيل الخروج
+  // ================================
+
+  async function logout() {
+
+    await supabaseClient.auth.signOut();
+
+    currentUser = null;
+    bookings = [];
+
+    showToast("تم تسجيل الخروج");
+
+    setTimeout(() => {
+      showScreen("loginScreen");
+    }, 500);
+  }
+
+  // ================================
+  // فتح الحجز
+  // ================================
+
+  function openBooking(service) {
+
+    document.getElementById("bookingService").value =
+      service;
+
+    updateUserUI();
+
+    showScreen("bookingScreen");
+  }
+
+  // ================================
+  // تأكيد الحجز
+  // ================================
+
+  async function confirmBooking() {
+
+    if (!currentUser) {
+      showToast("يرجى تسجيل الدخول أولاً");
+      showScreen("loginScreen");
+      return;
+    }
+
+    const service =
+      document.getElementById("bookingService").value;
+
+    const name =
+      document.getElementById("bookingName").value.trim();
+
+    const phone =
+      document.getElementById("bookingPhone").value.trim();
+
+    const date =
+      document.getElementById("bookingDate").value;
+
+    const notes =
+      document.getElementById("bookingNotes").value.trim();
+
+    if (!service || !name || !phone || !date) {
+      showToast("يرجى إدخال جميع بيانات الحجز");
+      return;
+    }
+
+    showToast("جاري إرسال طلب الحجز...");
+
+    const { error } =
+      await supabaseClient
+        .from("bookings")
+        .insert({
+          user_id: currentUser.id,
+          service: service,
+          patient_name: name,
+          phone: phone,
+          booking_date: date,
+          notes: notes,
+          status: "pending"
+        });
+
+    if (error) {
+      showToast("خطأ: " + error.message);
+      return;
+    }
+
+    showToast("تم إرسال طلب الحجز بنجاح ✓");
+
+    document.getElementById("bookingDate").value = "";
+    document.getElementById("bookingNotes").value = "";
+
+    await loadBookings();
+
+    setTimeout(() => {
+      showScreen("bookingsScreen");
+    }, 700);
+  }
+
+  // ================================
+  // تحميل الحجوزات
+  // ================================
+
+  async function loadBookings() {
+
+    if (!currentUser) {
+      bookings = [];
+      return;
+    }
+
+    const { data, error } =
+      await supabaseClient
+        .from("bookings")
+        .select("*")
+        .eq("user_id", currentUser.id)
+        .order("created_at", {
+          ascending: false
+        });
+
+    if (!error) {
+      bookings = data || [];
+    }
+  }
+
+  // ================================
+  // عرض الحجوزات
+  // ================================
+
+  function renderBookings() {
+
+    const list =
+      document.getElementById("bookingsList");
+
+    if (!bookings.length) {
+
+      list.innerHTML = `
+        <div class="empty">
+          <div>📅</div>
+          <h3>لا توجد حجوزات</h3>
+          <p>احجز خدمة تمريضية وستظهر هنا</p>
         </div>
-      </div>
-    `).join("");
+      `;
 
-  await checkSession();
-};
+      return;
+    }
+
+    list.innerHTML =
+      bookings.map(booking => {
+
+        const statusText =
+          booking.status === "pending"
+            ? "قيد المراجعة"
+            : booking.status === "confirmed"
+            ? "تم التأكيد"
+            : booking.status === "completed"
+            ? "مكتمل"
+            : booking.status;
+
+        return `
+          <div class="list-card">
+
+            <div class="list-icon">📅</div>
+
+            <div class="list-info">
+
+              <h3>${booking.service}</h3>
+
+              <p>
+                ${booking.booking_date}
+                •
+                ${statusText}
+              </p>
+
+            </div>
+
+          </div>
+        `;
+
+      }).join("");
+  }
+
+  // ================================
+  // تشغيل التطبيق
+  // ================================
+
+  window.onload = async function () {
+
+    const {
+      data: { session }
+    } = await supabaseClient.auth.getSession();
+
+    if (session?.user) {
+
+      currentUser = session.user;
+
+      await loadProfile();
+      await loadBookings();
+
+      updateUserUI();
+
+      showScreen("homeScreen");
+
+    } else {
+
+      showScreen("loginScreen");
+
+    }
+
+  };
 </script>
-
-</body>
-</html>
