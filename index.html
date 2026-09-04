@@ -1,0 +1,1380 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0" />
+  <title>Nurse Libya 🇱🇾</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --primary: #0b6e69;
+      --primary-dark: #064c49;
+      --primary-light: #e7f7f5;
+      --accent: #e74c3c;
+      --text: #172b2d;
+      --muted: #708080;
+      --bg: #f4f7f7;
+      --white: #ffffff;
+      --shadow: 0 8px 30px rgba(0,0,0,.08);
+    }
+
+    body {
+      font-family: "Cairo", sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      min-height: 100vh;
+      padding-bottom: 95px;
+    }
+
+    button, input, select, textarea {
+      font-family: inherit;
+    }
+
+    button {
+      border: none;
+      cursor: pointer;
+    }
+
+    .app {
+      width: 100%;
+      max-width: 550px;
+      margin: auto;
+      min-height: 100vh;
+      background: var(--bg);
+      overflow: hidden;
+    }
+
+    .screen {
+      display: none;
+      min-height: 100vh;
+      animation: fade .25s ease;
+    }
+
+    .screen.active { display: block; }
+
+    @keyframes fade {
+      from { opacity: 0; transform: translateY(8px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* HEADER */
+
+    .header {
+      background: linear-gradient(135deg, var(--primary), #11998e);
+      color: white;
+      padding: 24px 20px 35px;
+      border-radius: 0 0 30px 30px;
+    }
+
+    .topbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .logo {
+      font-size: 22px;
+      font-weight: 800;
+    }
+
+    .logo span { color: #ffdf6c; }
+
+    .icon-btn {
+      width: 42px;
+      height: 42px;
+      border-radius: 14px;
+      background: rgba(255,255,255,.15);
+      color: white;
+      font-size: 20px;
+    }
+
+    .welcome {
+      margin-top: 25px;
+    }
+
+    .welcome small {
+      opacity: .8;
+      font-size: 13px;
+    }
+
+    .welcome h1 {
+      font-size: 25px;
+      margin-top: 5px;
+    }
+
+    .search-box {
+      margin-top: 22px;
+      background: white;
+      border-radius: 17px;
+      padding: 5px 15px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      box-shadow: var(--shadow);
+    }
+
+    .search-box input {
+      width: 100%;
+      border: none;
+      outline: none;
+      padding: 13px 0;
+      font-size: 14px;
+    }
+
+    /* CONTENT */
+
+    .content { padding: 20px; }
+
+    .section-title {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin: 10px 0 15px;
+    }
+
+    .section-title h2 {
+      font-size: 18px;
+    }
+
+    .section-title button {
+      color: var(--primary);
+      background: transparent;
+      font-weight: 700;
+    }
+
+    /* QUICK SERVICES */
+
+    .services-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 10px;
+      margin-bottom: 25px;
+    }
+
+    .service {
+      background: white;
+      border-radius: 17px;
+      padding: 13px 5px;
+      text-align: center;
+      box-shadow: 0 3px 15px rgba(0,0,0,.04);
+      font-size: 11px;
+      font-weight: 700;
+    }
+
+    .service .emoji {
+      width: 45px;
+      height: 45px;
+      margin: auto auto 7px;
+      border-radius: 14px;
+      background: var(--primary-light);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 22px;
+    }
+
+    /* BANNER */
+
+    .banner {
+      background: linear-gradient(135deg, #063d3b, var(--primary));
+      border-radius: 23px;
+      padding: 20px;
+      color: white;
+      margin-bottom: 25px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .banner::after {
+      content: "🩺";
+      position: absolute;
+      left: -5px;
+      bottom: -25px;
+      font-size: 100px;
+      opacity: .15;
+    }
+
+    .banner h3 {
+      font-size: 19px;
+      margin-bottom: 6px;
+    }
+
+    .banner p {
+      font-size: 12px;
+      opacity: .85;
+      width: 70%;
+    }
+
+    .banner button {
+      margin-top: 15px;
+      background: white;
+      color: var(--primary);
+      padding: 10px 18px;
+      border-radius: 12px;
+      font-weight: bold;
+    }
+
+    /* CARDS */
+
+    .cards {
+      display: flex;
+      gap: 13px;
+      overflow-x: auto;
+      padding-bottom: 5px;
+      scrollbar-width: none;
+    }
+
+    .cards::-webkit-scrollbar { display: none; }
+
+    .card {
+      min-width: 185px;
+      background: white;
+      border-radius: 20px;
+      overflow: hidden;
+      box-shadow: var(--shadow);
+    }
+
+    .card-image {
+      height: 100px;
+      background: linear-gradient(135deg, #dff4f1, #9edbd5);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 45px;
+    }
+
+    .card-body { padding: 12px; }
+
+    .card h3 { font-size: 14px; }
+
+    .card p {
+      color: var(--muted);
+      font-size: 11px;
+      margin-top: 4px;
+    }
+
+    .badge {
+      display: inline-block;
+      margin-top: 8px;
+      background: #eaf8ee;
+      color: #23834f;
+      padding: 3px 8px;
+      border-radius: 8px;
+      font-size: 10px;
+    }
+
+    /* LISTS */
+
+    .list-card {
+      background: white;
+      border-radius: 18px;
+      padding: 14px;
+      margin-bottom: 12px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      box-shadow: 0 4px 18px rgba(0,0,0,.05);
+    }
+
+    .list-icon {
+      width: 55px;
+      height: 55px;
+      border-radius: 17px;
+      background: var(--primary-light);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 27px;
+    }
+
+    .list-info {
+      flex: 1;
+    }
+
+    .list-info h3 { font-size: 14px; }
+
+    .list-info p {
+      color: var(--muted);
+      font-size: 11px;
+      margin-top: 3px;
+    }
+
+    .list-action {
+      background: var(--primary);
+      color: white;
+      padding: 8px 12px;
+      border-radius: 10px;
+      font-size: 11px;
+    }
+
+    /* PAGE HEADER */
+
+    .page-header {
+      background: white;
+      padding: 20px;
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      box-shadow: 0 2px 10px rgba(0,0,0,.04);
+    }
+
+    .back {
+      width: 40px;
+      height: 40px;
+      border-radius: 13px;
+      background: var(--primary-light);
+      color: var(--primary);
+      font-size: 18px;
+    }
+
+    .page-header h2 { font-size: 18px; }
+
+    /* AUTH */
+
+    .auth {
+      min-height: 100vh;
+      background: linear-gradient(160deg, var(--primary), #042d2b);
+      display: flex;
+      align-items: flex-end;
+    }
+
+    .auth-box {
+      width: 100%;
+      background: white;
+      border-radius: 35px 35px 0 0;
+      padding: 30px 25px 40px;
+    }
+
+    .auth-logo {
+      text-align: center;
+      font-size: 60px;
+    }
+
+    .auth-box h1 {
+      text-align: center;
+      font-size: 24px;
+      margin-bottom: 5px;
+    }
+
+    .auth-box > p {
+      text-align: center;
+      color: var(--muted);
+      font-size: 12px;
+      margin-bottom: 25px;
+    }
+
+    .input-group { margin-bottom: 15px; }
+
+    .input-group label {
+      display: block;
+      font-size: 12px;
+      margin-bottom: 7px;
+      font-weight: 700;
+    }
+
+    .input-group input,
+    .input-group select,
+    .input-group textarea {
+      width: 100%;
+      border: 1px solid #e1e7e7;
+      background: #f8fafa;
+      outline: none;
+      border-radius: 13px;
+      padding: 14px;
+      font-size: 13px;
+    }
+
+    .primary-btn {
+      width: 100%;
+      background: var(--primary);
+      color: white;
+      padding: 15px;
+      border-radius: 14px;
+      font-weight: 700;
+      font-size: 14px;
+    }
+
+    .auth-switch {
+      text-align: center;
+      margin-top: 18px;
+      font-size: 12px;
+    }
+
+    .auth-switch button {
+      background: transparent;
+      color: var(--primary);
+      font-weight: bold;
+    }
+
+    /* PROFILE */
+
+    .profile-head {
+      text-align: center;
+      padding: 30px 20px;
+      background: linear-gradient(135deg, var(--primary), #11998e);
+      color: white;
+    }
+
+    .avatar {
+      width: 90px;
+      height: 90px;
+      border-radius: 50%;
+      background: white;
+      color: var(--primary);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: auto;
+      font-size: 40px;
+    }
+
+    .profile-head h2 { margin-top: 10px; }
+
+    .profile-head p {
+      font-size: 12px;
+      opacity: .8;
+    }
+
+    .menu-item {
+      background: white;
+      margin: 10px 20px;
+      padding: 17px;
+      border-radius: 16px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      box-shadow: 0 3px 15px rgba(0,0,0,.04);
+    }
+
+    .menu-item span:first-child {
+      font-size: 21px;
+    }
+
+    .menu-item span:nth-child(2) {
+      flex: 1;
+      font-size: 13px;
+      font-weight: 600;
+    }
+
+    /* BOOKING */
+
+    .booking-form {
+      padding: 20px;
+    }
+
+    /* BOTTOM NAV */
+
+    .bottom-nav {
+      position: fixed;
+      bottom: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 100%;
+      max-width: 550px;
+      height: 78px;
+      background: white;
+      display: flex;
+      justify-content: space-around;
+      align-items: center;
+      box-shadow: 0 -5px 25px rgba(0,0,0,.08);
+      border-radius: 25px 25px 0 0;
+      z-index: 100;
+    }
+
+    .nav-item {
+      background: transparent;
+      color: #8a9999;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 4px;
+      font-size: 10px;
+      min-width: 60px;
+    }
+
+    .nav-item .nav-icon {
+      font-size: 21px;
+    }
+
+    .nav-item.active {
+      color: var(--primary);
+      font-weight: bold;
+    }
+
+    .empty {
+      text-align: center;
+      padding: 50px 20px;
+      color: var(--muted);
+    }
+
+    .empty div {
+      font-size: 55px;
+      margin-bottom: 10px;
+    }
+
+    .toast {
+      position: fixed;
+      bottom: 100px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: #172b2d;
+      color: white;
+      padding: 12px 20px;
+      border-radius: 15px;
+      font-size: 12px;
+      z-index: 1000;
+      display: none;
+      box-shadow: var(--shadow);
+    }
+  </style>
+</head>
+
+<body>
+
+<div class="app">
+
+  <!-- LOGIN -->
+  <section id="loginScreen" class="screen auth active">
+    <div class="auth-box">
+      <div class="auth-logo">🩺</div>
+      <h1>Nurse Libya 🇱🇾</h1>
+      <p>منصة الخدمات الصحية والتمريضية في ليبيا</p>
+
+      <div class="input-group">
+        <label>البريد الإلكتروني</label>
+        <input id="loginEmail" type="email" placeholder="example@email.com">
+      </div>
+
+      <div class="input-group">
+        <label>كلمة المرور</label>
+        <input id="loginPassword" type="password" placeholder="••••••••">
+      </div>
+
+      <button class="primary-btn" onclick="login()">تسجيل الدخول</button>
+
+      <div class="auth-switch">
+        ليس لديك حساب؟
+        <button onclick="showScreen('registerScreen')">إنشاء حساب جديد</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- REGISTER -->
+  <section id="registerScreen" class="screen auth">
+    <div class="auth-box">
+      <div class="auth-logo">🇱🇾</div>
+      <h1>إنشاء حساب</h1>
+      <p>انضم إلى مجتمع Nurse Libya</p>
+
+      <div class="input-group">
+        <label>الاسم الكامل</label>
+        <input id="registerName" type="text" placeholder="اكتب اسمك">
+      </div>
+
+      <div class="input-group">
+        <label>رقم الهاتف</label>
+        <input id="registerPhone" type="tel" placeholder="09XXXXXXXX">
+      </div>
+
+      <div class="input-group">
+        <label>البريد الإلكتروني</label>
+        <input id="registerEmail" type="email" placeholder="example@email.com">
+      </div>
+
+      <div class="input-group">
+        <label>نوع الحساب</label>
+        <select id="registerRole">
+          <option value="patient">مريض / مستخدم</option>
+          <option value="nurse">ممرض / ممرضة</option>
+          <option value="doctor">طبيب</option>
+          <option value="hospital">مستشفى / مركز طبي</option>
+        </select>
+      </div>
+
+      <div class="input-group">
+        <label>كلمة المرور</label>
+        <input id="registerPassword" type="password" placeholder="••••••••">
+      </div>
+
+      <button class="primary-btn" onclick="register()">إنشاء الحساب</button>
+
+      <div class="auth-switch">
+        لديك حساب؟
+        <button onclick="showScreen('loginScreen')">تسجيل الدخول</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- HOME -->
+  <section id="homeScreen" class="screen">
+
+    <div class="header">
+      <div class="topbar">
+        <button class="icon-btn" onclick="showScreen('profileScreen')">👤</button>
+        <div class="logo">NURSE <span>LIBYA</span> 🇱🇾</div>
+        <button class="icon-btn" onclick="showScreen('savedScreen')">♡</button>
+      </div>
+
+      <div class="welcome">
+        <small>مرحباً بك 👋</small>
+        <h1 id="welcomeName">أهلاً بك في Nurse Libya</h1>
+      </div>
+
+      <div class="search-box">
+        🔍
+        <input id="globalSearch" oninput="searchContent()" placeholder="ابحث عن طبيب، مستشفى، خدمة...">
+      </div>
+    </div>
+
+    <div class="content">
+
+      <div class="section-title">
+        <h2>الخدمات</h2>
+      </div>
+
+      <div class="services-grid">
+        <button class="service" onclick="showScreen('doctorsScreen')">
+          <div class="emoji">👨‍⚕️</div>
+          الأطباء
+        </button>
+
+        <button class="service" onclick="showScreen('hospitalsScreen')">
+          <div class="emoji">🏥</div>
+          المستشفيات
+        </button>
+
+        <button class="service" onclick="showScreen('nursingScreen')">
+          <div class="emoji">🩺</div>
+          التمريض
+        </button>
+
+        <button class="service" onclick="showScreen('jobsScreen')">
+          <div class="emoji">💼</div>
+          الوظائف
+        </button>
+
+        <button class="service" onclick="showScreen('coursesScreen')">
+          <div class="emoji">🎓</div>
+          الكورسات
+        </button>
+
+        <button class="service" onclick="showScreen('collegesScreen')">
+          <div class="emoji">🏫</div>
+          الكليات
+        </button>
+
+        <button class="service" onclick="showScreen('bookingsScreen')">
+          <div class="emoji">📅</div>
+          حجوزاتي
+        </button>
+
+        <button class="service" onclick="showScreen('profileScreen')">
+          <div class="emoji">⚙️</div>
+          حسابي
+        </button>
+      </div>
+
+      <div class="banner">
+        <h3>احجز خدمة تمريضية 🩺</h3>
+        <p>ابحث عن الخدمات الصحية والتمريضية المناسبة لك بسهولة.</p>
+        <button onclick="showScreen('nursingScreen')">استكشف الخدمات</button>
+      </div>
+
+      <div class="section-title">
+        <h2>أطباء مميزون</h2>
+        <button onclick="showScreen('doctorsScreen')">عرض الكل</button>
+      </div>
+
+      <div class="cards">
+        <div class="card">
+          <div class="card-image">👨‍⚕️</div>
+          <div class="card-body">
+            <h3>د. أحمد علي</h3>
+            <p>طبيب قلب وأوعية دموية</p>
+            <span class="badge">✓ موثق</span>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="card-image">👩‍⚕️</div>
+          <div class="card-body">
+            <h3>د. سارة محمد</h3>
+            <p>طب الأطفال</p>
+            <span class="badge">✓ موثق</span>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="card-image">👨‍⚕️</div>
+          <div class="card-body">
+            <h3>د. عمر حسن</h3>
+            <p>الجراحة العامة</p>
+            <span class="badge">✓ موثق</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="section-title" style="margin-top:25px">
+        <h2>أحدث الوظائف</h2>
+        <button onclick="showScreen('jobsScreen')">عرض الكل</button>
+      </div>
+
+      <div class="list-card">
+        <div class="list-icon">🩺</div>
+        <div class="list-info">
+          <h3>ممرض / ممرضة</h3>
+          <p>مركز طبي • طرابلس</p>
+        </div>
+        <button class="list-action" onclick="showToast('تم فتح تفاصيل الوظيفة')">عرض</button>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- DOCTORS -->
+  <section id="doctorsScreen" class="screen">
+    <div class="page-header">
+      <button class="back" onclick="goHome()">←</button>
+      <h2>الأطباء</h2>
+    </div>
+
+    <div class="content">
+      <div id="doctorsList"></div>
+    </div>
+  </section>
+
+  <!-- HOSPITALS -->
+  <section id="hospitalsScreen" class="screen">
+    <div class="page-header">
+      <button class="back" onclick="goHome()">←</button>
+      <h2>المستشفيات والمراكز الطبية</h2>
+    </div>
+
+    <div class="content" id="hospitalsList"></div>
+  </section>
+
+  <!-- NURSING -->
+  <section id="nursingScreen" class="screen">
+    <div class="page-header">
+      <button class="back" onclick="goHome()">←</button>
+      <h2>الخدمات التمريضية</h2>
+    </div>
+
+    <div class="content">
+      <div class="list-card">
+        <div class="list-icon">🏠</div>
+        <div class="list-info">
+          <h3>تمريض منزلي</h3>
+          <p>خدمة تمريض في المنزل</p>
+        </div>
+        <button class="list-action" onclick="openBooking('تمريض منزلي')">احجز</button>
+      </div>
+
+      <div class="list-card">
+        <div class="list-icon">💉</div>
+        <div class="list-info">
+          <h3>حقن وعلاجات</h3>
+          <p>خدمة تمريضية احترافية</p>
+        </div>
+        <button class="list-action" onclick="openBooking('حقن وعلاجات')">احجز</button>
+      </div>
+
+      <div class="list-card">
+        <div class="list-icon">🩹</div>
+        <div class="list-info">
+          <h3>تغيير الجروح</h3>
+          <p>رعاية ومتابعة الجروح</p>
+        </div>
+        <button class="list-action" onclick="openBooking('تغيير الجروح')">احجز</button>
+      </div>
+
+      <div class="list-card">
+        <div class="list-icon">❤️</div>
+        <div class="list-info">
+          <h3>رعاية كبار السن</h3>
+          <p>رعاية صحية منزلية</p>
+        </div>
+        <button class="list-action" onclick="openBooking('رعاية كبار السن')">احجز</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- JOBS -->
+  <section id="jobsScreen" class="screen">
+    <div class="page-header">
+      <button class="back" onclick="goHome()">←</button>
+      <h2>الوظائف</h2>
+    </div>
+
+    <div class="content" id="jobsList"></div>
+  </section>
+
+  <!-- COURSES -->
+  <section id="coursesScreen" class="screen">
+    <div class="page-header">
+      <button class="back" onclick="goHome()">←</button>
+      <h2>الكورسات والدورات</h2>
+    </div>
+
+    <div class="content">
+      <div class="list-card">
+        <div class="list-icon">📚</div>
+        <div class="list-info">
+          <h3>أساسيات التمريض</h3>
+          <p>دورة للمبتدئين في مجال التمريض</p>
+        </div>
+        <button class="list-action" onclick="showToast('تم فتح الدورة')">التفاصيل</button>
+      </div>
+
+      <div class="list-card">
+        <div class="list-icon">🚑</div>
+        <div class="list-info">
+          <h3>الإسعافات الأولية</h3>
+          <p>تعلم أساسيات التعامل مع الحالات الطارئة</p>
+        </div>
+        <button class="list-action" onclick="showToast('تم فتح الدورة')">التفاصيل</button>
+      </div>
+
+      <div class="list-card">
+        <div class="list-icon">🫀</div>
+        <div class="list-info">
+          <h3>رعاية الحالات الحرجة</h3>
+          <p>دورة متقدمة للكوادر الطبية</p>
+        </div>
+        <button class="list-action" onclick="showToast('تم فتح الدورة')">التفاصيل</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- COLLEGES -->
+  <section id="collegesScreen" class="screen">
+    <div class="page-header">
+      <button class="back" onclick="goHome()">←</button>
+      <h2>الكليات والمعاهد</h2>
+    </div>
+
+    <div class="content">
+      <div class="list-card">
+        <div class="list-icon">🏫</div>
+        <div class="list-info">
+          <h3>كلية التمريض</h3>
+          <p>برامج ودراسة علوم التمريض</p>
+        </div>
+        <button class="list-action">عرض</button>
+      </div>
+
+      <div class="list-card">
+        <div class="list-icon">🎓</div>
+        <div class="list-info">
+          <h3>المعاهد الطبية</h3>
+          <p>التعليم والتدريب الصحي</p>
+        </div>
+        <button class="list-action">عرض</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- BOOKING FORM -->
+  <section id="bookingScreen" class="screen">
+    <div class="page-header">
+      <button class="back" onclick="showScreen('nursingScreen')">←</button>
+      <h2>حجز خدمة</h2>
+    </div>
+
+    <div class="booking-form">
+
+      <div class="input-group">
+        <label>الخدمة</label>
+        <input id="bookingService" readonly>
+      </div>
+
+      <div class="input-group">
+        <label>الاسم</label>
+        <input id="bookingName" placeholder="اسمك الكامل">
+      </div>
+
+      <div class="input-group">
+        <label>رقم الهاتف</label>
+        <input id="bookingPhone" placeholder="09XXXXXXXX">
+      </div>
+
+      <div class="input-group">
+        <label>تاريخ الحجز</label>
+        <input id="bookingDate" type="date">
+      </div>
+
+      <div class="input-group">
+        <label>ملاحظات</label>
+        <textarea id="bookingNotes" rows="4" placeholder="اكتب أي تفاصيل مهمة"></textarea>
+      </div>
+
+      <button class="primary-btn" onclick="confirmBooking()">تأكيد الحجز</button>
+    </div>
+  </section>
+
+  <!-- BOOKINGS -->
+  <section id="bookingsScreen" class="screen">
+    <div class="page-header">
+      <button class="back" onclick="goHome()">←</button>
+      <h2>حجوزاتي</h2>
+    </div>
+
+    <div class="content" id="bookingsList"></div>
+  </section>
+
+  <!-- SAVED -->
+  <section id="savedScreen" class="screen">
+    <div class="page-header">
+      <button class="back" onclick="goHome()">←</button>
+      <h2>المحفوظات</h2>
+    </div>
+
+    <div class="empty">
+      <div>♡</div>
+      <h3>لا توجد عناصر محفوظة</h3>
+      <p>يمكنك حفظ الأطباء والخدمات لاحقاً</p>
+    </div>
+  </section>
+
+  <!-- PROFILE -->
+  <section id="profileScreen" class="screen">
+    <div class="profile-head">
+      <div class="avatar">👤</div>
+      <h2 id="profileName">مستخدم Nurse Libya</h2>
+      <p id="profileEmail">لم يتم تسجيل الدخول</p>
+    </div>
+
+    <div style="padding-top:15px">
+      <button class="menu-item" onclick="showScreen('bookingsScreen')">
+        <span>📅</span>
+        <span>حجوزاتي</span>
+        <span>←</span>
+      </button>
+
+      <button class="menu-item" onclick="showScreen('savedScreen')">
+        <span>❤️</span>
+        <span>المحفوظات</span>
+        <span>←</span>
+      </button>
+
+      <button class="menu-item" onclick="showToast('الإعدادات ستكون متاحة قريباً')">
+        <span>⚙️</span>
+        <span>الإعدادات</span>
+        <span>←</span>
+      </button>
+
+      <button class="menu-item" onclick="logout()">
+        <span>🚪</span>
+        <span>تسجيل الخروج</span>
+        <span>←</span>
+      </button>
+    </div>
+  </section>
+
+  <!-- BOTTOM NAV -->
+  <nav class="bottom-nav" id="bottomNav" style="display:none">
+    <button class="nav-item active" onclick="goHome()">
+      <span class="nav-icon">🏠</span>
+      الرئيسية
+    </button>
+
+    <button class="nav-item" onclick="showScreen('doctorsScreen')">
+      <span class="nav-icon">👨‍⚕️</span>
+      الأطباء
+    </button>
+
+    <button class="nav-item" onclick="showScreen('nursingScreen')">
+      <span class="nav-icon">🩺</span>
+      الخدمات
+    </button>
+
+    <button class="nav-item" onclick="showScreen('jobsScreen')">
+      <span class="nav-icon">💼</span>
+      الوظائف
+    </button>
+
+    <button class="nav-item" onclick="showScreen('profileScreen')">
+      <span class="nav-icon">👤</span>
+      حسابي
+    </button>
+  </nav>
+
+</div>
+
+<div id="toast" class="toast"></div>
+
+<script>
+  let currentUser = JSON.parse(localStorage.getItem("nurseUser")) || null;
+  let bookings = JSON.parse(localStorage.getItem("nurseBookings")) || [];
+
+  const doctors = [
+    {
+      name: "د. أحمد علي",
+      specialty: "طبيب قلب وأوعية دموية",
+      city: "طرابلس",
+      icon: "👨‍⚕️"
+    },
+    {
+      name: "د. سارة محمد",
+      specialty: "طب الأطفال",
+      city: "طرابلس",
+      icon: "👩‍⚕️"
+    },
+    {
+      name: "د. عمر حسن",
+      specialty: "الجراحة العامة",
+      city: "بنغازي",
+      icon: "👨‍⚕️"
+    },
+    {
+      name: "د. فاطمة سالم",
+      specialty: "النساء والولادة",
+      city: "مصراتة",
+      icon: "👩‍⚕️"
+    }
+  ];
+
+  const hospitals = [
+    {
+      name: "مستشفى ليبيا الطبي",
+      city: "طرابلس",
+      icon: "🏥"
+    },
+    {
+      name: "المركز الطبي",
+      city: "بنغازي",
+      icon: "🏨"
+    },
+    {
+      name: "مركز الرعاية الصحية",
+      city: "مصراتة",
+      icon: "🏥"
+    }
+  ];
+
+  const jobs = [
+    {
+      title: "ممرض / ممرضة",
+      place: "مركز طبي",
+      city: "طرابلس",
+      icon: "🩺"
+    },
+    {
+      title: "مساعد تمريض",
+      place: "مستشفى خاص",
+      city: "بنغازي",
+      icon: "👨‍⚕️"
+    },
+    {
+      title: "مشرف تمريض",
+      place: "مركز رعاية",
+      city: "مصراتة",
+      icon: "🏥"
+    }
+  ];
+
+  function showScreen(id) {
+    document.querySelectorAll(".screen").forEach(screen => {
+      screen.classList.remove("active");
+    });
+
+    document.getElementById(id).classList.add("active");
+
+    const authScreens = ["loginScreen", "registerScreen"];
+
+    document.getElementById("bottomNav").style.display =
+      authScreens.includes(id) ? "none" : "flex";
+
+    window.scrollTo({ top: 0, behavior: "smooth" });
+
+    if (id === "doctorsScreen") renderDoctors();
+    if (id === "hospitalsScreen") renderHospitals();
+    if (id === "jobsScreen") renderJobs();
+    if (id === "bookingsScreen") renderBookings();
+
+    updateNav(id);
+  }
+
+  function updateNav(screen) {
+    document.querySelectorAll(".nav-item").forEach(item => {
+      item.classList.remove("active");
+    });
+  }
+
+  function goHome() {
+    showScreen("homeScreen");
+  }
+
+  function login() {
+    const email = document.getElementById("loginEmail").value.trim();
+    const password = document.getElementById("loginPassword").value.trim();
+
+    if (!email || !password) {
+      showToast("يرجى إدخال البريد وكلمة المرور");
+      return;
+    }
+
+    currentUser = {
+      name: email.split("@")[0],
+      email: email
+    };
+
+    saveUser();
+    showToast("تم تسجيل الدخول بنجاح ✓");
+
+    setTimeout(() => {
+      updateUserUI();
+      showScreen("homeScreen");
+    }, 700);
+  }
+
+  function register() {
+    const name = document.getElementById("registerName").value.trim();
+    const phone = document.getElementById("registerPhone").value.trim();
+    const email = document.getElementById("registerEmail").value.trim();
+    const password = document.getElementById("registerPassword").value.trim();
+
+    if (!name || !phone || !email || !password) {
+      showToast("يرجى تعبئة جميع البيانات");
+      return;
+    }
+
+    currentUser = {
+      name: name,
+      phone: phone,
+      email: email
+    };
+
+    saveUser();
+    updateUserUI();
+
+    showToast("تم إنشاء الحساب بنجاح 🎉");
+
+    setTimeout(() => {
+      showScreen("homeScreen");
+    }, 700);
+  }
+
+  function saveUser() {
+    localStorage.setItem("nurseUser", JSON.stringify(currentUser));
+  }
+
+  function logout() {
+    currentUser = null;
+    localStorage.removeItem("nurseUser");
+
+    document.getElementById("loginEmail").value = "";
+    document.getElementById("loginPassword").value = "";
+
+    showToast("تم تسجيل الخروج");
+
+    setTimeout(() => {
+      showScreen("loginScreen");
+    }, 500);
+  }
+
+  function updateUserUI() {
+    if (!currentUser) return;
+
+    document.getElementById("welcomeName").textContent =
+      "أهلاً " + currentUser.name + " 👋";
+
+    document.getElementById("profileName").textContent =
+      currentUser.name;
+
+    document.getElementById("profileEmail").textContent =
+      currentUser.email;
+
+    document.getElementById("bookingName").value =
+      currentUser.name || "";
+
+    document.getElementById("bookingPhone").value =
+      currentUser.phone || "";
+  }
+
+  function renderDoctors() {
+    const list = document.getElementById("doctorsList");
+
+    list.innerHTML = doctors.map(doctor => `
+      <div class="list-card">
+        <div class="list-icon">${doctor.icon}</div>
+        <div class="list-info">
+          <h3>${doctor.name}</h3>
+          <p>${doctor.specialty} • ${doctor.city}</p>
+        </div>
+        <button class="list-action"
+          onclick="showToast('تم فتح ملف ${doctor.name}')">
+          عرض
+        </button>
+      </div>
+    `).join("");
+  }
+
+  function renderHospitals() {
+    const list = document.getElementById("hospitalsList");
+
+    list.innerHTML = hospitals.map(hospital => `
+      <div class="list-card">
+        <div class="list-icon">${hospital.icon}</div>
+        <div class="list-info">
+          <h3>${hospital.name}</h3>
+          <p>${hospital.city}</p>
+        </div>
+        <button class="list-action"
+          onclick="showToast('تم فتح تفاصيل المستشفى')">
+          عرض
+        </button>
+      </div>
+    `).join("");
+  }
+
+  function renderJobs() {
+    const list = document.getElementById("jobsList");
+
+    list.innerHTML = jobs.map(job => `
+      <div class="list-card">
+        <div class="list-icon">${job.icon}</div>
+        <div class="list-info">
+          <h3>${job.title}</h3>
+          <p>${job.place} • ${job.city}</p>
+        </div>
+        <button class="list-action"
+          onclick="showToast('تم فتح تفاصيل الوظيفة')">
+          عرض
+        </button>
+      </div>
+    `).join("");
+  }
+
+  function openBooking(service) {
+    document.getElementById("bookingService").value = service;
+    updateUserUI();
+    showScreen("bookingScreen");
+  }
+
+  function confirmBooking() {
+    const service =
+      document.getElementById("bookingService").value;
+
+    const name =
+      document.getElementById("bookingName").value.trim();
+
+    const phone =
+      document.getElementById("bookingPhone").value.trim();
+
+    const date =
+      document.getElementById("bookingDate").value;
+
+    if (!name || !phone || !date) {
+      showToast("يرجى إدخال جميع بيانات الحجز");
+      return;
+    }
+
+    bookings.push({
+      id: Date.now(),
+      service,
+      name,
+      phone,
+      date,
+      status: "قيد المراجعة"
+    });
+
+    localStorage.setItem(
+      "nurseBookings",
+      JSON.stringify(bookings)
+    );
+
+    showToast("تم إرسال طلب الحجز بنجاح ✓");
+
+    setTimeout(() => {
+      showScreen("bookingsScreen");
+    }, 700);
+  }
+
+  function renderBookings() {
+    const list = document.getElementById("bookingsList");
+
+    if (!bookings.length) {
+      list.innerHTML = `
+        <div class="empty">
+          <div>📅</div>
+          <h3>لا توجد حجوزات</h3>
+          <p>احجز خدمة تمريضية وستظهر هنا</p>
+        </div>
+      `;
+      return;
+    }
+
+    list.innerHTML = bookings.map(booking => `
+      <div class="list-card">
+        <div class="list-icon">📅</div>
+        <div class="list-info">
+          <h3>${booking.service}</h3>
+          <p>${booking.date} • ${booking.status}</p>
+        </div>
+      </div>
+    `).join("");
+  }
+
+  function searchContent() {
+    const query =
+      document.getElementById("globalSearch")
+      .value
+      .trim()
+      .toLowerCase();
+
+    if (!query) return;
+
+    const doctor =
+      doctors.find(item =>
+        item.name.includes(query) ||
+        item.specialty.includes(query)
+      );
+
+    const hospital =
+      hospitals.find(item =>
+        item.name.includes(query)
+      );
+
+    if (doctor) {
+      showScreen("doctorsScreen");
+      showToast("تم العثور على " + doctor.name);
+    } else if (hospital) {
+      showScreen("hospitalsScreen");
+      showToast("تم العثور على " + hospital.name);
+    }
+  }
+
+  function showToast(message) {
+    const toast = document.getElementById("toast");
+
+    toast.textContent = message;
+    toast.style.display = "block";
+
+    clearTimeout(window.toastTimer);
+
+    window.toastTimer = setTimeout(() => {
+      toast.style.display = "none";
+    }, 2500);
+  }
+
+  window.onload = function () {
+    renderDoctors();
+    renderHospitals();
+    renderJobs();
+
+    if (currentUser) {
+      updateUserUI();
+      showScreen("homeScreen");
+    }
+  };
+</script>
+
+</body>
+</html>
