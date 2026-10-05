@@ -1,0 +1,8 @@
+{
+  "name": "nurse-libya",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Arabic nursing service booking frontend",
+  "scripts": {"test": "node --test tests/app.test.cjs", "check": "node --check app.js && node --check config.js"},
+  "devDependencies": {"linkedom": "0.18.12"}
+}
