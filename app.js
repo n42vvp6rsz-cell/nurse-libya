@@ -1,10 +1,6 @@
 'use strict';
 const $ = id => document.getElementById(id);
-const services = [
-  ['تمريض منزلي', 'طلب زيارة تمريضية للرعاية في المنزل.'],
-  ['رعاية كبار السن', 'المساعدة في الرعاية اليومية ومتابعة الاحتياجات.'],
-  ['رعاية ما بعد العمليات', 'طلب متابعة تمريضية خلال فترة التعافي.']
-];
+let services = [];
 let client, currentUser = null, pendingService = '', toastTimer;
 let bookingVersion = 0, profileVersion = 0, authReady = false, recovery = false;
 const callbackUrl = () => location.origin + location.pathname;
@@ -95,6 +91,8 @@ function route() {
   if (servicesAnchor) $('services').scrollIntoView({block:'start'});
   else { window.scrollTo(0,0); $('main').focus({preventScroll:true}); }
 }
+function renderServices() {
+$('serviceGrid').replaceChildren(); $('bookingService').replaceChildren();
 services.forEach(([name, description], index) => {
   const card = document.createElement('article'); card.className = 'card';
   const number = document.createElement('span'); number.className = 'service-number'; number.textContent = `0${index+1}`;
@@ -105,6 +103,22 @@ services.forEach(([name, description], index) => {
   card.append(number,title,p,button); $('serviceGrid').append(card);
   $('bookingService').add(new Option(name,name));
 });
+}
+async function loadServices() {
+  $('serviceGrid').textContent = 'جارٍ تحميل الخدمات…';
+  try {
+    if (!client) throw new Error('Unavailable');
+    const {data,error} = await client.from('services').select('name,description').eq('is_active',true).order('sort_order',{ascending:true});
+    if (error) throw error;
+    services = (data || []).map(item => [item.name,item.description || 'طلب تنسيق الخدمة']);
+    renderServices();
+    if (!services.length) $('serviceGrid').textContent = 'لا توجد خدمات متاحة حاليًا.';
+  } catch {
+    services = []; $('bookingService').replaceChildren(); $('serviceGrid').textContent = 'تعذّر تحميل الخدمات. ';
+    const retry = document.createElement('button'); retry.className = 'secondary'; retry.textContent = 'إعادة المحاولة';
+    retry.onclick = () => { if (client) void loadServices(); else location.reload(); }; $('serviceGrid').append(retry);
+  }
+}
 function onForm(id, task) {
   $(id).onsubmit = event => { event.preventDefault(); const form = event.currentTarget; void busy(form, () => task(form, new FormData(form))); };
 }
@@ -205,10 +219,10 @@ async function init() {
     if (currentUser) void loadProfile();
   } catch {
     client = null;
-    $('connection').textContent = 'تعذّر الاتصال بخدمة الحسابات. يمكنك تصفح الخدمات وإعادة تحميل الصفحة للمحاولة مجددًا.';
+    $('connection').textContent = 'تعذّر تحميل خدمة الحسابات. أعد تحميل الصفحة للمحاولة مجددًا.';
     $('connection').hidden = false;
   }
   if (callbackError) { history.replaceState(null,'',location.pathname+'#login'); showToast('رابط التأكيد غير صالح أو انتهت صلاحيته. اطلب رابطًا جديدًا أو حاول تسجيل الدخول.'); }
-  authReady = true; route();
+  authReady = true; route(); void loadServices();
 }
 void init();

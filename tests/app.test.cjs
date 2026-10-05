@@ -23,7 +23,7 @@ async function setup(options = {}) {
   };
   const client = {auth,from(table){
     const chain = {
-      select(){return chain;},eq(){return chain;},order(){return chain;},
+      select(){return chain;},eq(){return chain;},order(){return table === 'services' ? Promise.resolve({data:[{name:'تمريض منزلي',description:'رعاية منزلية'},{name:'الأطباء',description:'تنسيق موعد'},{name:'المستشفيات',description:'تنسيق خدمة'}],error:null}) : chain;},
       async single(){return {data:{full_name:'الاسم المعتمد',phone:'0910000000'},error:options.profileError?{code:'42P17'}:null};},
       async limit(){return options.bookingPromise || {data:options.bookings||[],error:options.bookingError?{}:null};},
       async insert(value){calls.push(['insert',value]);return {error:null};}
