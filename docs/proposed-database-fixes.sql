@@ -195,6 +195,45 @@ WITH CHECK (
 -- A public invoker wrapper exposes the deliberately small checked API to PostgREST.
 -- Status vocabulary stays compatible with the static UI: pending -> confirmed/cancelled,
 -- confirmed -> completed/cancelled. Linked requests use accepted/completed/cancelled.
+-- Existing participant UPDATE remains available for unlinked legacy requests.
+-- Linked request authority can be changed only by a stored administrator, so a
+-- client cannot bypass the atomic booking transition by writing the request table.
+-- The private trigger needs owner privileges only to detect a link hidden by
+-- bookings RLS from an assigned provider. It is not a callable client endpoint.
+CREATE OR REPLACE FUNCTION private.guard_linked_request_authority()
+RETURNS trigger LANGUAGE plpgsql SECURITY DEFINER SET search_path = '' AS $fn$
+DECLARE
+  v_outer_role text:=coalesce(nullif(current_setting('role',true),'none'),session_user);
+BEGIN
+  IF NOT EXISTS (SELECT 1 FROM public.bookings b WHERE b.service_request_id=OLD.id) THEN
+    RETURN NEW;
+  END IF;
+  IF auth.uid() IS NULL THEN
+    -- Deliberate no-JWT maintenance by existing trusted database/backend roles.
+    -- current_setting('role') retains an outer PostgREST client role even inside
+    -- SECURITY DEFINER; current_user alone would always be the function owner.
+    IF v_outer_role IN ('postgres','supabase_admin','service_role') THEN RETURN NEW; END IF;
+    RAISE EXCEPTION 'authentication required for a linked request' USING ERRCODE='42501';
+  END IF;
+  IF NOT private.is_current_user_admin() AND
+    ROW(NEW.id,NEW.requester_id,NEW.service_id,NEW.assigned_provider_id,NEW.status,NEW.created_at)
+      IS DISTINCT FROM
+    ROW(OLD.id,OLD.requester_id,OLD.service_id,OLD.assigned_provider_id,OLD.status,OLD.created_at) THEN
+    RAISE EXCEPTION 'linked request authority requires booking review' USING ERRCODE='42501';
+  END IF;
+  RETURN NEW;
+END
+$fn$;
+REVOKE ALL ON FUNCTION private.guard_linked_request_authority() FROM PUBLIC, anon, authenticated;
+DO $request_trigger$
+BEGIN
+  IF NOT EXISTS (SELECT 1 FROM pg_trigger WHERE tgrelid='public.service_requests'::regclass AND tgname='guard_linked_request_authority_trigger') THEN
+    CREATE TRIGGER guard_linked_request_authority_trigger BEFORE UPDATE ON public.service_requests
+      FOR EACH ROW EXECUTE FUNCTION private.guard_linked_request_authority();
+  END IF;
+END
+$request_trigger$;
+
 CREATE OR REPLACE FUNCTION private.review_booking(
   p_booking_id uuid, p_expected_status text, p_new_status text
 ) RETURNS TABLE(id uuid,status text,service_request_id uuid,service_request_status text)
@@ -286,5 +325,5 @@ COMMIT;
 -- * Admin review_booking changes both linked statuses atomically; stale status, wrong
 --   caller, terminal transition, missing/mismatched link reject. Own bookings stay private.
 -- This SQL has not been applied or executed against patient/user rows. Remaining direct
--- service_requests participant UPDATE permissions require a separate status/field guard
--- before offering that existing table as an unrestricted provider/requester editor.
+-- Unlinked service_requests participant UPDATE permissions retain their legacy behavior;
+-- they require a separate workflow contract before an unrestricted requester/provider editor.
