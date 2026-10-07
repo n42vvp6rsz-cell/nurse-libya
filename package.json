@@ -1,8 +1,19 @@
 {
   "name": "nurse-libya",
-  "version": "1.0.0",
+  "version": "1.2.0",
   "private": true,
-  "description": "Arabic nursing service booking frontend",
-  "scripts": {"test": "node --test tests/app.test.cjs", "check": "node --check app.js && node --check config.js"},
-  "devDependencies": {"linkedom": "0.18.12"}
+  "description": "Arabic care directory, bookings and professional opportunities",
+  "scripts": {
+    "test": "node --test --test-isolation=none --test-reporter=spec tests/*.test.cjs",
+    "check": "node --check app.js && node --check config.js && node --check catalog.js && node --check workspace.js && node --check opportunities.js && node --check care-profile.js && node --check messages.js && node --check store.js && node --check site.js",
+    "test:browser": "node tests/browser-smoke.cjs",
+    "test:db": "node tests/database-runtime.cjs && node tests/messages-database-runtime.cjs && node tests/store-database-runtime.cjs"
+  },
+  "devDependencies": {
+    "@electric-sql/pglite": "0.3.16",
+    "linkedom": "0.18.12"
+  },
+  "engines": {
+    "node": ">=24"
+  }
 }
